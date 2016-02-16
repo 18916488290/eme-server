@@ -65,6 +65,28 @@ ALTER TABLE air_env_type
 
 
 
+CREATE TABLE aqi_info
+(
+	id                    INTEGER NOT NULL,
+	ilow                  FLOAT NULL,
+	ihigh                 FLOAT NULL,
+	lvl                   VARCHAR(20) NULL,
+	description           VARCHAR(20) NULL,
+	color_description     VARCHAR(20) NULL,
+	color                 VARCHAR(20) NULL,
+	health_description    VARCHAR(64) NULL,
+	advice                VARCHAR(64) NULL
+)
+;
+
+
+
+ALTER TABLE aqi_info
+	ADD  PRIMARY KEY (id)
+;
+
+
+
 CREATE TABLE chemical_material
 (
 	id                    INTEGER NOT NULL,
@@ -129,7 +151,7 @@ CREATE TABLE company_air_env
 	id_air_env            INTEGER NOT NULL,
 	id_company            INTEGER NOT NULL,
 	distance              INTEGER NULL,
-	id_location           INTEGER NULL
+	id                    INTEGER NULL
 )
 ;
 
@@ -143,6 +165,7 @@ ALTER TABLE company_air_env
 
 CREATE TABLE company_water_env
 (
+	id_water_env          INTEGER NOT NULL,
 	id_company            INTEGER NOT NULL,
 	distance              INTEGER NOT NULL,
 	location              VARCHAR(20) NULL
@@ -152,7 +175,7 @@ CREATE TABLE company_water_env
 
 
 ALTER TABLE company_water_env
-	ADD  PRIMARY KEY (id_company)
+	ADD  PRIMARY KEY (id_water_env,id_company)
 ;
 
 
@@ -206,6 +229,25 @@ ALTER TABLE detect
 
 
 
+CREATE TABLE detect_air
+(
+	id                    INTEGER NOT NULL,
+	id_detect_station     INTEGER NULL,
+	id_detect_factor      INTEGER NULL,
+	avg_val               FLOAT NULL,
+	report_time           TIMESTAMP NULL,
+	is_daily              boolean NULL
+)
+;
+
+
+
+ALTER TABLE detect_air
+	ADD  PRIMARY KEY (id)
+;
+
+
+
 CREATE TABLE detect_category
 (
 	id                    INTEGER NULL,
@@ -216,6 +258,21 @@ CREATE TABLE detect_category
 
 
 ALTER TABLE detect_category
+	ADD  PRIMARY KEY (id)
+;
+
+
+
+CREATE TABLE detect_content_dic
+(
+	id                    INTEGER NOT NULL,
+	detect_content        VARCHAR(64) NULL
+)
+;
+
+
+
+ALTER TABLE detect_content_dic
 	ADD  PRIMARY KEY (id)
 ;
 
@@ -281,6 +338,22 @@ ALTER TABLE detect_station
 
 
 
+CREATE TABLE detect_station_content
+(
+	id_dectect_station    INTEGER NOT NULL,
+	id_detect_content     INTEGER NOT NULL,
+	seq                   INTEGER NULL
+)
+;
+
+
+
+ALTER TABLE detect_station_content
+	ADD  PRIMARY KEY (id_dectect_station,id_detect_content)
+;
+
+
+
 CREATE TABLE emergency_material
 (
 	id                    INTEGER NOT NULL,
@@ -290,6 +363,7 @@ CREATE TABLE emergency_material
 	material_name         VARCHAR(128) NOT NULL,
 	quantity              DATE NULL,
 	material_code         VARCHAR(128) NULL,
+	id_equipment_type     INTEGER NULL,
 	mobile                VARCHAR(64) NULL,
 	address               VARCHAR(64) NULL,
 	lat                   FLOAT NULL,
@@ -436,13 +510,28 @@ ALTER TABLE equipment_risk
 CREATE TABLE equipment_state
 (
 	id                    INTEGER NOT NULL,
-	equipment_state       VARCHAR(20) NULL
+	equipment_state       VARCHAR(20) NOT NULL
 )
 ;
 
 
 
 ALTER TABLE equipment_state
+	ADD  PRIMARY KEY (id)
+;
+
+
+
+CREATE TABLE equipment_type
+(
+	id                    INTEGER NULL,
+	equipment_type        VARCHAR(20) NULL
+)
+;
+
+
+
+ALTER TABLE equipment_type
 	ADD  PRIMARY KEY (id)
 ;
 
@@ -465,9 +554,8 @@ ALTER TABLE group_authorities
 
 CREATE TABLE group_members
 (
-	id                    INTEGER NULL,
-	username              VARCHAR(64) NOT NULL,
-	group_id              INTEGER NOT NULL
+	id                    INTEGER NOT NULL,
+	username              VARCHAR(64) NOT NULL
 )
 ;
 
@@ -481,7 +569,7 @@ ALTER TABLE group_members
 
 CREATE TABLE groups
 (
-	id                    INTEGER NULL,
+	id                    INTEGER NOT NULL,
 	group_name            VARCHAR(64) NOT NULL,
 	description           VARCHAR(512) NULL
 )
@@ -505,6 +593,24 @@ CREATE TABLE house_plan
 
 
 ALTER TABLE house_plan
+	ADD  PRIMARY KEY (id)
+;
+
+
+
+CREATE TABLE iaqi_info
+(
+	id                    INTEGER NOT NULL,
+	id_factor             INTEGER NULL,
+	id_aqi_info           INTEGER NULL,
+	clow                  FLOAT NULL,
+	chigh                 FLOAT NULL
+)
+;
+
+
+
+ALTER TABLE iaqi_info
 	ADD  PRIMARY KEY (id)
 ;
 
@@ -620,7 +726,7 @@ ALTER TABLE persistent_logins
 CREATE TABLE physical_state
 (
 	id                    INTEGER NOT NULL,
-	physical_state        VARCHAR(20) NULL
+	physical_state        VARCHAR(20) NOT NULL
 )
 ;
 
@@ -635,7 +741,7 @@ ALTER TABLE physical_state
 CREATE TABLE product_status
 (
 	id                    INTEGER NOT NULL,
-	product_status        VARCHAR(20) NULL
+	product_status        VARCHAR(20) NOT NULL
 )
 ;
 
@@ -755,7 +861,7 @@ ALTER TABLE risk_basic_info
 CREATE TABLE storage_method
 (
 	id                    INTEGER NOT NULL,
-	storage_method        VARCHAR(20) NULL
+	storage_method        VARCHAR(20) NOT NULL
 )
 ;
 
@@ -770,7 +876,7 @@ ALTER TABLE storage_method
 CREATE TABLE storage_mode
 (
 	id                    INTEGER NULL,
-	storage_mode          VARCHAR(20) NULL
+	storage_mode          VARCHAR(20) NOT NULL
 )
 ;
 
@@ -830,6 +936,7 @@ ALTER TABLE warehouse_risk
 
 CREATE TABLE water_env
 (
+	id                    INTEGER NOT NULL,
 	water_env_name        VARCHAR(64) NULL,
 	lat                   FLOAT NULL,
 	lng                   FLOAT NULL,
@@ -838,6 +945,12 @@ CREATE TABLE water_env
 	id_water_env_type     INTEGER NULL,
 	id_env_func           INTEGER NULL
 )
+;
+
+
+
+ALTER TABLE water_env
+	ADD  PRIMARY KEY (id)
 ;
 
 
@@ -979,9 +1092,14 @@ ALTER TABLE company_air_env
 
 
 ALTER TABLE company_air_env
-	ADD FOREIGN KEY R_51 (id_location) REFERENCES location_dic(id)
+	ADD FOREIGN KEY R_51 (id) REFERENCES location_dic(id)
 ;
 
+
+
+ALTER TABLE company_water_env
+	ADD FOREIGN KEY R_44 (id_water_env) REFERENCES water_env(id)
+;
 
 
 ALTER TABLE company_water_env
@@ -1008,6 +1126,17 @@ ALTER TABLE detect
 
 ALTER TABLE detect
 	ADD FOREIGN KEY R_69 (mn) REFERENCES data_collection_device(mn)
+;
+
+
+
+ALTER TABLE detect_air
+	ADD FOREIGN KEY R_75 (id_detect_station) REFERENCES detect_station(id)
+;
+
+
+ALTER TABLE detect_air
+	ADD FOREIGN KEY R_76 (id_detect_factor) REFERENCES detect_factor(id)
 ;
 
 
@@ -1045,6 +1174,17 @@ ALTER TABLE detect_station
 
 
 
+ALTER TABLE detect_station_content
+	ADD FOREIGN KEY R_73 (id_dectect_station) REFERENCES detect_station(id)
+;
+
+
+ALTER TABLE detect_station_content
+	ADD FOREIGN KEY R_74 (id_detect_content) REFERENCES detect_content_dic(id)
+;
+
+
+
 ALTER TABLE emergency_material
 	ADD FOREIGN KEY R_16 (creator) REFERENCES users(username)
 ;
@@ -1057,6 +1197,11 @@ ALTER TABLE emergency_material
 
 ALTER TABLE emergency_material
 	ADD FOREIGN KEY R_41 (id_company) REFERENCES company(id)
+;
+
+
+ALTER TABLE emergency_material
+	ADD FOREIGN KEY R_70 (id_equipment_type) REFERENCES equipment_type(id)
 ;
 
 
@@ -1117,7 +1262,18 @@ ALTER TABLE group_members
 
 
 ALTER TABLE group_members
-	ADD FOREIGN KEY R_5 (group_id) REFERENCES groups(id)
+	ADD FOREIGN KEY R_5 (id) REFERENCES groups(id)
+;
+
+
+
+ALTER TABLE iaqi_info
+	ADD FOREIGN KEY R_71 (id_factor) REFERENCES detect_factor(id)
+;
+
+
+ALTER TABLE iaqi_info
+	ADD FOREIGN KEY R_72 (id_aqi_info) REFERENCES aqi_info(id)
 ;
 
 

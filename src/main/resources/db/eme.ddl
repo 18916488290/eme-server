@@ -555,6 +555,7 @@ ALTER TABLE group_authorities
 CREATE TABLE group_members
 (
 	id                    INTEGER NOT NULL,
+	id_groups             INTEGER NOT NULL,
 	username              VARCHAR(64) NOT NULL
 )
 ;
@@ -1262,7 +1263,7 @@ ALTER TABLE group_members
 
 
 ALTER TABLE group_members
-	ADD FOREIGN KEY R_5 (id) REFERENCES groups(id)
+	ADD FOREIGN KEY R_5 (id_groups) REFERENCES groups(id)
 ;
 
 

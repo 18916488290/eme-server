@@ -14,6 +14,9 @@ modify `id` int(11) not null auto_increment;
 alter table `air_env_type` 
 modify `id` int(11) not null auto_increment;
 
+alter table `aqi_info` 
+modify `id` int(11) not null auto_increment;
+
 
 alter table `chemical_material` 
 modify `id` int(11) not null auto_increment;
@@ -24,7 +27,13 @@ modify `id` int(11) not null auto_increment;
 alter table `concern_degree_dic` 
 modify `id` int(11) not null auto_increment;
 
+alter table `detect_air` 
+modify `id` int(11) not null auto_increment;
+
 alter table `detect_category` 
+modify `id` int(11) not null auto_increment;
+
+alter table `detect_content_dic` 
 modify `id` int(11) not null auto_increment;
 
 alter table `detect_factor` 
@@ -57,6 +66,9 @@ modify `id` int(11) not null auto_increment;
 alter table `equipment_state` 
 modify `id` int(11) not null auto_increment;
 
+alter table `equipment_type` 
+modify `id` int(11) not null auto_increment;
+
 alter table `group_members` 
 modify `id` int(11) not null auto_increment;
 
@@ -64,6 +76,9 @@ alter table `groups`
 modify `id` int(11) not null auto_increment;
 
 alter table `house_plan` 
+modify `id` int(11) not null auto_increment;
+
+alter table `iaqi_info` 
 modify `id` int(11) not null auto_increment;
 
 alter table `industrial_park` 

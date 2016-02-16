@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-6 13:14:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-16 22:08:48 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -31,6 +31,10 @@ public class ProductStatus  implements java.io.Serializable {
     public ProductStatus() {
     }
 
+	
+    public ProductStatus(String productStatus) {
+        this.productStatus = productStatus;
+    }
     public ProductStatus(String productStatus, Set<RiskBasicInfo> riskBasicInfos) {
        this.productStatus = productStatus;
        this.riskBasicInfos = riskBasicInfos;
@@ -47,7 +51,7 @@ public class ProductStatus  implements java.io.Serializable {
         this.id = id;
     }
     
-    @Column(name="product_status", length=20)
+    @Column(name="product_status", nullable=false, length=20)
     public String getProductStatus() {
         return this.productStatus;
     }

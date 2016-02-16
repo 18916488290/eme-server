@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-6 13:14:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-16 22:08:48 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;

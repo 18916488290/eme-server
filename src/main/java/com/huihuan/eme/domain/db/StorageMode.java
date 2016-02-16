@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-6 13:14:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-16 22:08:48 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -31,6 +31,10 @@ public class StorageMode  implements java.io.Serializable {
     public StorageMode() {
     }
 
+	
+    public StorageMode(String storageMode) {
+        this.storageMode = storageMode;
+    }
     public StorageMode(String storageMode, Set<ChemicalMaterial> chemicalMaterials) {
        this.storageMode = storageMode;
        this.chemicalMaterials = chemicalMaterials;
@@ -47,7 +51,7 @@ public class StorageMode  implements java.io.Serializable {
         this.id = id;
     }
     
-    @Column(name="storage_mode", length=20)
+    @Column(name="storage_mode", nullable=false, length=20)
     public String getStorageMode() {
         return this.storageMode;
     }

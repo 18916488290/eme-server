@@ -1,10 +1,12 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-6 13:14:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-16 22:08:48 by Hibernate Tools 3.2.2.GA
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,19 +32,17 @@ public class Workmanship  implements java.io.Serializable {
     }
 
 	
-    public Workmanship(Long id, String title) {
-        this.id = id;
+    public Workmanship(String title) {
         this.title = title;
     }
-    public Workmanship(Long id, Company company, String title, String description, String fileName) {
-       this.id = id;
+    public Workmanship(Company company, String title, String description, String fileName) {
        this.company = company;
        this.title = title;
        this.description = description;
        this.fileName = fileName;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
     
     @Column(name="id", unique=true, nullable=false)
     public Long getId() {

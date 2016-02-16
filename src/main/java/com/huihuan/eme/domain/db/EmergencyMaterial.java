@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-6 13:14:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-16 22:08:48 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -28,6 +28,7 @@ public class EmergencyMaterial  implements java.io.Serializable {
      private Long id;
      private Company company;
      private Users usersByCreator;
+     private EquipmentType equipmentType;
      private Users usersByAuditor;
      private Date creationDate;
      private String materialName;
@@ -52,9 +53,10 @@ public class EmergencyMaterial  implements java.io.Serializable {
     public EmergencyMaterial(String materialName) {
         this.materialName = materialName;
     }
-    public EmergencyMaterial(Company company, Users usersByCreator, Users usersByAuditor, Date creationDate, String materialName, Date quantity, String materialCode, String mobile, String address, Float lat, Float lng, String occasion, String func, String purpose, String note, Date auditDate, String comment, Long status) {
+    public EmergencyMaterial(Company company, Users usersByCreator, EquipmentType equipmentType, Users usersByAuditor, Date creationDate, String materialName, Date quantity, String materialCode, String mobile, String address, Float lat, Float lng, String occasion, String func, String purpose, String note, Date auditDate, String comment, Long status) {
        this.company = company;
        this.usersByCreator = usersByCreator;
+       this.equipmentType = equipmentType;
        this.usersByAuditor = usersByAuditor;
        this.creationDate = creationDate;
        this.materialName = materialName;
@@ -100,6 +102,15 @@ public class EmergencyMaterial  implements java.io.Serializable {
     
     public void setUsersByCreator(Users usersByCreator) {
         this.usersByCreator = usersByCreator;
+    }
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_equipment_type")
+    public EquipmentType getEquipmentType() {
+        return this.equipmentType;
+    }
+    
+    public void setEquipmentType(EquipmentType equipmentType) {
+        this.equipmentType = equipmentType;
     }
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="auditor")

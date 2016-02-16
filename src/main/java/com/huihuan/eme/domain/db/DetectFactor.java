@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-6 13:14:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-16 22:08:48 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -36,6 +36,8 @@ public class DetectFactor  implements java.io.Serializable {
      private String unit;
      private Long frequency;
      private Set<DetectHistory> detectHistories = new HashSet<DetectHistory>(0);
+     private Set<IaqiInfo> iaqiInfos = new HashSet<IaqiInfo>(0);
+     private Set<DetectAir> detectAirs = new HashSet<DetectAir>(0);
      private Set<Detect> detects = new HashSet<Detect>(0);
 
     public DetectFactor() {
@@ -45,7 +47,7 @@ public class DetectFactor  implements java.io.Serializable {
     public DetectFactor(float nadir) {
         this.nadir = nadir;
     }
-    public DetectFactor(DetectCategory detectCategory, String factorName, float nadir, Float utopia, Float reservation, Float aspiration, String unit, Long frequency, Set<DetectHistory> detectHistories, Set<Detect> detects) {
+    public DetectFactor(DetectCategory detectCategory, String factorName, float nadir, Float utopia, Float reservation, Float aspiration, String unit, Long frequency, Set<DetectHistory> detectHistories, Set<IaqiInfo> iaqiInfos, Set<DetectAir> detectAirs, Set<Detect> detects) {
        this.detectCategory = detectCategory;
        this.factorName = factorName;
        this.nadir = nadir;
@@ -55,6 +57,8 @@ public class DetectFactor  implements java.io.Serializable {
        this.unit = unit;
        this.frequency = frequency;
        this.detectHistories = detectHistories;
+       this.iaqiInfos = iaqiInfos;
+       this.detectAirs = detectAirs;
        this.detects = detects;
     }
    
@@ -147,6 +151,22 @@ public class DetectFactor  implements java.io.Serializable {
     
     public void setDetectHistories(Set<DetectHistory> detectHistories) {
         this.detectHistories = detectHistories;
+    }
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectFactor")
+    public Set<IaqiInfo> getIaqiInfos() {
+        return this.iaqiInfos;
+    }
+    
+    public void setIaqiInfos(Set<IaqiInfo> iaqiInfos) {
+        this.iaqiInfos = iaqiInfos;
+    }
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectFactor")
+    public Set<DetectAir> getDetectAirs() {
+        return this.detectAirs;
+    }
+    
+    public void setDetectAirs(Set<DetectAir> detectAirs) {
+        this.detectAirs = detectAirs;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectFactor")
     public Set<Detect> getDetects() {

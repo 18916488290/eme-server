@@ -15,6 +15,7 @@ import com.huihuan.eme.domain.db.AirEnvType;
 import com.huihuan.eme.domain.db.ConcernDegreeDic;
 import com.huihuan.eme.domain.db.EnvFunc;
 import com.huihuan.eme.domain.db.EquipmentState;
+import com.huihuan.eme.domain.db.EquipmentType;
 import com.huihuan.eme.domain.db.IndustrySectorDic;
 import com.huihuan.eme.domain.db.LocationDic;
 import com.huihuan.eme.domain.db.MaterialCategory;
@@ -29,6 +30,7 @@ import com.huihuan.eme.repository.AirEnvTypeRepository;
 import com.huihuan.eme.repository.ConcernDegreeDicRepository;
 import com.huihuan.eme.repository.EnvFuncRepository;
 import com.huihuan.eme.repository.EquipmentStateRepository;
+import com.huihuan.eme.repository.EquipmentTypeRepository;
 import com.huihuan.eme.repository.GroupsRepository;
 import com.huihuan.eme.repository.IndustrySectorDicRepository;
 import com.huihuan.eme.repository.LocationDicRepository;
@@ -119,16 +121,22 @@ public class DatabaseInit {
 	private LocationDicRepository locationDicRepository; 
 	private String[] locationDics = new String[] { "北", "东北偏北", "东北", "东北偏北", "东", "东南偏东", "东南", "东南偏南", "南", "西南偏南", "西南", "西南偏西", "西", "西北偏西", "西北", "西北偏北"};
 	
+
+	@Autowired
+	private EquipmentTypeRepository equipmentTypeRepository; 
+	private String[] equipmentTypes = new String[] { "人员防护类", "现场取证类", "通信照明类", "监测器材类", "现场指挥类", "辅助器材类", "其它"};
+	
+	
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
-		//if(!groupsRepository.findAll().isEmpty())
-		//	return;
-		//groupsService.loadDefaultGroups();
-		//userService.loadDefaultUsers();
-		//loadAdministratives();
-		//loadAdministrativeDivisions(ctx);
-		//loadAirEnvTypes();
-		//loadConcernDegrees();
+		if(!groupsRepository.findAll().isEmpty())
+		 	return;
+		  groupsService.loadDefaultGroups();
+		  userService.loadDefaultUsers();
+		  loadAdministratives();
+		  loadAdministrativeDivisions(ctx);
+		  loadAirEnvTypes();
+		  loadConcernDegrees();
 		  loadIndustrySectors();
 		  loadProductStatus();
 		  loadPhysicalStatus();
@@ -140,6 +148,7 @@ public class DatabaseInit {
 		  loadWaterEnvTypes();
 		  loadEnvFuncsTypes();
 		  loadLocationDics();
+		  loadEquipmentTypes();
 	}
 
 	private void loadAdministratives() {
@@ -239,6 +248,14 @@ public class DatabaseInit {
 		for (String s :locationDics) {
 			LocationDic l = new LocationDic(s);
 			locationDicRepository.save(l);
+		}
+	}
+	
+	private void loadEquipmentTypes() {
+		for (String s :equipmentTypes) {
+			EquipmentType e = new EquipmentType();
+			e.setEquipmentType(s);
+			equipmentTypeRepository.save(e);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-6 13:14:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-16 22:08:48 by Hibernate Tools 3.2.2.GA
 
 
 import javax.persistence.Column;
@@ -23,15 +23,15 @@ public class GroupMembers  implements java.io.Serializable {
 
 
      private Long id;
-     private Users users;
      private Groups groups;
+     private Users users;
 
     public GroupMembers() {
     }
 
-    public GroupMembers(Users users, Groups groups) {
-       this.users = users;
+    public GroupMembers(Groups groups, Users users) {
        this.groups = groups;
+       this.users = users;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -45,6 +45,15 @@ public class GroupMembers  implements java.io.Serializable {
         this.id = id;
     }
 @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_groups", nullable=false)
+    public Groups getGroups() {
+        return this.groups;
+    }
+    
+    public void setGroups(Groups groups) {
+        this.groups = groups;
+    }
+@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="username", nullable=false)
     public Users getUsers() {
         return this.users;
@@ -52,15 +61,6 @@ public class GroupMembers  implements java.io.Serializable {
     
     public void setUsers(Users users) {
         this.users = users;
-    }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="group_id", nullable=false)
-    public Groups getGroups() {
-        return this.groups;
-    }
-    
-    public void setGroups(Groups groups) {
-        this.groups = groups;
     }
 
 

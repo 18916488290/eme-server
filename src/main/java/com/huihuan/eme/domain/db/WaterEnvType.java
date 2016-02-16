@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-6 13:14:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-16 22:08:48 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -30,17 +32,15 @@ public class WaterEnvType  implements java.io.Serializable {
     }
 
 	
-    public WaterEnvType(Long id, String waterEnvType) {
-        this.id = id;
+    public WaterEnvType(String waterEnvType) {
         this.waterEnvType = waterEnvType;
     }
-    public WaterEnvType(Long id, String waterEnvType, Set<WaterEnv> waterEnvs) {
-       this.id = id;
+    public WaterEnvType(String waterEnvType, Set<WaterEnv> waterEnvs) {
        this.waterEnvType = waterEnvType;
        this.waterEnvs = waterEnvs;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
     
     @Column(name="id", unique=true, nullable=false)
     public Long getId() {

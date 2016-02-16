@@ -1,15 +1,19 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-6 13:14:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-16 22:08:48 by Hibernate Tools 3.2.2.GA
 
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,42 +26,42 @@ import javax.persistence.Table;
 public class WaterEnv  implements java.io.Serializable {
 
 
-     private WaterEnvId id;
+     private Long id;
      private WaterEnvType waterEnvType;
      private EnvFunc envFunc;
+     private String waterEnvName;
+     private Float lat;
+     private Float lng;
+     private String emePerson;
+     private String emeMobile;
+     private Set<CompanyWaterEnv> companyWaterEnvs = new HashSet<CompanyWaterEnv>(0);
 
     public WaterEnv() {
     }
 
-	
-    public WaterEnv(WaterEnvId id) {
-        this.id = id;
-    }
-    public WaterEnv(WaterEnvId id, WaterEnvType waterEnvType, EnvFunc envFunc) {
-       this.id = id;
+    public WaterEnv(WaterEnvType waterEnvType, EnvFunc envFunc, String waterEnvName, Float lat, Float lng, String emePerson, String emeMobile, Set<CompanyWaterEnv> companyWaterEnvs) {
        this.waterEnvType = waterEnvType;
        this.envFunc = envFunc;
+       this.waterEnvName = waterEnvName;
+       this.lat = lat;
+       this.lng = lng;
+       this.emePerson = emePerson;
+       this.emeMobile = emeMobile;
+       this.companyWaterEnvs = companyWaterEnvs;
     }
    
-     @EmbeddedId
+     @Id @GeneratedValue(strategy=IDENTITY)
     
-    @AttributeOverrides( {
-        @AttributeOverride(name="waterEnvName", column=@Column(name="water_env_name", length=64) ), 
-        @AttributeOverride(name="lat", column=@Column(name="lat", precision=12, scale=0) ), 
-        @AttributeOverride(name="lng", column=@Column(name="lng", precision=12, scale=0) ), 
-        @AttributeOverride(name="emePerson", column=@Column(name="eme_person", length=20) ), 
-        @AttributeOverride(name="emeMobile", column=@Column(name="eme_mobile", length=20) ), 
-        @AttributeOverride(name="idWaterEnvType", column=@Column(name="id_water_env_type") ), 
-        @AttributeOverride(name="idEnvFunc", column=@Column(name="id_env_func") ) } )
-    public WaterEnvId getId() {
+    @Column(name="id", unique=true, nullable=false)
+    public Long getId() {
         return this.id;
     }
     
-    public void setId(WaterEnvId id) {
+    public void setId(Long id) {
         this.id = id;
     }
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_water_env_type", insertable=false, updatable=false)
+    @JoinColumn(name="id_water_env_type")
     public WaterEnvType getWaterEnvType() {
         return this.waterEnvType;
     }
@@ -66,13 +70,66 @@ public class WaterEnv  implements java.io.Serializable {
         this.waterEnvType = waterEnvType;
     }
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_env_func", insertable=false, updatable=false)
+    @JoinColumn(name="id_env_func")
     public EnvFunc getEnvFunc() {
         return this.envFunc;
     }
     
     public void setEnvFunc(EnvFunc envFunc) {
         this.envFunc = envFunc;
+    }
+    
+    @Column(name="water_env_name", length=64)
+    public String getWaterEnvName() {
+        return this.waterEnvName;
+    }
+    
+    public void setWaterEnvName(String waterEnvName) {
+        this.waterEnvName = waterEnvName;
+    }
+    
+    @Column(name="lat", precision=12, scale=0)
+    public Float getLat() {
+        return this.lat;
+    }
+    
+    public void setLat(Float lat) {
+        this.lat = lat;
+    }
+    
+    @Column(name="lng", precision=12, scale=0)
+    public Float getLng() {
+        return this.lng;
+    }
+    
+    public void setLng(Float lng) {
+        this.lng = lng;
+    }
+    
+    @Column(name="eme_person", length=20)
+    public String getEmePerson() {
+        return this.emePerson;
+    }
+    
+    public void setEmePerson(String emePerson) {
+        this.emePerson = emePerson;
+    }
+    
+    @Column(name="eme_mobile", length=20)
+    public String getEmeMobile() {
+        return this.emeMobile;
+    }
+    
+    public void setEmeMobile(String emeMobile) {
+        this.emeMobile = emeMobile;
+    }
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="waterEnv")
+    public Set<CompanyWaterEnv> getCompanyWaterEnvs() {
+        return this.companyWaterEnvs;
+    }
+    
+    public void setCompanyWaterEnvs(Set<CompanyWaterEnv> companyWaterEnvs) {
+        this.companyWaterEnvs = companyWaterEnvs;
     }
 
 

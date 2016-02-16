@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-6 13:14:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-16 22:08:48 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -33,19 +33,23 @@ public class DetectStation  implements java.io.Serializable {
      private Float lat;
      private Float lng;
      private Set<DataCollectionDevice> dataCollectionDevices = new HashSet<DataCollectionDevice>(0);
+     private Set<DetectAir> detectAirs = new HashSet<DetectAir>(0);
+     private Set<DetectStationContent> detectStationContents = new HashSet<DetectStationContent>(0);
      private Set<Detect> detects = new HashSet<Detect>(0);
      private Set<DetectHistory> detectHistories = new HashSet<DetectHistory>(0);
 
     public DetectStation() {
     }
 
-    public DetectStation(AdministrativeDivision administrativeDivision, Epb epb, String detectStationName, Float lat, Float lng, Set<DataCollectionDevice> dataCollectionDevices, Set<Detect> detects, Set<DetectHistory> detectHistories) {
+    public DetectStation(AdministrativeDivision administrativeDivision, Epb epb, String detectStationName, Float lat, Float lng, Set<DataCollectionDevice> dataCollectionDevices, Set<DetectAir> detectAirs, Set<DetectStationContent> detectStationContents, Set<Detect> detects, Set<DetectHistory> detectHistories) {
        this.administrativeDivision = administrativeDivision;
        this.epb = epb;
        this.detectStationName = detectStationName;
        this.lat = lat;
        this.lng = lng;
        this.dataCollectionDevices = dataCollectionDevices;
+       this.detectAirs = detectAirs;
+       this.detectStationContents = detectStationContents;
        this.detects = detects;
        this.detectHistories = detectHistories;
     }
@@ -112,6 +116,22 @@ public class DetectStation  implements java.io.Serializable {
     
     public void setDataCollectionDevices(Set<DataCollectionDevice> dataCollectionDevices) {
         this.dataCollectionDevices = dataCollectionDevices;
+    }
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectStation")
+    public Set<DetectAir> getDetectAirs() {
+        return this.detectAirs;
+    }
+    
+    public void setDetectAirs(Set<DetectAir> detectAirs) {
+        this.detectAirs = detectAirs;
+    }
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectStation")
+    public Set<DetectStationContent> getDetectStationContents() {
+        return this.detectStationContents;
+    }
+    
+    public void setDetectStationContents(Set<DetectStationContent> detectStationContents) {
+        this.detectStationContents = detectStationContents;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectStation")
     public Set<Detect> getDetects() {

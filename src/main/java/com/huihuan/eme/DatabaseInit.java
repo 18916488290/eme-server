@@ -13,10 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.huihuan.eme.domain.db.AdministrativeDic;
 import com.huihuan.eme.domain.db.AirEnvType;
 import com.huihuan.eme.domain.db.ConcernDegreeDic;
+import com.huihuan.eme.domain.db.IndustrySectorDic;
 import com.huihuan.eme.repository.AdministrativeDicRepository;
 import com.huihuan.eme.repository.AirEnvTypeRepository;
 import com.huihuan.eme.repository.ConcernDegreeDicRepository;
 import com.huihuan.eme.repository.GroupsRepository;
+import com.huihuan.eme.repository.IndustrySectorDicRepository;
 import com.huihuan.eme.service.AdministrativeDivisionServiceImpl;
 import com.huihuan.eme.service.GroupsService;
 import com.huihuan.eme.service.UserService;
@@ -47,6 +49,10 @@ public class DatabaseInit {
 	@Autowired
 	private ConcernDegreeDicRepository concernDegreeDicRepository;
 	private String[] concernDegrees = new String[] { "国控", "省控", "县控" };
+	
+	@Autowired
+	private IndustrySectorDicRepository industrySectorDicRepository;
+	private String[] industrySectors = new String[] { "污水处理厂", "化工", "印染" , "造纸", "钢铁", "电力", "其它"};
 
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
@@ -58,6 +64,7 @@ public class DatabaseInit {
 		//loadAdministrativeDivisions(ctx);
 		//loadAirEnvTypes();
 		//loadConcernDegrees();
+		  loadIndustrySectors();
 	}
 
 	private void loadAdministratives() {
@@ -85,4 +92,12 @@ public class DatabaseInit {
 			concernDegreeDicRepository.save(new ConcernDegreeDic(concernDegree));
 		}
 	}
+	
+	private void loadIndustrySectors() {
+		for (String sector : industrySectors) {
+			IndustrySectorDic is = new IndustrySectorDic(sector);
+			industrySectorDicRepository.save(is);
+		}
+	}
+
 }

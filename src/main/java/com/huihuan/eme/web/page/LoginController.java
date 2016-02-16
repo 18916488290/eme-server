@@ -4,7 +4,11 @@
 package com.huihuan.eme.web.page;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.huihuan.eme.domain.page.EMEUser;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn
@@ -15,9 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LoginController {
 	
+
+	
 	@RequestMapping("/login")
-	public String login()
+	public String login(Model model)
 	{
+		EMEUser usr = new EMEUser();
+		usr.setUsername("hongtao");
+		usr.setPassword("xxxxxx");
+		model.addAttribute("emeUser", usr);
 		return "/login";
 	}
 

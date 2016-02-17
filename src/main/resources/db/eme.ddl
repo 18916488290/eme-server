@@ -1263,7 +1263,7 @@ ALTER TABLE group_members
 
 
 ALTER TABLE group_members
-	ADD FOREIGN KEY R_5 (id_group) REFERENCES groups(id)
+	ADD FOREIGN KEY R_5 (group_id) REFERENCES groups(id)
 ;
 
 

@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 		register(admin);
 		
 		Groups adminGroup = groupsRepository.findByGroupName("Administrator"); //环保局用户组
-		GroupMembers gm = new GroupMembers(adminGroup,admin);
+		GroupMembers gm = new GroupMembers(admin,adminGroup);
 		groupMembersRepository.save(gm);
 		
 	}

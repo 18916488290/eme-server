@@ -25,11 +25,11 @@
 		<div class="container">
 				<div class="navbar-brand">
 					<!-- COMPANY LOGO -->
-					<!--  
-					<a href="index.html">
+					
+					<a href="index.html" th:href="@{/}">
 						<img src="../../static/img/logo/logo.png" th:src="@{/img/logo/logo.png}" alt="某某环保局" class="img-responsive" height="30" width="120" />
 					</a>
-					-->
+					
 					<!-- /COMPANY LOGO -->
 					<!-- TEAM STATUS FOR MOBILE -->
 				<!--  	<div class="visible-xs">
@@ -49,16 +49,72 @@
 				</div>		
 				<!-- BEGIN TOP NAVIGATION MENU -->					
 				<ul class="nav navbar-nav pull-right">
+				
+				
+				
+				
+					<!-- BEGIN NOTIFICATION DROPDOWN -->	
+					<li class="dropdown" id="header-notification">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<span><i class="fa fa-cog"></i>
+							系统管理</span>
+						</a>
+						<ul class="dropdown-menu notification">
+						
+							<li>
+								<a href="#" th:href="@{/notImpl}">
+									<span class="label label-success"><i class="fa fa-user"></i></span>
+									<span class="body">
+										<span class="message">企业注册审核</span>
+									</span>
+								</a>
+							</li>
+							
+							<li>
+								<a href="#" th:href="@{/notImpl}">
+									<span class="label label-warning"><i class="fa fa-users"></i></span>
+									<span class="body">
+										<span class="message">用户权限管理</span>	
+									</span>
+								</a>
+							</li>
+							<li>
+								<a href="#" th:href="@{/notImpl}">
+									<span class="label label-primary"><i class="fa fa-bell-o"></i></span>
+									<span class="body">
+										<span class="message">消息通知</span>
+											<span class="time">
+											<span>32 条新通知</span>
+										</span>
+									</span>
+								</a>
+							</li>
+						
+				
+						
+						</ul>
+					</li>
+					<!-- END NOTIFICATION DROPDOWN -->
+				
+				
+				
+				
+				
+				
+				
+				
+				
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown user" id="header-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<span class="username">任宏涛</span>
+							<img alt="" src="img/avatars/avatar3.jpg"  th:src="@{/img/avatars/avatar3.jpg}"/>
+							<span class="username">管理员</span>
 							<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fa fa-user"></i>个人资料</a></li>
-							<li><a href="#"><i class="fa fa-cog"></i>账号设置</a></li>
-							<li><a href="＃" th:href="@{/logout}"><i class="fa fa-power-off"></i>退出</a></li>
+							<li><a href="#" th:href="@{/notImpl}"><i class="fa fa-user"></i>个人资料</a></li>
+							<li><a href="#" th:href="@{/notImpl}"><i class="fa fa-cog"></i>账号设置</a></li>
+							<li><a href="#" th:href="@{/logout}"><i class="fa fa-power-off"></i>退出</a></li>
 						</ul>
 					</li>
 					<!-- END USER LOGIN DROPDOWN -->
@@ -78,67 +134,45 @@
 
 						<!-- SIDEBAR MENU -->
 						<ul>
-							<li>
-								<a href="index.html">
-									<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">南通环保局应急系统</span>
-								</a>					
-							</li>
-							<li class="has-sub">
+				
+							<li class="has-sub active">
 								<a href="javascript:;" class="">
-								<i class="fa fa-bookmark-o fa-fw"></i> <span class="menu-text">风险源信息管理</span>
+								<i class="fa fa-bookmark-o fa-fw"></i><span class="menu-text">风险源信息管理</span>
 								<span class="arrow"></span>
 								</a>
 								<ul class="sub">
 								   
-									<li class="has-sub-sub">
-										<a href="javascript:;" class=""><span class="sub-menu-text">环境物资申报</span>
-										<span class="arrow"></span>
-										</a>
-										<ul class="sub-sub">
-											<li><a class="" href="#"><span class="sub-sub-menu-text">企业申报</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">管理审批</span></a></li>
-										</ul>
+									<li>
+										<a href="javascript:;" class=""><span class="sub-menu-text">企业应急物资审核</span></a>
+										</li>
+									<li>
+										<a href="javascript:;" class=""><span class="sub-menu-text">企业应急物资管理</span></a>
 									</li>
 									
-									<li class="has-sub-sub">
-										<a href="javascript:;" class=""><span class="sub-menu-text">环境风险源申报</span>
-										<span class="arrow"></span>
-										</a>
-										<ul class="sub-sub">
-											<li><a class="" href="#"><span class="sub-sub-menu-text">风险源申报</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">申报信息审核</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">申报入库</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">风险源信息管理</span></a></li>
-										</ul>
+									<li>
+										<a href="javascript:;" class=""><span class="sub-menu-text">环境风险源审核</span></a>
+									</li>
+									<li>
+										<a href="javascript:;" class=""><span class="sub-menu-text">环境风险源管理</span></a>
 									</li>
 									
-									<li class="has-sub-sub">
-										<a href="javascript:;" class=""><span class="sub-menu-text">风险源分类分级</span>
-										<span class="arrow"></span>
-										</a>
-										<ul class="sub-sub">
-											<li><a class="" href="#"><span class="sub-sub-menu-text">风险源识别</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">风险源初步筛选</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">企业环境风险源分级</span></a></li>
-										</ul>
-									</li>
+								
 									
 								<li class="has-sub-sub">
-										<a href="javascript:;" class=""><span class="sub-menu-text">风险源重点空间专题</span>
+										<a href="javascript:;" class=""><i class="fa fa-map-marker fa-fw"></i><span class="sub-menu-text">风险源重点空间专题</span>
 										<span class="arrow"></span>
 										</a>
 										<ul class="sub-sub">
-											<li><a class="" href="＃" th:href="@{/baidumap}"><span class="sub-sub-menu-text">污染源监控分布</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">在线实时监测</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">视频监控</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">风险源分布</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">超标预警</span></a></li>
+											<li><a class="" href="＃" th:href="@{/baidumap}"><span class="sub-sub-menu-text">风险源分布</span></a></li>
 											<li><a class="" href="#"><span class="sub-sub-menu-text">空气质量监测</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">风险源分布</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">河流断面监测</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">饮用水源地</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">统计分析</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">放射源分布</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}" ><span class="sub-sub-menu-text">在线实时监测</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}" ><span class="sub-sub-menu-text">视频监控</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}" ><span class="sub-sub-menu-text">超标预警</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">污染源监控分布</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">河流断面监测</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">饮用水源地</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">放射源分布</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">统计分析</span></a></li>
 										</ul>
 									</li>
 									
@@ -148,25 +182,25 @@
 
 							<li class="has-sub">
 								<a href="javascript:;" class="">
-								<i class="fa fa-map-marker fa-fw"></i> <span class="menu-text">环境应急指挥调度</span>
+								<i class="fa fa-map-marker fa-fw"></i>
+								<span class="menu-text">环境应急指挥调度</span>
 								<span class="arrow"></span>
 								</a>
 								<ul class="sub">
-									<li><a class="" href="google_maps.html"><span class="sub-menu-text">...</span></a></li>
-									<li><a class="" href="vector_maps.html"><span class="sub-menu-text">...</span></a></li>
+									<li><a class="" href="#" th:href="@{/notImpl}" ><span class="sub-menu-text">待添加</span></a></li>
+									
 								</ul>
 							</li>
 							
-							<li class="has-sub active">
+							<li class="has-sub">
 								<a href="javascript:;" class="">
-								<i class="fa fa-briefcase fa-fw"></i> <span class="menu-text">环境应急处置后评估 <span class="badge pull-right">9</span></span>
+								<i class="fa fa-briefcase fa-fw"></i> <span class="menu-text">环境应急处置后评估 </span>
 								<span class="arrow open"></span>
 								<span class="selected"></span>
 								</a>
 								<ul class="sub">
-									<li><a class="" href="search_results.html"><span class="sub-menu-text">...</span></a></li>
-									<li><a class="" href="email_templates.html"><span class="sub-menu-text">...</span></a></li>
-									<li><a class="" href="blank_page.html"><span class="sub-menu-text">...</span></a></li>
+									<li><a class="" href="#" th:href="@{/notImpl}" ><span class="sub-menu-text">待添加</span></a></li>
+
 								</ul>
 							</li>
 						</ul>
@@ -190,9 +224,9 @@
 									<ul class="breadcrumb" th:include=":: #BREADCRUMBS">
 										<li>
 											<i class="fa fa-home"></i>
-											<a href="index.html">主页</a>
+											<a href="index.html" th:href="@{/}" >主页</a>
 										</li>
-										<li><a href="index.html">应急物资管理</a></li>
+										
 									</ul>
 									<!-- /BREADCRUMBS -->
 					
@@ -204,7 +238,8 @@
 						<div class="row">
 							<div class="col-md-12">
 								<!-- BOX -->
-								<div class="box border" th:include=":: #mainContentBox">
+							<div th:include=":: #mainContentBox">
+								<div class="box border">
 									<div class="box-title">
 										<h4><i class="fa fa-calendar"></i>模版头</h4>
 										<div class="tools">
@@ -218,6 +253,8 @@
 									</div>
 								</div>
 								<!-- /BOX -->
+								</div>
+								<!-- /mainContentBox -->
 							</div>
 						</div>
 						<!-- /body -->
@@ -234,11 +271,12 @@
 	</section>
 	<div th:fragment="footerFragment">
     <footer class="footer navbar-fixed-bottom">
-     <div class="container">
-       版权
+     <div class="container text-center">
+           技术支持：华东理工大学能源经济研究所 &amp; 江苏汇环环保科技有限责任公司 (版本信息：D0.1： 仅用于演示)
      </div>
     </footer>
     </div>
+
 
 	<!--/PAGE -->
 	<!-- JAVASCRIPTS -->

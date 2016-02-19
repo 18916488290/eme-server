@@ -127,7 +127,7 @@ public class Company  implements java.io.Serializable {
         this.administrativeDivision = administrativeDivision;
     }
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_risk_basic_info", nullable=false)
+    @JoinColumn(name="id_risk_basic_info", nullable=true)
     public RiskBasicInfo getRiskBasicInfo() {
         return this.riskBasicInfo;
     }

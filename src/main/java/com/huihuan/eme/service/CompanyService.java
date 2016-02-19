@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.huihuan.eme.service;
 
 import java.util.Collection;
@@ -19,5 +16,9 @@ public interface CompanyService {
 	
 	 @Secured("ROLE_USER")
 	 Collection<String> getItemsByCategory(Company cat);
+	 
+	 public void registCompany(Company company);
+	 
+	 public void loadTestCompany();
 
 }

@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta charset="utf-8" />
-	<title>应急系统</title>
+	<title>环保局登录</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
@@ -15,8 +15,6 @@
 	<link rel="stylesheet" type="text/css" href="../static/js/bootstrap-daterangepicker/daterangepicker-bs3.css" th:href="@{/js/bootstrap-daterangepicker/daterangepicker-bs3.css}" />
 	<!-- UNIFORM -->
 	<link rel="stylesheet" type="text/css" href="../static/js/uniform/css/uniform.default.min.css" th:href="@{/js/uniform/css/uniform.default.min.css}" />
-	<!-- ANIMATE -->
-	<link rel="stylesheet" type="text/css" href="../static/css/animatecss/animate.min.css" th:href="@{/css/animatecss/animate.min.css}" />
 	<!-- FONTS -->
 	<link href='http://fonts.useso.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css' />
 </head>
@@ -62,93 +60,14 @@
 									<button type="submit" class="btn btn-danger">登录</button>
 								  </div>
 								</form>
-								
-								<div class="login-helpers">
-									<a href="#" onclick="swapScreen('forgot');return false;">忘记密码</a> <br />
-									还没有账号? <a href="#" onclick="swapScreen('register');return false;">注册!</a>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 			<!--/LOGIN -->
-			<!-- REGISTER -->
-			<section id="register">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-4 col-md-offset-4">
-							<div class="login-box-plain">
-								<h2 class="bigintro">注册</h2>
-								
-								<form role="form" th:action="@{/register}" th:object="${emeUser}">
-								  <div class="form-group">
-									<label for="exampleInputName">全名</label>
-									<i class="fa fa-font"></i>
-									<input type="text" class="form-control" id="exampleInputName" th:field="*{username}"/>
-								  </div>
-								  <div class="form-group">
-									<label for="exampleInputUsername">登录名</label>
-									<i class="fa fa-user"></i>
-									<input type="text" class="form-control" id="exampleInputUsername" />
-								  </div>
-								  <div class="form-group">
-									<label for="exampleInputEmail1">邮箱</label>
-									<i class="fa fa-envelope"></i>
-									<input type="email" class="form-control" id="exampleInputEmail1" />
-								  </div>
-								  <div class="form-group"> 
-									<label for="exampleInputPassword1">密码</label>
-									<i class="fa fa-lock"></i>
-									<input type="password" class="form-control" id="exampleInputPassword1" />
-								  </div>
-								  <div class="form-group"> 
-									<label for="exampleInputPassword2">重复密码</label>
-									<i class="fa fa-check-square-o"></i>
-									<input type="password" class="form-control" id="exampleInputPassword2" />
-								  </div>
-								  <div class="form-actions">
-									<label class="checkbox"> <input type="checkbox" class="uniform" value="" /> 我同意 <a href="#">使用协议</a> 和 <a href="#">隐私政策</a></label>
-									<button type="submit" class="btn btn-success">注册</button>
-								  </div>
-								</form>
-								
-								<div class="login-helpers">
-									<a href="#" onclick="swapScreen('login');return false;"> 返回登陆页面</a> <br />
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!--/REGISTER -->
-			<!-- FORGOT PASSWORD -->
-			<section id="forgot">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-4 col-md-offset-4">
-							<div class="login-box-plain">
-								<h2 class="bigintro">重新设置密码</h2>
-								<div class="divide-40"></div>
-								<form role="form">
-								  <div class="form-group">
-									<label for="exampleInputEmail1">输入邮箱</label>
-									<i class="fa fa-envelope"></i>
-									<input type="email" class="form-control" id="exampleInputEmail1" />
-								  </div>
-								  <div class="form-actions">
-									<button type="submit" class="btn btn-info">发送密码至邮箱</button>
-								  </div>
-								</form>
-								<div class="login-helpers">
-									<a href="#" onclick="swapScreen('login');return false;">返回登陆页面</a> <br />
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- FORGOT PASSWORD -->
+			
+			
 	</section>
 	<!--/PAGE -->
 	<!-- JAVASCRIPTS -->
@@ -170,12 +89,6 @@
 			App.setPage("login");  //Set current page
 			App.init(); //Initialise plugins and elements
 		});
-	</script>
-	<script type="text/javascript">
-		function swapScreen(id) {
-			jQuery('.visible').removeClass('visible animated fadeInUp');
-			jQuery('#'+id).addClass('visible animated fadeInUp');
-		}
 	</script>
 	<!-- /JAVASCRIPTS -->
 </body>

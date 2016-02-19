@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/m-layout :: headFragment">
-<title id="pageTitle">空气质量监测专题</title>
+<title id="pageTitle">此网页正在建设中。。。</title>
 </head>
 <body>
 	<!-- HEADER -->
@@ -20,17 +20,17 @@
 			th:include="fragments/m-layout :: main-contentFragment">
 			<!-- BREADCRUMBS -->
 			<ul class="breadcrumb" id="BREADCRUMBS">
-				<li><i class="fa fa-home"></i> <a href="index.html">主界面</a></li>
-				<li><a href="index.html">风险源分布专题</a></li>
+				<li><i class="fa fa-home"></i> <a href="index.html" th:href="@{/}">主界面</a></li>
+				<li><a href="index.html" th:href="@{/notImpl}">在建网页</a></li>
 			</ul>
 			<!-- /BREADCRUMBS -->
-
-			<!-- mainContentBox -->
-			<div id="mainContentBox">
-			<div class="box border">
+         
+          <!-- mainContentBox -->
+           <div id="mainContentBox">
+			<div class="box border red">
 				<div class="box-title">
 					<h4>
-						<i class="fa fa-calendar"></i>风险源分布地图
+						<i class="fa fa-calendar"></i>网页建设中
 					</h4>
 					<div class="tools">
 						<a href="javascript:;" class="collapse"> <i
@@ -38,31 +38,27 @@
 						</a>
 					</div>
 				</div>
-				<div class="box-body">
-				   <div class="gmaps" id="baidumap"></div>
+				<div class="box-body"> 
+				   <h3>网页建设中。。。</h3>
 				</div>
 
-              </div>
 			</div>
+		</div>
 			<!-- /mainContentBox -->
-		
 		</div>
 		<!-- /maincontent -->
 	</section>
-
-    <div th:include="fragments/m-layout :: footerFragment"></div>
 	<!--/PAGE -->
+	
+	<div th:include="fragments/m-layout :: footerFragment"></div>
 	<!-- JAVASCRIPTS -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<!-- JQUERY -->
 	<div th:include="fragments/m-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {		
-			var baiduMapHeight = $(document).height()-100;
-			$(".gmaps").css("min-height",baiduMapHeight+"px");
 			//App.setPage("widgets_box");  //Set current page ???
 			App.init(); //Initialise plugins and elements
-			baiduMaps.airQAMap(); //Init the google maps
 		});
 	</script>
 	<!-- /JAVASCRIPTS -->

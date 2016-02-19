@@ -2,6 +2,7 @@ package com.huihuan.eme.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.huihuan.eme.domain.db.GroupAuthorities;
 import com.huihuan.eme.domain.db.GroupAuthoritiesId;
@@ -12,6 +13,7 @@ import com.huihuan.eme.repository.GroupMembersRepository;
 import com.huihuan.eme.repository.GroupsRepository;
 
 @Service("groupsService")
+@Transactional(readOnly=true)
 public class GroupsServiceImpl implements GroupsService {
 	
 	@Autowired private GroupsRepository groupsRepository;
@@ -19,6 +21,7 @@ public class GroupsServiceImpl implements GroupsService {
 	
 
 	@Override
+	@Transactional(readOnly=false)
 	public void loadDefaultGroups() {
 		Groups userGroup = new Groups();
 		userGroup.setGroupName("User");

@@ -41,10 +41,9 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/bootstrap-dist/**","/css/**","/font-awesome/**","/frontend_theme/**","/img/**","/js/**").permitAll()
-
 		.antMatchers(HttpMethod.OPTIONS,"/**").permitAll();
 		http.authorizeRequests().antMatchers("/login").permitAll().anyRequest()
-		.fullyAuthenticated().and().formLogin().loginPage("/login")
+		.fullyAuthenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/", true)
 	    .failureUrl("/login?error").and().logout()
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and()
 		.exceptionHandling().accessDeniedPage("/access?error");

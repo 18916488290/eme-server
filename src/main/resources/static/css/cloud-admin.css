@@ -9008,6 +9008,9 @@ ul.stats li small {
 ================================================== */
 footer{
     width:100%;
-    min-height:40px;    
+   /* min-height:40px;
+    height:40px;   
+    */ 
+    color:white;
     background-color: #5e87b0; /* This color gets inverted color or you can add navbar inverse class in html */
 }

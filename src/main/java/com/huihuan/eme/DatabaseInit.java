@@ -20,6 +20,7 @@ import com.huihuan.eme.domain.db.IndustrySectorDic;
 import com.huihuan.eme.domain.db.LocationDic;
 import com.huihuan.eme.domain.db.MaterialCategory;
 import com.huihuan.eme.domain.db.MaterialType;
+import com.huihuan.eme.domain.db.OperationMaintanceCompany;
 import com.huihuan.eme.domain.db.PhysicalState;
 import com.huihuan.eme.domain.db.ProductStatus;
 import com.huihuan.eme.domain.db.ProductionMode;
@@ -29,6 +30,7 @@ import com.huihuan.eme.repository.AdministrativeDicRepository;
 import com.huihuan.eme.repository.AirEnvTypeRepository;
 import com.huihuan.eme.repository.ConcernDegreeDicRepository;
 import com.huihuan.eme.repository.EnvFuncRepository;
+import com.huihuan.eme.repository.EpbRepository;
 import com.huihuan.eme.repository.EquipmentStateRepository;
 import com.huihuan.eme.repository.EquipmentTypeRepository;
 import com.huihuan.eme.repository.GroupsRepository;
@@ -36,12 +38,15 @@ import com.huihuan.eme.repository.IndustrySectorDicRepository;
 import com.huihuan.eme.repository.LocationDicRepository;
 import com.huihuan.eme.repository.MaterialCategoryRepository;
 import com.huihuan.eme.repository.MaterialTypeRepository;
+import com.huihuan.eme.repository.OperationMaintanceCompanyRepository;
 import com.huihuan.eme.repository.PhysicalStateRepository;
 import com.huihuan.eme.repository.ProductStatusRepository;
 import com.huihuan.eme.repository.ProductionModeRepository;
 import com.huihuan.eme.repository.StorageMethodRepository;
 import com.huihuan.eme.repository.WaterEnvTypeRepository;
 import com.huihuan.eme.service.AdministrativeDivisionServiceImpl;
+import com.huihuan.eme.service.CompanyService;
+import com.huihuan.eme.service.EpbServiceImpl;
 import com.huihuan.eme.service.GroupsService;
 import com.huihuan.eme.service.UserService;
 
@@ -55,6 +60,9 @@ public class DatabaseInit {
 	private UserService userService;
 	@Autowired
 	private GroupsRepository groupsRepository;
+	
+	@Autowired
+	private CompanyService companyService;
 
 	@Autowired
 	private AdministrativeDicRepository administrativeDicRepository;
@@ -126,10 +134,19 @@ public class DatabaseInit {
 	private EquipmentTypeRepository equipmentTypeRepository; 
 	private String[] equipmentTypes = new String[] { "人员防护类", "现场取证类", "通信照明类", "监测器材类", "现场指挥类", "辅助器材类", "其它"};
 	
+	@Autowired
+	private OperationMaintanceCompanyRepository operationMaintanceCompanyRepository;
+	private String[] omCompanyList = new String[] {"------","江苏汇环环保科技有限责任公司"};
+	
+	@Autowired
+	private  EpbRepository epbRepository;
+	
+	@Autowired
+	private EpbServiceImpl epbService;
 	
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
-		if(!groupsRepository.findAll().isEmpty())
+		/*if(!groupsRepository.findAll().isEmpty())
 		 	return;
 		  groupsService.loadDefaultGroups();
 		  userService.loadDefaultUsers();
@@ -149,6 +166,13 @@ public class DatabaseInit {
 		  loadEnvFuncsTypes();
 		  loadLocationDics();
 		  loadEquipmentTypes();
+		  loadEpbs(ctx);
+		 
+		  loadOMCompanyList();
+		
+		companyService.loadTestCompany();
+		     */
+		  
 	}
 
 	private void loadAdministratives() {
@@ -257,5 +281,17 @@ public class DatabaseInit {
 			e.setEquipmentType(s);
 			equipmentTypeRepository.save(e);
 		}
+	}
+	private void loadOMCompanyList() {
+		for (String s :omCompanyList) {
+			OperationMaintanceCompany o = new OperationMaintanceCompany();
+			o.setCompanyName(s);
+			operationMaintanceCompanyRepository.save(o);
+		}
+	}
+	
+	private void loadEpbs(ConfigurableApplicationContext ctx) throws IOException {
+		Resource res = ctx.getResource("classpath:data/epbs.csv");
+		epbService.loadEpbsFromCSV(res.getInputStream());
 	}
 }

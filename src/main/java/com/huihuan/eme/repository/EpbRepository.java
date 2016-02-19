@@ -1,8 +1,7 @@
 package com.huihuan.eme.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.huihuan.eme.domain.db.Users;
+import com.huihuan.eme.domain.db.Epb;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn
@@ -11,8 +10,6 @@ import com.huihuan.eme.domain.db.Users;
  *
  */
 @Repository
-public interface UsersRepository extends JpaRepository<Users, String> {
-	
-	public Users findByUsername(String username);
+public interface EpbRepository extends JpaRepository<Epb, Long> {
 	
 }

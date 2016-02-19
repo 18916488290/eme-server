@@ -8,7 +8,7 @@ import com.huihuan.eme.domain.db.Users;
  *
  */
 public interface UserService {
-	public boolean register(Users users);
+	public boolean register(Users users,boolean isCompanyUser);
 	public boolean isRegisted(String username);
 	public void loadDefaultUsers();
 

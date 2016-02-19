@@ -18,6 +18,7 @@ import com.huihuan.eme.repository.UsersRepository;
  *
  */
 @Service("userService")
+@Transactional(readOnly=true)
 public class UserServiceImpl implements UserService {
 	
 	@Autowired private UsersRepository usersRepository;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional(readOnly=false)
-	public boolean register(Users users) {
+	public boolean register(Users users,boolean isCompanyUser) {
 		String username = users.getUsername(); 
 		if(isRegisted(username))
 			return false;  //已经被注册
@@ -34,14 +35,20 @@ public class UserServiceImpl implements UserService {
 		{
 			String password = users.getPassword();
 			users.setPassword(new StandardPasswordEncoder().encode(password));
+			users.setUserType(1l);
 			usersRepository.save(users);
+			
+			String groupName =isCompanyUser?"User":"Administrator"; //User  企业用户， Administrator：环保局用户
+			Groups group = groupsRepository.findByGroupName(groupName); 
+			GroupMembers gm = new GroupMembers(users,group);
+			groupMembersRepository.save(gm);
+			
 			return true;
 		}
 
 	}
 
 	@Override
-	@Transactional(readOnly=true)
 	public boolean isRegisted(String username) {
 		Users users = usersRepository.findOne(username);
 		if(users!=null)
@@ -56,11 +63,8 @@ public class UserServiceImpl implements UserService {
 		Users admin = new Users("admin", 0l); //0l 环保局用户
 		admin.setPassword("admin");
 		admin.setEnabled(true);
-		register(admin);
-		
-		Groups adminGroup = groupsRepository.findByGroupName("Administrator"); //环保局用户组
-		GroupMembers gm = new GroupMembers(admin,adminGroup);
-		groupMembersRepository.save(gm);
+		register(admin,false);
+	
 		
 	}
 

@@ -21,33 +21,110 @@
 			<ul class="breadcrumb" id="BREADCRUMBS">
 				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
 				<li><a href="#"  th:href="@{/companyList}">企业注册审核</a></li>
+				<li>企业详细信息</li>
 			</ul>
 			<!-- /BREADCRUMBS -->
 
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 		
-		
-		   <!-- BOX -->
-						<div class="box border">
-									
-									  <div class="box-title">
-										<h4><i class="fa fa-columns"></i><span class="hidden-inline-mobile">企业注册审核</span></h4>
-									</div>
-									
-									<div class="box-body">
-										
-										企业名称： <p th:text="${company.companyName}">企业名称</p>
-										
-										 </div>
-											
+								<form class="form-horizontal" method="post" action="#" th:action="@{/auditCompany}" th:object="${company}">
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f1">企业名称</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f1" class="form-control col-md-12" th:value="${company.companyName}" disabled="disabled"/> 										
+											 </div>
 										  </div>
-								
-								<!-- /BOX -->
-		
-		
-		
-		
+										 <div class="form-group">
+											 <label class="col-md-2 control-label" for="f8">行政区域</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f8" class="form-control col-md-12" th:value="${company.administrativeDivision.division}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f2">企业地址</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f2" class="form-control col-md-12" th:value="${company.address}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f3">中心坐标</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f3" class="form-control col-md-12" th:value="${company.lng+', '+company.lat}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										    <div class="form-group">
+											 <label class="col-md-2 control-label" for="f4">隶属关系</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f4" class="form-control col-md-12" th:value="${company.administrativeDic.administrative}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										   <div class="form-group">
+											 <label class="col-md-2 control-label" for="f5">行业类别</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f5" class="form-control col-md-12" th:value="${company.industrySectorDic.industrySector}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										   <div class="form-group">
+											 <label class="col-md-2 control-label" for="f6">关注程度</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f6" class="form-control col-md-12" th:value="${company.concernDegreeDic.concernDegree}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f7">关联运维公司</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f7" class="form-control col-md-12" th:value="${company.operationMaintanceCompany.companyName}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f9">联系人</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f9" class="form-control col-md-12" th:value="${company.usersByCreator.realName}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f9">联系手机</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f9" class="form-control col-md-12" th:value="${company.usersByCreator.mobile}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										
+										    <div class="form-group">
+											 <label class="col-md-2 control-label" for="f10">审核意见</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f10" class="form-control col-md-12" th:field="*{comment}" /> 
+											 </div>
+										  </div>
+										  <div th:if="${view==null}">
+										   <div class="form-group">
+										     <div class="col-md-2"></div>
+										     <div class="col-md-3">
+										      <button class="btn btn-default" name="action" value="yes"><i class="fa fa-check"></i>通过审核</button>
+										      <button class="btn btn-danger pull-right" name="action" value="no"><i class="fa fa-minus-square-o"></i>拒绝</button></div>
+										  </div>
+										  </div>
+										  <div th:if="${view!=null}">
+										   <div class="form-group">
+										     <div class="col-md-2"></div>
+										     <div class="col-md-3">
+										      <button class="btn btn-default" name="action" value="back"><i class="fa fa-arrow-left"></i>返回</button>
+										     </div>
+										   </div>
+										  </div>
+										  
+										  <input type="hidden" th:field="*{id}" /> 
+										 
+									   </form>
+						
+	
 			</div>
 			<!-- /mainContentBox -->
 		

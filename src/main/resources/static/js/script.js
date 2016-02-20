@@ -1235,6 +1235,70 @@ var App = function () {
                 	}
                 }  
 			});
+		$('#datatable3').dataTable({
+			"sPaginationType": "bs_full",
+			sDom: "<'row'<'dataTables_header clearfix'<'col-md-4'l><'col-md-8'Tf>r>>t<'row'<'dataTables_footer clearfix'<'col-md-6'i><'col-md-6'p>>>",
+            oTableTools: {
+                aButtons: ["copy", "print", "csv", "xls", "pdf"],
+                sSwfPath: "js/datatables/extras/TableTools/media/swf/copy_csv_xls_pdf.swf"
+            },
+            "bSort": false,
+            'oLanguage': {  
+            	"sProcessing":   "处理中...",
+            	"sLengthMenu":   "显示 _MENU_ 项结果",
+            	"sZeroRecords":  "没有匹配结果",
+            	"sInfo":         "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            	"sInfoEmpty":    "显示第 0 至 0 项结果，共 0 项",
+            	"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            	"sInfoPostFix":  "",
+            	"sUrl":          "",
+            	"sEmptyTable":     "表中数据为空",
+            	"sLoadingRecords": "载入中...",
+            	"sInfoThousands":  ",",
+            	"oPaginate": {
+            		"sFirst":    "首页",
+            		"sPrevious": "上页",
+            		"sNext":     "下页",
+            		"sLast":     "末页"
+            	},
+            	"oAria": {
+            		"sSortAscending":  ": 以升序排列此列",
+            		"sSortDescending": ": 以降序排列此列"
+            	}
+            }  
+		});
+		$('#datatable4').dataTable({
+			"sPaginationType": "bs_full",
+			sDom: "<'row'<'dataTables_header clearfix'<'col-md-4'l><'col-md-8'Tf>r>>t<'row'<'dataTables_footer clearfix'<'col-md-6'i><'col-md-6'p>>>",
+            oTableTools: {
+                aButtons: ["copy", "print", "csv", "xls", "pdf"],
+                sSwfPath: "js/datatables/extras/TableTools/media/swf/copy_csv_xls_pdf.swf"
+            },
+            "bSort": false,
+            'oLanguage': {  
+            	"sProcessing":   "处理中...",
+            	"sLengthMenu":   "显示 _MENU_ 项结果",
+            	"sZeroRecords":  "没有匹配结果",
+            	"sInfo":         "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            	"sInfoEmpty":    "显示第 0 至 0 项结果，共 0 项",
+            	"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            	"sInfoPostFix":  "",
+            	"sUrl":          "",
+            	"sEmptyTable":     "表中数据为空",
+            	"sLoadingRecords": "载入中...",
+            	"sInfoThousands":  ",",
+            	"oPaginate": {
+            		"sFirst":    "首页",
+            		"sPrevious": "上页",
+            		"sNext":     "下页",
+            		"sLast":     "末页"
+            	},
+            	"oAria": {
+            		"sSortAscending":  ": 以升序排列此列",
+            		"sSortDescending": ": 以降序排列此列"
+            	}
+            }  
+		});
 		$('.datatable').each(function(){
 			var datatable = $(this);
 			// SEARCH - Add the placeholder for Search and Turn this into in-line form control

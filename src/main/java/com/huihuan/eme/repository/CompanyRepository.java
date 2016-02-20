@@ -3,6 +3,8 @@
  */
 package com.huihuan.eme.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.huihuan.eme.domain.db.Company;
 
@@ -15,5 +17,6 @@ import com.huihuan.eme.domain.db.Company;
  */
 public interface CompanyRepository  extends JpaRepository<Company, Long> {
 	
-
+	public List<Company> getByStatus(Long status);
+	
 }

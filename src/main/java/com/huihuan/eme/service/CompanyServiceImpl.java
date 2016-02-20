@@ -3,6 +3,7 @@ package com.huihuan.eme.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,6 +83,12 @@ public class CompanyServiceImpl implements CompanyService {
 		companyRepository.save(company);
 		
 		
+	}
+
+	@Override
+	public List<Company> getCompaniesByStatus(AuditSatusEnum auditSatusEnum) {
+	
+		return companyRepository.getByStatus(auditSatusEnum.getIndex());
 	}
 
 }

@@ -1,10 +1,12 @@
 package com.huihuan.eme.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.access.annotation.Secured;
 
 import com.huihuan.eme.domain.db.Company;
+import com.huihuan.eme.domain.page.AuditSatusEnum;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn
@@ -20,5 +22,6 @@ public interface CompanyService {
 	 public void registCompany(Company company);
 	 
 	 public void loadTestCompany();
+	 public List<Company> getCompaniesByStatus(AuditSatusEnum AuditSatusEnum);
 
 }

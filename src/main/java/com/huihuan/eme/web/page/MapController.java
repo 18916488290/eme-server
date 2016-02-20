@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class HomeController {
+public class MapController {
 	
-	private static final Log logger = LogFactory.getLog(HomeController.class);
+	private static final Log logger = LogFactory.getLog(MapController.class);
 	
-	@RequestMapping("/")
-	public String home(Map<String, Object> model) {
-		return "index";
+	@RequestMapping("/riskSource")
+	public String baidumap(Map<String, Object> model) {
+		return "riskSource";
 	}
-	
+
 }

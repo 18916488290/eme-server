@@ -333,6 +333,7 @@
   border: none;
   text-shadow: none;
 }
+.sidebar-menu ul > li > ul.sub li.has-sub-sub > a .arrow:before,
 .sidebar-menu ul > li > a .arrow:before {
   float: right;
   margin-top: 1px;
@@ -345,6 +346,7 @@
   font-weight: 300;
   text-shadow: none;
 }
+.sidebar-menu ul > li > ul.sub li.has-sub-sub > a .arrow.open:before,
 .sidebar-menu > ul > li > a .arrow.open:before {
   float: right;
   margin-top: 1px;
@@ -357,6 +359,8 @@
   font-weight: 300;
   text-shadow: none;
 }
+
+.sidebar-menu > ul > li > ul.sub .has-sub-sub ul.sub-sub:before,
 .sidebar-menu > ul > li > ul.sub:before {
   -moz-border-bottom-colors: none;
   -moz-border-left-colors: none;
@@ -373,6 +377,8 @@
   top: 0;
   z-index: 1;
 }
+/*hongtao*/
+.sidebar-menu > ul > li > ul.sub .has-sub-sub ul.sub-sub > li:before,
 .sidebar-menu > ul > li > ul.sub > li:before {
   border-top: 1px dotted #3b3b3b;
   content: "";
@@ -471,6 +477,9 @@
 .sidebar-menu > ul > li > a.open {
   background: #313131;
 }
+/*hongtao*/
+.sidebar-menu > ul > li > ul.sub .has-sub-sub ul.sub-sub >li >a.arrow:before,
+.sidebar-menu > ul > li > ul.sub .has-sub-sub ul.sub-sub >li >a.arrow.open:before,
 .sidebar-menu ul > li > a .arrow:before,
 .sidebar-menu > ul > li > a .arrow.open:before {
   color: #555555 !important;

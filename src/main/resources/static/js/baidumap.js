@@ -5,11 +5,10 @@ var baiduMaps = function () {
     var mapBasic = function () {
     	// 百度地图API功能
     	map = new BMap.Map("baidumap");
-    	map.centerAndZoom(new BMap.Point(120.887365,31.983889),12);
+    	map.centerAndZoom(new BMap.Point(120.887365,31.983889),13);
+    	//map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
     	//map.setCurrentCity("南通");  
-		map.enableScrollWheelZoom(); // 启用滚轮放大缩小
-		
-		
+		//map.enableScrollWheelZoom(); // 启用滚轮放大缩小
     		
     }
     

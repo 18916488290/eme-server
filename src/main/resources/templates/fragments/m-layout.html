@@ -3,7 +3,7 @@
 <head th:fragment="headFragment">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta charset="utf-8" />
-	<title th:include=":: #pageTitle">应急系统布局模版</title>
+	<title>南通市环保局环境应急系统平台</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
@@ -31,14 +31,7 @@
 					</a>
 					
 					<!-- /COMPANY LOGO -->
-					<!-- TEAM STATUS FOR MOBILE -->
-				<!--  	<div class="visible-xs">
-						<a href="#" class="team-status-toggle switcher btn dropdown-toggle">
-							<i class="fa fa-users"></i>
-						</a>
-					</div>
-					-->
-					<!-- /TEAM STATUS FOR MOBILE -->
+					
 					<!-- SIDEBAR COLLAPSE -->
 					<div id="sidebar-collapse" class="sidebar-collapse btn">
 						<i class="fa fa-bars" 
@@ -51,7 +44,24 @@
 				<ul class="nav navbar-nav pull-right">
 				
 				
-				
+				    <li class="dropdown">
+						<a href="#" th:href="@{/notImpl}" class="dropdown-toggle">
+							<span><i class="fa fa-sitemap"></i>
+							网站地图</span>
+						</a>
+				  </li>
+				  <li class="dropdown">
+						<a href="#" th:href="@{/notImpl}" class="dropdown-toggle">
+							<span><i class="fa fa-envelope-o"></i>
+							建议反馈</span>
+						</a>
+				  </li>
+				    <li class="dropdown">
+						<a href="#" th:href="@{/notImpl}" class="dropdown-toggle">
+							<span><i class="fa fa-book"></i>
+							操作手册</span>
+						</a>
+				  </li>
 				
 					<!-- BEGIN NOTIFICATION DROPDOWN -->	
 					<li class="dropdown" id="header-notification">
@@ -89,21 +99,13 @@
 									</span>
 								</a>
 							</li>
-						
-				
-						
+	
 						</ul>
 					</li>
 					<!-- END NOTIFICATION DROPDOWN -->
 				
 				
-				
-				
-				
-				
-				
-				
-				
+
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown user" id="header-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -142,34 +144,34 @@
 								</a>
 								<ul class="sub">
 								   
-									<li>
-										<a href="javascript:;" class=""><span class="sub-menu-text">企业应急物资审核</span></a>
+									<li id="emeAudi">
+										<a  href="#" th:href="@{/notImpl}" class=""><span class="sub-menu-text">企业应急物资审核</span></a>
 										</li>
 									<li>
-										<a href="javascript:;" class=""><span class="sub-menu-text">企业应急物资管理</span></a>
+										<a  href="#" th:href="@{/notImpl}" class=""><span class="sub-menu-text">企业应急物资管理</span></a>
 									</li>
 									
 									<li>
-										<a href="javascript:;" class=""><span class="sub-menu-text">环境风险源审核</span></a>
+										<a  href="#" th:href="@{/notImpl}" class=""><span class="sub-menu-text">环境风险源审核</span></a>
 									</li>
 									<li>
-										<a href="javascript:;" class=""><span class="sub-menu-text">环境风险源管理</span></a>
+										<a  href="#" th:href="@{/notImpl}" class=""><span class="sub-menu-text">环境风险源管理</span></a>
 									</li>
 									
 								
 									
 								<li class="has-sub-sub">
-										<a href="javascript:;" class=""><i class="fa fa-map-marker fa-fw"></i><span class="sub-menu-text">风险源重点空间专题</span>
+										<a href="javascript:;" class=""><i class="fa fa-map-marker fa-fw"></i><span class="sub-menu-text">风险源重点空间</span>
 										<span class="arrow"></span>
 										</a>
 										<ul class="sub-sub">
-											<li><a class="" href="＃" th:href="@{/baidumap}"><span class="sub-sub-menu-text">风险源分布</span></a></li>
-											<li><a class="" href="#"><span class="sub-sub-menu-text">空气质量监测</span></a></li>
-											<li><a class="" href="#" th:href="@{/notImpl}" ><span class="sub-sub-menu-text">在线实时监测</span></a></li>
-											<li><a class="" href="#" th:href="@{/notImpl}" ><span class="sub-sub-menu-text">视频监控</span></a></li>
-											<li><a class="" href="#" th:href="@{/notImpl}" ><span class="sub-sub-menu-text">超标预警</span></a></li>
-											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">污染源监控分布</span></a></li>
-											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">河流断面监测</span></a></li>
+											<li id="riskSource"><a class="" href="#" th:href="@{/riskSource}"><span class="sub-sub-menu-text">风险源分布</span></a></li>
+											<li id="airQuility"><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">空气质量</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">在线实时监测</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">视频监控</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">超标预警</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">污染源监控</span></a></li>
+											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">河流断面</span></a></li>
 											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">饮用水源地</span></a></li>
 											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">放射源分布</span></a></li>
 											<li><a class="" href="#" th:href="@{/notImpl}"><span class="sub-sub-menu-text">统计分析</span></a></li>
@@ -237,22 +239,8 @@
 						<!-- body -->
 						<div class="row">
 							<div class="col-md-12">
-								<!-- BOX -->
-							<div th:include=":: #mainContentBox">
-								<div class="box border">
-									<div class="box-title">
-										<h4><i class="fa fa-calendar"></i>模版头</h4>
-										<div class="tools">
-											<a href="javascript:;" class="collapse">
-												<i class="fa fa-chevron-up"></i>
-											</a>
-										</div>
-									</div>
-									<div class="box-body">
-									     内容
-									</div>
-								</div>
-								<!-- /BOX -->
+								<!-- mainContentBox -->
+							     <div th:include=":: #mainContentBox">
 								</div>
 								<!-- /mainContentBox -->
 							</div>
@@ -272,7 +260,7 @@
 	<div th:fragment="footerFragment">
     <footer class="footer navbar-fixed-bottom">
      <div class="container text-center">
-           技术支持：华东理工大学能源经济研究所 &amp; 江苏汇环环保科技有限责任公司 (版本信息：D0.1： 仅用于演示)
+           技术支持：华东理工大学能源经济与环境管理研究所 &amp; 江苏汇环环保科技有限责任公司 (版本信息：D0.1： 仅用于演示)
      </div>
     </footer>
     </div>
@@ -308,7 +296,6 @@
 	
 	<script>
 		jQuery(document).ready(function() {		
-			App.setPage("widgets_box");  //Set current page
 			App.init(); //Initialise plugins and elements
 		});
 	</script>

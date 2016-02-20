@@ -10,8 +10,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.huihuan.eme.EMEWebApplication;
-
 /**
  * @author 任宏涛， ren@ecust.edu.cn
  *
@@ -21,19 +19,16 @@ import com.huihuan.eme.EMEWebApplication;
 @Controller
 public class HomeController {
 	
-
 	private static final Log logger = LogFactory.getLog(HomeController.class);
 	
 	@RequestMapping("/")
 	public String home(Map<String, Object> model) {
-		logger.debug("to home");
 		return "index";
 	}
 	
-	@RequestMapping("/baidumap")
+	@RequestMapping("/riskSource")
 	public String baidumap(Map<String, Object> model) {
-		logger.debug("to baidu map");
-		return "baidumap";
+		return "riskSource";
 	}
 
 }

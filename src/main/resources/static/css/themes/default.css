@@ -288,7 +288,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  margin-top: 15px;
+  margin-top: 0px;
   border-bottom: 1px solid #FFFFFF !important;
   border-top: 1px solid #FFFFFF !important;
 }
@@ -427,10 +427,15 @@
   font-weight: 300;
   background: none;
 }
+
+/***added by hongtao*/
+.sidebar-menu > ul > li > ul.sub .has-sub-sub ul.sub-sub > li.active >a,
 .sidebar-menu > ul > li > ul.sub .has-sub-sub ul.sub-sub > li :hover,
-.sidebar-menu > ul > li > ul.sub .has-sub-sub ul.sub-sub > li :focus {
-  text-decoration: underline;
+.sidebar-menu > ul > li > ul.sub .has-sub-sub ul.sub-sub > li :focus
+{
+   background: #f4f4f4 !important;
 }
+
 .sidebar-menu > ul > li > ul.sub > li > a > i,
 .sidebar-menu > ul > li > ul.sub .has-sub-sub ul.sub-sub > li > a > i {
   font-size: 13px;
@@ -617,7 +622,7 @@
   padding-left: 12px;
   position: absolute;
   top: 0;
-  width: 174px;
+  width: 194px;
   padding: 5px 0 0 15px;
   z-index: 121;
   border: 1px solid #cecece;
@@ -638,7 +643,7 @@
   padding-top: 50px;
   position: absolute;
   top: 0;
-  width: 176px;
+  width: 196px;
   z-index: 120;
   border-top: 1px solid #e7e7e7;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;

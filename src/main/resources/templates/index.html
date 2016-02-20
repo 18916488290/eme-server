@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/m-layout :: headFragment">
-<title id="pageTitle">应急系统主页面</title>
 </head>
 <body>
 	<!-- HEADER -->
@@ -12,7 +11,7 @@
 	<!-- PAGE -->
 	<section id="page">
 		<!-- SIDEBAR -->
-		<div id="sidebar" class="sidebar sidebar-fixed"
+		<div id="sidebar" class="sidebar"
 			th:include="fragments/m-layout :: sidebarFragment"></div>
 		<!-- /SIDEBAR -->
 		<!-- maincontent -->
@@ -20,8 +19,7 @@
 			th:include="fragments/m-layout :: main-contentFragment">
 			<!-- BREADCRUMBS -->
 			<ul class="breadcrumb" id="BREADCRUMBS">
-				<li><i class="fa fa-home"></i> <a href="index.html">主界面</a></li>
-				<li><a href="index.html">应急物资申报</a></li>
+				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
 			</ul>
 			<!-- /BREADCRUMBS -->
  

@@ -1,5 +1,8 @@
 package com.huihuan.eme.service;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -9,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.csvreader.CsvReader;
+import com.huihuan.eme.domain.db.AdministrativeDivision;
 import com.huihuan.eme.domain.db.Company;
 import com.huihuan.eme.domain.db.Users;
 import com.huihuan.eme.domain.page.AuditSatusEnum;
@@ -55,23 +60,24 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	@Transactional(readOnly=false)
-	public void loadTestCompany() {
+	public void loadCompany(String username, String realName, String companyName, String address, float lng,
+			float lat) {
 		Users u = new Users();
-		u.setMobile("18916488290");
-		u.setUsername("18916488290");
-		u.setPassword("18916488290");
+		u.setMobile(username);
+		u.setUsername(username);
+		u.setPassword(username);
 		u.setEnabled(false);
-		u.setRealName("任宏涛");
+		u.setRealName(realName);
 		u.setEpb(epbRepository.findOne(1l));
 		userService.register(u, true);
 		
 		
 		Company company = new Company();
-		company.setCompanyName("大智慧有限责任公司");
-		company.setAddress("华发路368");
+		company.setCompanyName(companyName);
+		company.setAddress(address);
 		company.setCreationDate(new Date());
-		company.setLat(3.0f);
-		company.setLng(4.0f);
+		company.setLat(lat);
+		company.setLng(lng);
 		company.setUsersByCreator(u);
 		company.setStatus(AuditSatusEnum.NotAudit.getIndex());
 		company.setAdministrativeDic(administrativeDicRepository.findOne(1l));
@@ -90,5 +96,19 @@ public class CompanyServiceImpl implements CompanyService {
 	
 		return companyRepository.getByStatus(auditSatusEnum.getIndex());
 	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public void loadCompanies(InputStream inputStream) throws IOException {
+		CsvReader reader = new CsvReader(inputStream,',', Charset.forName("UTF-8"));
+		while(reader.readRecord())
+		{
+			loadCompany(reader.get(5).trim(), reader.get(4).trim(), reader.get(0).trim(), reader.get(1).trim(), Float.parseFloat(reader.get(2).trim()),
+					Float.parseFloat(reader.get(3).trim()));
+		}
+		
+	}
+
+	
 
 }

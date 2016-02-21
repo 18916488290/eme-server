@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.huihuan.eme.web.page;
 
 import java.util.Map;
@@ -23,6 +20,7 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public String home(Map<String, Object> model) {
+		
 		return "index";
 	}
 	

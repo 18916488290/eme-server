@@ -1,5 +1,7 @@
 package com.huihuan.eme.service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,8 +22,9 @@ public interface CompanyService {
 	 Collection<String> getItemsByCategory(Company cat);
 	 
 	 public void registCompany(Company company);
-	 
-	 public void loadTestCompany();
+	 public void loadCompanies(InputStream inputStream) throws IOException;
+	 public void loadCompany(String username,String realName, String companyName,String address,float lng,float lat);
 	 public List<Company> getCompaniesByStatus(AuditSatusEnum AuditSatusEnum);
+
 
 }

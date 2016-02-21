@@ -169,9 +169,9 @@ public class DatabaseInit {
 		  loadEpbs(ctx);
 		 
 		  loadOMCompanyList();
-		
-		companyService.loadTestCompany();
+	      loadCompanies(ctx);
 		     */
+	
 		  
 	}
 
@@ -186,7 +186,13 @@ public class DatabaseInit {
 		Resource res = ctx.getResource("classpath:data/administrativeDivision.csv");
 		administrativeDivisionServiceImpl.loadAdministrativeDivisionsFromCSV(res.getInputStream());
 	}
-
+	
+	private void loadCompanies(ConfigurableApplicationContext ctx) throws IOException {
+		Resource res = ctx.getResource("classpath:data/companies.csv");
+		
+		companyService.loadCompanies(res.getInputStream());
+	}
+	
 	private void loadAirEnvTypes() {
 		for (String airEnvType : airEnvTypes) {
 			AirEnvType envType = new AirEnvType(airEnvType);

@@ -59,7 +59,7 @@ public class CompanyAuditController {
 	}
 	
 	@RequestMapping(value="/auditCompany",method=RequestMethod.POST)
-	public String postCompany(@ModelAttribute("company") Company company,@RequestParam String action, Principal principal) {
+	public String postCompany(@ModelAttribute("company") Company company,@RequestParam String action,Principal principal) {
 		logger.debug("company:" + company.getId() +", comment: " + company.getComment() +", action: " + action);
 		Company dbCompany = companyRepository.findOne(company.getId());
 		dbCompany.setComment(company.getComment());

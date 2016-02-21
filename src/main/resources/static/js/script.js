@@ -1205,12 +1205,12 @@ var App = function () {
 	var handleTables = function () {
 		$('#datatable2').dataTable({
 				"sPaginationType": "bs_full",
+				 "bSort": false,
 				sDom: "<'row'<'dataTables_header clearfix'<'col-md-4'l><'col-md-8'Tf>r>>t<'row'<'dataTables_footer clearfix'<'col-md-6'i><'col-md-6'p>>>",
                 oTableTools: {
                     aButtons: ["copy", "print", "csv", "xls", "pdf"],
                     sSwfPath: "js/datatables/extras/TableTools/media/swf/copy_csv_xls_pdf.swf"
                 },
-                "bSort": false,
                 'oLanguage': {  
                 	"sProcessing":   "处理中...",
                 	"sLengthMenu":   "显示 _MENU_ 项结果",
@@ -3214,6 +3214,10 @@ var App = function () {
 			
         },
         handleCompanies: function () {
+        	handleTables();
+        },
+        
+        handleAllEmergencyMaterialList: function () {
         	handleTables();
         },
         

@@ -13,9 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.huihuan.eme.domain.db.AdministrativeDic;
 import com.huihuan.eme.domain.db.AirEnvType;
 import com.huihuan.eme.domain.db.ConcernDegreeDic;
+import com.huihuan.eme.domain.db.EmergencyReponsePlanType;
+import com.huihuan.eme.domain.db.EmergencyResponsePlan;
 import com.huihuan.eme.domain.db.EnvFunc;
 import com.huihuan.eme.domain.db.EquipmentState;
 import com.huihuan.eme.domain.db.EquipmentType;
+import com.huihuan.eme.domain.db.IndustrialPark;
 import com.huihuan.eme.domain.db.IndustrySectorDic;
 import com.huihuan.eme.domain.db.LocationDic;
 import com.huihuan.eme.domain.db.MaterialCategory;
@@ -24,16 +27,21 @@ import com.huihuan.eme.domain.db.OperationMaintanceCompany;
 import com.huihuan.eme.domain.db.PhysicalState;
 import com.huihuan.eme.domain.db.ProductStatus;
 import com.huihuan.eme.domain.db.ProductionMode;
+import com.huihuan.eme.domain.db.RiskAversionOptionsDic;
+import com.huihuan.eme.domain.db.RiskAversionType;
 import com.huihuan.eme.domain.db.StorageMethod;
+import com.huihuan.eme.domain.db.StorageMode;
 import com.huihuan.eme.domain.db.WaterEnvType;
 import com.huihuan.eme.repository.AdministrativeDicRepository;
 import com.huihuan.eme.repository.AirEnvTypeRepository;
 import com.huihuan.eme.repository.ConcernDegreeDicRepository;
+import com.huihuan.eme.repository.EmergencyResponsePlanTypeRepository;
 import com.huihuan.eme.repository.EnvFuncRepository;
 import com.huihuan.eme.repository.EpbRepository;
 import com.huihuan.eme.repository.EquipmentStateRepository;
 import com.huihuan.eme.repository.EquipmentTypeRepository;
 import com.huihuan.eme.repository.GroupsRepository;
+import com.huihuan.eme.repository.IndustrialParkRepository;
 import com.huihuan.eme.repository.IndustrySectorDicRepository;
 import com.huihuan.eme.repository.LocationDicRepository;
 import com.huihuan.eme.repository.MaterialCategoryRepository;
@@ -42,7 +50,10 @@ import com.huihuan.eme.repository.OperationMaintanceCompanyRepository;
 import com.huihuan.eme.repository.PhysicalStateRepository;
 import com.huihuan.eme.repository.ProductStatusRepository;
 import com.huihuan.eme.repository.ProductionModeRepository;
+import com.huihuan.eme.repository.RiskAversionOptionsDicRepository;
+import com.huihuan.eme.repository.RiskAversionTypeRepository;
 import com.huihuan.eme.repository.StorageMethodRepository;
+import com.huihuan.eme.repository.StorageModeRepository;
 import com.huihuan.eme.repository.WaterEnvTypeRepository;
 import com.huihuan.eme.service.AdministrativeDivisionServiceImpl;
 import com.huihuan.eme.service.CompanyService;
@@ -100,8 +111,11 @@ public class DatabaseInit {
 	
 	@Autowired
 	private StorageMethodRepository storageMethodRepository;
-	private String[] storageMethods = new String[] { "隔离存储", "隔开存储", "分离存储", "露天存储"};
+	private String[] storageMethods = new String[] { "干燥", "冷藏", "冷冻"};
 	
+	@Autowired
+	private StorageModeRepository storageModeRepository;
+	private String[] storageModes = new String[] { "隔离存储", "隔开存储", "分离存储", "露天存储"};
 	
 	@Autowired
 	private EquipmentStateRepository equipmentStateRepository;
@@ -139,6 +153,25 @@ public class DatabaseInit {
 	private OperationMaintanceCompanyRepository operationMaintanceCompanyRepository;
 	private String[] omCompanyList = new String[] {"------","江苏汇环环保科技有限公司"};
 	
+	
+	@Autowired
+	private IndustrialParkRepository industrialParkRepository;
+	private String[] parks = new String[] {"------","南通开发区工业园"};
+	
+	@Autowired
+	private RiskAversionOptionsDicRepository riskAversionOptionsDicRepository;
+	private String[] riskAversionOptions = new String[] {"环境风险防控管理制度","重点风险岗位负责人和应急处置流程","环评审批手续","环评验收手续","有毒有害,易燃易爆气体泄露侦测，报警装置","有毒有害，易燃易爆气体泄漏紧急处理装置","雨污分流系统","截流措施","事故排水收集系统","固体废物固定存放场所","固体废弃物防控措施"};
+	
+	@Autowired
+	private RiskAversionTypeRepository riskAversionTypeRepository;
+	private String[] riskAversionTypes = new String[] {"------","涉氨类","涉氯类"};
+	
+	
+	@Autowired
+	private EmergencyResponsePlanTypeRepository emergencyResponsePlanTypeRepository;
+	private String[] emergencyResponsePlanTypes = new String[] {"综合预案","专项预案","现场处置预案"};
+	
+	
 	@Autowired
 	private  EpbRepository epbRepository;
 	
@@ -174,10 +207,14 @@ public class DatabaseInit {
 		  loadEpbs(ctx);
 		  loadOMCompanyList();
 	      loadCompanies(ctx);
-	      */
-	      loadEmergencyMaterials(ctx);
-		     
-	
+	      loadEmergencyMaterials(ctx); 
+	      loadIndustrialParks(); 
+	      loadStorageModes();		
+	      loadRiskAvsersionOptionsDic();
+		  loadRiskAvsersionTypes(); 
+		  loadEmergencyPlanTypes();
+		  */  
+		 companyService.addRiskInfoForTestingData(ctx);
 		  
 	}
 
@@ -185,6 +222,17 @@ public class DatabaseInit {
 		for (String administrative : administratives) {
 			AdministrativeDic ad = new AdministrativeDic(administrative);
 			administrativeDicRepository.save(ad);
+		}
+	}
+	private void loadEmergencyPlanTypes() {
+		long i=1;
+		for (String s : emergencyResponsePlanTypes) {
+			EmergencyReponsePlanType e = new EmergencyReponsePlanType();
+			e.setId(i);
+			e.setEmergencyResponsePlanType(s);
+			emergencyResponsePlanTypeRepository.save(e);
+			i++;
+			
 		}
 	}
 
@@ -214,6 +262,19 @@ public class DatabaseInit {
 	private void loadConcernDegrees() {
 		for (String concernDegree : concernDegrees) {
 			concernDegreeDicRepository.save(new ConcernDegreeDic(concernDegree));
+		}
+	}
+	
+	private void loadRiskAvsersionOptionsDic() {
+		for (String s : riskAversionOptions) {
+			riskAversionOptionsDicRepository.save(new RiskAversionOptionsDic(s));
+		}
+	}
+	private void loadRiskAvsersionTypes() {
+		for (String s : riskAversionTypes) {
+			RiskAversionType r = new RiskAversionType();
+			r.setRiskAversionType(s);
+			riskAversionTypeRepository.save(r);
 		}
 	}
 	
@@ -251,6 +312,14 @@ public class DatabaseInit {
 			storageMethodRepository.save(sm);
 		}
 	}
+	
+	private void loadStorageModes() {
+		for (String s : storageModes) {
+			StorageMode sm = new StorageMode(s);
+			storageModeRepository.save(sm);
+		}
+	}
+	
 	private void loadEquipmentStates() {
 		for (String s :equipmentStates) {
 			EquipmentState e= new EquipmentState();
@@ -309,5 +378,12 @@ public class DatabaseInit {
 	private void loadEpbs(ConfigurableApplicationContext ctx) throws IOException {
 		Resource res = ctx.getResource("classpath:data/epbs.csv");
 		epbService.loadEpbsFromCSV(res.getInputStream());
+	}
+	
+	private void loadIndustrialParks() {
+		for (String s :parks) {
+			IndustrialPark i = new IndustrialPark(s);
+			industrialParkRepository.save(i);
+		}
 	}
 }

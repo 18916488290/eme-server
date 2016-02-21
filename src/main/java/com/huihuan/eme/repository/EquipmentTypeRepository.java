@@ -2,9 +2,7 @@ package com.huihuan.eme.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.huihuan.eme.domain.db.EquipmentState;
 import com.huihuan.eme.domain.db.EquipmentType;
-import com.huihuan.eme.domain.db.Users;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn

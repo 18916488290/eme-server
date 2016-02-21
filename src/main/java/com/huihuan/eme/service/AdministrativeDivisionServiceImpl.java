@@ -29,7 +29,7 @@ public class AdministrativeDivisionServiceImpl {
 			AdministrativeDivision ad = new AdministrativeDivision();  
 		    ad.setDivision(reader.get(0).trim());
 		    administrativeDivisionRepository.save(ad); 
-		    logger.debug("添加行政区域： " + ad.getDivision());
+		    //logger.debug("添加行政区域： " + ad.getDivision());
 		}
 	}
 

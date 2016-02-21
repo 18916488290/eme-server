@@ -64,12 +64,21 @@ public class EmergencyMaterialServiceImpl implements EmergencyMaterialService {
 				e.setAddress( reader.get(3).trim());
 				e.setEquipmentType(equipmentTypeRepository.findOne(1l));
 				e.setQuantity(reader.get(2).trim());
+			    e.setUsersByCreator(c.getUsersByCreator());
+			    e.setMobile(c.getUsersByCreator().getMobile());
+			    e.setStatus(AuditSatusEnum.NotAudit.getIndex());
 				emergencyMaterialRepository.save(e);
 				
 			}
 		
 		}
 		
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<EmergencyMaterial> getMaterialsByStatus(AuditSatusEnum auditSatusEnum) {
+		 return emergencyMaterialRepository.getByStatus(auditSatusEnum.getIndex());
 	}
 
 	

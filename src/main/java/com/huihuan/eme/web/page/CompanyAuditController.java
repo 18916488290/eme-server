@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.huihuan.eme.web.page;
 
 import java.security.Principal;

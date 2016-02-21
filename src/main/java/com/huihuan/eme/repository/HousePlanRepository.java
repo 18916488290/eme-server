@@ -1,8 +1,8 @@
 package com.huihuan.eme.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import com.huihuan.eme.domain.db.HousePlan;
 
-import com.huihuan.eme.domain.db.EnvFunc;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn
@@ -11,6 +11,6 @@ import com.huihuan.eme.domain.db.EnvFunc;
  *
  */
 @Repository
-public interface EnvFuncRepository extends JpaRepository<EnvFunc, Long> {
+public interface HousePlanRepository extends JpaRepository<HousePlan, Long> {
 	
 }

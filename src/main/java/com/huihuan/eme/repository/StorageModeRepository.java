@@ -2,7 +2,7 @@ package com.huihuan.eme.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.huihuan.eme.domain.db.EnvFunc;
+import com.huihuan.eme.domain.db.StorageMode;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn
@@ -11,6 +11,6 @@ import com.huihuan.eme.domain.db.EnvFunc;
  *
  */
 @Repository
-public interface EnvFuncRepository extends JpaRepository<EnvFunc, Long> {
+public interface StorageModeRepository extends JpaRepository<StorageMode, Long> {
 	
 }

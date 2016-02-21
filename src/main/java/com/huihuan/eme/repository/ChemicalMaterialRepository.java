@@ -3,7 +3,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.huihuan.eme.domain.db.EmergencyMaterial;
+import com.huihuan.eme.domain.db.ChemicalMaterial;
+import com.huihuan.eme.domain.db.Company;
 
 
 /**
@@ -13,8 +14,8 @@ import com.huihuan.eme.domain.db.EmergencyMaterial;
  *
  */
 @Repository
-public interface EmergencyMaterialRepository extends JpaRepository<EmergencyMaterial, Long> {
+public interface ChemicalMaterialRepository extends JpaRepository<ChemicalMaterial, Long> {
 	
-	public List<EmergencyMaterial> getByStatus(Long status);
+	public List<ChemicalMaterial> getByCompany(Company company);
 	
 }

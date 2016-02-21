@@ -1,10 +1,7 @@
-/**
- * 
- */
 package com.huihuan.eme.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.huihuan.eme.domain.db.IndustrySectorDic;
+import com.huihuan.eme.domain.db.EmergencyReponsePlanType;
 
 
 /**
@@ -13,7 +10,7 @@ import com.huihuan.eme.domain.db.IndustrySectorDic;
  * @created 2016年1月5日 下午10:04:09
  *
  */
-public interface IndustrySectorDicRepository  extends JpaRepository<IndustrySectorDic, Long> {
+public interface EmergencyResponsePlanTypeRepository  extends JpaRepository<EmergencyReponsePlanType, Long> {
 	
 
 }

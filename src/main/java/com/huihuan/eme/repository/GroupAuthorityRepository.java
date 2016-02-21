@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 
 import com.huihuan.eme.domain.db.GroupAuthorities;
 import com.huihuan.eme.domain.db.GroupAuthoritiesId;
-import com.huihuan.eme.domain.db.Groups;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn

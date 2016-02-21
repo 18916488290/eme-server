@@ -1,10 +1,9 @@
-/**
- * 
- */
 package com.huihuan.eme.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.huihuan.eme.domain.db.IndustrySectorDic;
+
+import com.huihuan.eme.domain.db.RiskAversionOptionsDic;
+
 
 
 /**
@@ -13,7 +12,7 @@ import com.huihuan.eme.domain.db.IndustrySectorDic;
  * @created 2016年1月5日 下午10:04:09
  *
  */
-public interface IndustrySectorDicRepository  extends JpaRepository<IndustrySectorDic, Long> {
+public interface RiskAversionOptionsDicRepository  extends JpaRepository<RiskAversionOptionsDic, Long> {
 	
 
 }

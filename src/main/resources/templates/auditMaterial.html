@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/m-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/m-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+
+	<!-- PAGE -->
+	<section id="page">
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/m-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/m-layout :: main-contentFragment">
+			<!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
+				<li><a href="#"  th:href="@{/emergencyMaterialList}">企业应急物资审核</a></li>
+				<li>应急物资详细信息</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+		
+								<form class="form-horizontal" method="post" action="#" th:action="@{/auditMaterial}" th:object="${emergencyMaterial}">
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f1">企业名称</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f1" class="form-control col-md-12" th:value="${emergencyMaterial.company.companyName}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										 <div class="form-group">
+											 <label class="col-md-2 control-label" for="f8">物资名称</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f8" class="form-control col-md-12" th:value="${emergencyMaterial.materialName}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f2">数量</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f2" class="form-control col-md-12" th:value="${emergencyMaterial.quantity}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										   <div class="form-group">
+											 <label class="col-md-2 control-label" for="f4">存放地址</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f4" class="form-control col-md-12" th:value="${emergencyMaterial.address}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f3">中心坐标</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f3" class="form-control col-md-12" th:value="${emergencyMaterial.lng+', '+emergencyMaterial.lat}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+
+										   <div class="form-group">
+											 <label class="col-md-2 control-label" for="f5">功能</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f5" class="form-control col-md-12" th:value="${emergencyMaterial.func}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										   <div class="form-group">
+											 <label class="col-md-2 control-label" for="f6">场合</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f6" class="form-control col-md-12" th:value="${emergencyMaterial.occasion}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f7">用途</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f7" class="form-control col-md-12" th:value="${emergencyMaterial.purpose}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f9">联系人</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f9" class="form-control col-md-12" th:value="${emergencyMaterial.company.usersByCreator.realName}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										  
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f9">联系手机</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f9" class="form-control col-md-12" th:value="${emergencyMaterial.company.usersByCreator.mobile}" disabled="disabled"/> 										
+											 </div>
+										  </div>
+										
+										    <div class="form-group">
+											 <label class="col-md-2 control-label" for="f10">审核意见</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f10" class="form-control col-md-12" th:field="*{comment}" /> 
+											 </div>
+										  </div>
+										  <div th:if="${view==null}">
+										   <div class="form-group">
+										     <div class="col-md-2"></div>
+										     <div class="col-md-3">
+										      <button class="btn btn-default" name="action" value="yes"><i class="fa fa-check"></i>通过审核</button>
+										      <button class="btn btn-danger pull-right" name="action" value="no"><i class="fa fa-minus-square-o"></i>拒绝</button></div>
+										  </div>
+										  </div>
+										  <div th:if="${view!=null}">
+										   <div class="form-group">
+										     <div class="col-md-2"></div>
+										     <div class="col-md-3">
+										      <button class="btn btn-default" name="action" value="back"><i class="fa fa-arrow-left"></i>返回</button>
+										     </div>
+										   </div>
+										  </div>
+										  
+										  <input type="hidden" th:field="*{id}" /> 
+										 
+									   </form>
+						
+	
+			</div>
+			<!-- /mainContentBox -->
+		
+		</div>
+		<!-- /maincontent -->
+	</section>
+
+    <div th:include="fragments/m-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/m-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("emergencyMaterialList");
+			App.init(); //Initialise plugins and elements
+			App.handleCompanies();
+
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.huihuan.eme.domain.page;
 
 /**

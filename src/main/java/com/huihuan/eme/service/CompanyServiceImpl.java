@@ -197,6 +197,7 @@ public class CompanyServiceImpl implements CompanyService {
 		riskBasicInfoRepository.save(riskBasicInfo);
 		Company c = companyRepository.findOne(companyId);
 		c.setRiskBasicInfo(riskBasicInfo);
+		c.setLvl("较大环境风险源");
 		companyRepository.save(c);
 	}
 

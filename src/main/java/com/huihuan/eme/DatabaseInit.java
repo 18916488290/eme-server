@@ -57,6 +57,7 @@ import com.huihuan.eme.repository.StorageModeRepository;
 import com.huihuan.eme.repository.WaterEnvTypeRepository;
 import com.huihuan.eme.service.AdministrativeDivisionServiceImpl;
 import com.huihuan.eme.service.CompanyService;
+import com.huihuan.eme.service.DetectFactorDataServiceImpl;
 import com.huihuan.eme.service.EmergencyMaterialService;
 import com.huihuan.eme.service.EpbServiceImpl;
 import com.huihuan.eme.service.GroupsService;
@@ -180,6 +181,8 @@ public class DatabaseInit {
 	
 	@Autowired
 	private EmergencyMaterialService  emergencyMaterialService;
+	@Autowired
+	private  DetectFactorDataServiceImpl detectFactorDataServiceImpl;
 	
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
@@ -215,6 +218,7 @@ public class DatabaseInit {
 		  loadEmergencyPlanTypes();
 		  */  
 		 companyService.addRiskInfoForTestingData(ctx);
+		 detectFactorDataServiceImpl.loadData(ctx);
 		  
 	}
 

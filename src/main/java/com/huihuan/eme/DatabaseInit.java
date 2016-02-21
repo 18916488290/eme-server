@@ -46,6 +46,7 @@ import com.huihuan.eme.repository.StorageMethodRepository;
 import com.huihuan.eme.repository.WaterEnvTypeRepository;
 import com.huihuan.eme.service.AdministrativeDivisionServiceImpl;
 import com.huihuan.eme.service.CompanyService;
+import com.huihuan.eme.service.EmergencyMaterialService;
 import com.huihuan.eme.service.EpbServiceImpl;
 import com.huihuan.eme.service.GroupsService;
 import com.huihuan.eme.service.UserService;
@@ -136,7 +137,7 @@ public class DatabaseInit {
 	
 	@Autowired
 	private OperationMaintanceCompanyRepository operationMaintanceCompanyRepository;
-	private String[] omCompanyList = new String[] {"------","江苏汇环环保科技有限责任公司"};
+	private String[] omCompanyList = new String[] {"------","江苏汇环环保科技有限公司"};
 	
 	@Autowired
 	private  EpbRepository epbRepository;
@@ -144,9 +145,13 @@ public class DatabaseInit {
 	@Autowired
 	private EpbServiceImpl epbService;
 	
+	@Autowired
+	private EmergencyMaterialService  emergencyMaterialService;
+	
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
-		if(!groupsRepository.findAll().isEmpty())
+		/*
+		 * if(!groupsRepository.findAll().isEmpty())
 		 	return;
 		  groupsService.loadDefaultGroups();
 		  userService.loadDefaultUsers();
@@ -169,6 +174,8 @@ public class DatabaseInit {
 		  loadEpbs(ctx);
 		  loadOMCompanyList();
 	      loadCompanies(ctx);
+	      */
+	      loadEmergencyMaterials(ctx);
 		     
 	
 		  
@@ -190,6 +197,10 @@ public class DatabaseInit {
 		Resource res = ctx.getResource("classpath:data/companies.csv");
 		
 		companyService.loadCompanies(res.getInputStream());
+	}
+	private void loadEmergencyMaterials(ConfigurableApplicationContext ctx) throws IOException {
+		Resource res = ctx.getResource("classpath:data/emeMaterials.csv");
+		emergencyMaterialService.loadEmergencyMaterials(res.getInputStream());
 	}
 	
 	private void loadAirEnvTypes() {

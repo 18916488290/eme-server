@@ -18,5 +18,6 @@ import com.huihuan.eme.domain.db.Company;
 public interface CompanyRepository  extends JpaRepository<Company, Long> {
 	
 	public List<Company> getByStatus(Long status);
+	public Company getByCompanyName(String companyName);
 	
 }

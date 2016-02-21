@@ -32,7 +32,7 @@ public class EmergencyMaterial  implements java.io.Serializable {
      private Users usersByAuditor;
      private Date creationDate;
      private String materialName;
-     private Date quantity;
+     private String quantity;
      private String materialCode;
      private String mobile;
      private String address;
@@ -53,7 +53,7 @@ public class EmergencyMaterial  implements java.io.Serializable {
     public EmergencyMaterial(String materialName) {
         this.materialName = materialName;
     }
-    public EmergencyMaterial(Company company, Users usersByCreator, EquipmentType equipmentType, Users usersByAuditor, Date creationDate, String materialName, Date quantity, String materialCode, String mobile, String address, String lat, String lng, String occasion, String func, String purpose, String note, Date auditDate, String comment, Long status) {
+    public EmergencyMaterial(Company company, Users usersByCreator, EquipmentType equipmentType, Users usersByAuditor, Date creationDate, String materialName, String quantity, String materialCode, String mobile, String address, String lat, String lng, String occasion, String func, String purpose, String note, Date auditDate, String comment, Long status) {
        this.company = company;
        this.usersByCreator = usersByCreator;
        this.equipmentType = equipmentType;
@@ -139,13 +139,14 @@ public class EmergencyMaterial  implements java.io.Serializable {
     public void setMaterialName(String materialName) {
         this.materialName = materialName;
     }
-    @Temporal(TemporalType.DATE)
-    @Column(name="quantity", length=10)
-    public Date getQuantity() {
+  
+  
+    @Column(name="quantity", length=20)
+    public String getQuantity() {
         return this.quantity;
     }
     
-    public void setQuantity(Date quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
     

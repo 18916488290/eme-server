@@ -362,7 +362,7 @@ CREATE TABLE emergency_material
 	creator               VARCHAR(64) NULL,
 	creation_date         DATE NULL,
 	material_name         VARCHAR(128) NOT NULL,
-	quantity              DATE NULL,
+	quantity              VARCHAR(20) NULL,
 	material_code         VARCHAR(128) NULL,
 	id_equipment_type     INTEGER NULL,
 	mobile                VARCHAR(64) NULL,

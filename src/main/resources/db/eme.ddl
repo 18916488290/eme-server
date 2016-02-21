@@ -133,7 +133,7 @@ CREATE TABLE company
 	audit_date            DATE NULL,
 	comment               VARCHAR(128) NULL,
 	status                INTEGER NOT NULL,
-	id_risk_basic_info    INTEGER NOT NULL,
+	id_risk_basic_info    INTEGER NULL,
 	id_house_plan         INTEGER NULL,
 	lvl                   VARCHAR(20) NULL
 )

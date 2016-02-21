@@ -33,8 +33,8 @@ CREATE TABLE air_env
 (
 	id                    INTEGER NOT NULL,
 	air_env_name          VARCHAR(64) NOT NULL,
-	lat                   FLOAT NULL,
-	lng                   FLOAT NULL,
+	lat                   VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL,
 	eme_person            VARCHAR(20) NULL,
 	eme_mobile            VARCHAR(20) NULL,
 	id_air_env_type       INTEGER NULL,
@@ -121,8 +121,8 @@ CREATE TABLE company
 	creator               VARCHAR(64) NOT NULL,
 	creation_date         DATE NULL,
 	company_name          VARCHAR(128) NOT NULL,
-	lat                   FLOAT NULL,
-	lng                   FLOAT NULL,
+	lat                   VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL,
 	address               VARCHAR(256) NULL,
 	id_operation_maintance_company  INTEGER NULL,
 	id_administrative     INTEGER NULL,
@@ -134,7 +134,8 @@ CREATE TABLE company
 	comment               VARCHAR(128) NULL,
 	status                INTEGER NOT NULL,
 	id_risk_basic_info    INTEGER NOT NULL,
-	id_house_plan         INTEGER NULL
+	id_house_plan         INTEGER NULL,
+	lvl                   VARCHAR(20) NULL
 )
 ;
 
@@ -323,8 +324,8 @@ CREATE TABLE detect_station
 (
 	id                    INTEGER NULL,
 	detect_station_name   VARCHAR(64) NULL,
-	lat                   FLOAT NULL,
-	lng                   FLOAT NULL,
+	lat                   VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL,
 	id_epb                INTEGER NULL,
 	id_divsion            INTEGER NULL
 )
@@ -366,8 +367,8 @@ CREATE TABLE emergency_material
 	id_equipment_type     INTEGER NULL,
 	mobile                VARCHAR(64) NULL,
 	address               VARCHAR(64) NULL,
-	lat                   FLOAT NULL,
-	lng                   FLOAT NULL,
+	lat                   VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL,
 	occasion              VARCHAR(64) NULL,
 	func                  VARCHAR(64) NULL,
 	purpose               VARCHAR(64) NULL,
@@ -468,8 +469,8 @@ CREATE TABLE epb
 	epb_name              VARCHAR(64) NOT NULL,
 	creator               VARCHAR(64) NULL,
 	creation_date         DATE NULL,
-	lat                   FLOAT NULL,
-	lng                   FLOAT NULL,
+	lat                   VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL,
 	address               VARCHAR(128) NULL,
 	id_division           INTEGER NULL
 )
@@ -487,8 +488,8 @@ CREATE TABLE equipment_risk
 (
 	id                    INTEGER NOT NULL,
 	equipment_name        VARCHAR(64) NULL,
-	lat                   FLOAT NULL,
-	lng                   FLOAT NULL,
+	lat                   VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL,
 	install_address       VARCHAR(64) NULL,
 	brand                 VARCHAR(64) NULL,
 	install_date          DATE NULL,
@@ -555,7 +556,7 @@ ALTER TABLE group_authorities
 CREATE TABLE group_members
 (
 	id                    INTEGER NOT NULL,
-	group_id             INTEGER NOT NULL,
+	group_id              INTEGER NOT NULL,
 	username              VARCHAR(64) NOT NULL
 )
 ;
@@ -915,8 +916,8 @@ CREATE TABLE warehouse_risk
 	id                    INTEGER NOT NULL,
 	warehouse_name        VARCHAR(64) NULL,
 	area                  FLOAT NULL,
-	lat                   FLOAT NULL,
-	lng                   FLOAT NULL,
+	lat                   VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL,
 	volume                FLOAT NULL,
 	material_name         VARCHAR(64) NULL,
 	material_volume       FLOAT NULL,
@@ -939,8 +940,8 @@ CREATE TABLE water_env
 (
 	id                    INTEGER NOT NULL,
 	water_env_name        VARCHAR(64) NULL,
-	lat                   FLOAT NULL,
-	lng                   FLOAT NULL,
+	lat                   VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL,
 	eme_person            VARCHAR(20) NULL,
 	eme_mobile            VARCHAR(20) NULL,
 	id_water_env_type     INTEGER NULL,

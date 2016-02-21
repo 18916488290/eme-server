@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-17 22:23:55 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -30,8 +30,8 @@ public class WarehouseRisk  implements java.io.Serializable {
      private StorageMethod storageMethod;
      private String warehouseName;
      private Float area;
-     private Float lat;
-     private Float lng;
+     private String lat;
+     private String lng;
      private Float volume;
      private String materialName;
      private Float materialVolume;
@@ -41,7 +41,7 @@ public class WarehouseRisk  implements java.io.Serializable {
     public WarehouseRisk() {
     }
 
-    public WarehouseRisk(Company company, StorageMethod storageMethod, String warehouseName, Float area, Float lat, Float lng, Float volume, String materialName, Float materialVolume, Date lastModified, String fileName) {
+    public WarehouseRisk(Company company, StorageMethod storageMethod, String warehouseName, Float area, String lat, String lng, Float volume, String materialName, Float materialVolume, Date lastModified, String fileName) {
        this.company = company;
        this.storageMethod = storageMethod;
        this.warehouseName = warehouseName;
@@ -102,21 +102,21 @@ public class WarehouseRisk  implements java.io.Serializable {
         this.area = area;
     }
     
-    @Column(name="lat", precision=12, scale=0)
-    public Float getLat() {
+    @Column(name="lat", length=20)
+    public String getLat() {
         return this.lat;
     }
     
-    public void setLat(Float lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
     
-    @Column(name="lng", precision=12, scale=0)
-    public Float getLng() {
+    @Column(name="lng", length=20)
+    public String getLng() {
         return this.lng;
     }
     
-    public void setLng(Float lng) {
+    public void setLng(String lng) {
         this.lng = lng;
     }
     

@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-17 22:23:55 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -35,8 +35,8 @@ public class Epb  implements java.io.Serializable {
      private Epb epb;
      private String epbName;
      private Date creationDate;
-     private Float lat;
-     private Float lng;
+     private String lat;
+     private String lng;
      private String address;
      private Set<DetectStation> detectStations = new HashSet<DetectStation>(0);
      private Set<Epb> epbs = new HashSet<Epb>(0);
@@ -50,7 +50,7 @@ public class Epb  implements java.io.Serializable {
     public Epb(String epbName) {
         this.epbName = epbName;
     }
-    public Epb(AdministrativeDivision administrativeDivision, Users users, Epb epb, String epbName, Date creationDate, Float lat, Float lng, String address, Set<DetectStation> detectStations, Set<Epb> epbs, Set<EmergencyResponsePlan> emergencyResponsePlans, Set<Users> userses) {
+    public Epb(AdministrativeDivision administrativeDivision, Users users, Epb epb, String epbName, Date creationDate, String lat, String lng, String address, Set<DetectStation> detectStations, Set<Epb> epbs, Set<EmergencyResponsePlan> emergencyResponsePlans, Set<Users> userses) {
        this.administrativeDivision = administrativeDivision;
        this.users = users;
        this.epb = epb;
@@ -121,21 +121,21 @@ public class Epb  implements java.io.Serializable {
         this.creationDate = creationDate;
     }
     
-    @Column(name="lat", precision=12, scale=0)
-    public Float getLat() {
+    @Column(name="lat", length=20)
+    public String getLat() {
         return this.lat;
     }
     
-    public void setLat(Float lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
     
-    @Column(name="lng", precision=12, scale=0)
-    public Float getLng() {
+    @Column(name="lng", length=20)
+    public String getLng() {
         return this.lng;
     }
     
-    public void setLng(Float lng) {
+    public void setLng(String lng) {
         this.lng = lng;
     }
     

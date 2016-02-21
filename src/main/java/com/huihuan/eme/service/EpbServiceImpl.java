@@ -34,8 +34,8 @@ public class EpbServiceImpl {
 			Epb e = new Epb();  
 		    e.setEpbName(reader.get(0).trim());
 		    e.setAddress(reader.get(1).trim());
-		    e.setLng(Float.parseFloat(reader.get(2).trim()));
-		    e.setLat(Float.parseFloat(reader.get(3).trim()));
+		    e.setLng(reader.get(2).trim());
+		    e.setLat(reader.get(3).trim());
 		    e.setCreationDate(new Date());
 		    e.setUsers(usersRepository.findByUsername("admin"));
 		    epbRepository.save(e); 

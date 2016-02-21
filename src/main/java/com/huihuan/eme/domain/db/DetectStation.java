@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-17 22:23:55 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -30,8 +30,8 @@ public class DetectStation  implements java.io.Serializable {
      private AdministrativeDivision administrativeDivision;
      private Epb epb;
      private String detectStationName;
-     private Float lat;
-     private Float lng;
+     private String lat;
+     private String lng;
      private Set<DataCollectionDevice> dataCollectionDevices = new HashSet<DataCollectionDevice>(0);
      private Set<DetectAir> detectAirs = new HashSet<DetectAir>(0);
      private Set<DetectStationContent> detectStationContents = new HashSet<DetectStationContent>(0);
@@ -41,7 +41,7 @@ public class DetectStation  implements java.io.Serializable {
     public DetectStation() {
     }
 
-    public DetectStation(AdministrativeDivision administrativeDivision, Epb epb, String detectStationName, Float lat, Float lng, Set<DataCollectionDevice> dataCollectionDevices, Set<DetectAir> detectAirs, Set<DetectStationContent> detectStationContents, Set<Detect> detects, Set<DetectHistory> detectHistories) {
+    public DetectStation(AdministrativeDivision administrativeDivision, Epb epb, String detectStationName, String lat, String lng, Set<DataCollectionDevice> dataCollectionDevices, Set<DetectAir> detectAirs, Set<DetectStationContent> detectStationContents, Set<Detect> detects, Set<DetectHistory> detectHistories) {
        this.administrativeDivision = administrativeDivision;
        this.epb = epb;
        this.detectStationName = detectStationName;
@@ -92,21 +92,21 @@ public class DetectStation  implements java.io.Serializable {
         this.detectStationName = detectStationName;
     }
     
-    @Column(name="lat", precision=12, scale=0)
-    public Float getLat() {
+    @Column(name="lat", length=20)
+    public String getLat() {
         return this.lat;
     }
     
-    public void setLat(Float lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
     
-    @Column(name="lng", precision=12, scale=0)
-    public Float getLng() {
+    @Column(name="lng", length=20)
+    public String getLng() {
         return this.lng;
     }
     
-    public void setLng(Float lng) {
+    public void setLng(String lng) {
         this.lng = lng;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectStation")

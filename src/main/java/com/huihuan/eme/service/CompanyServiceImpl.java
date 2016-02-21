@@ -60,8 +60,8 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	@Transactional(readOnly=false)
-	public void loadCompany(String username, String realName, String companyName, String address, float lng,
-			float lat) {
+	public void loadCompany(String username, String realName, String companyName, String address, String lng,
+			String lat) {
 		Users u = new Users();
 		u.setMobile(username);
 		u.setUsername(username);
@@ -103,8 +103,8 @@ public class CompanyServiceImpl implements CompanyService {
 		CsvReader reader = new CsvReader(inputStream,',', Charset.forName("UTF-8"));
 		while(reader.readRecord())
 		{
-			loadCompany(reader.get(5).trim(), reader.get(4).trim(), reader.get(0).trim(), reader.get(1).trim(), Float.parseFloat(reader.get(2).trim()),
-					Float.parseFloat(reader.get(3).trim()));
+			loadCompany(reader.get(5).trim(), reader.get(4).trim(), reader.get(0).trim(), reader.get(1).trim(), reader.get(2).trim(),
+					reader.get(3).trim());
 		}
 		
 	}

@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-17 22:23:55 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -41,12 +41,13 @@ public class Company  implements java.io.Serializable {
      private IndustrySectorDic industrySectorDic;
      private Date creationDate;
      private String companyName;
-     private Float lat;
-     private Float lng;
+     private String lat;
+     private String lng;
      private String address;
      private Date auditDate;
      private String comment;
      private Long status;
+     private String lvl;
      private Set<ChemicalMaterial> chemicalMaterials = new HashSet<ChemicalMaterial>(0);
      private Set<WarehouseRisk> warehouseRisks = new HashSet<WarehouseRisk>(0);
      private Set<CompanyAirEnv> companyAirEnvs = new HashSet<CompanyAirEnv>(0);
@@ -68,7 +69,7 @@ public class Company  implements java.io.Serializable {
         this.companyName = companyName;
         this.status = status;
     }
-    public Company(AdministrativeDic administrativeDic, AdministrativeDivision administrativeDivision, RiskBasicInfo riskBasicInfo, HousePlan housePlan, OperationMaintanceCompany operationMaintanceCompany, Users usersByCreator, Users usersByAuditor, ConcernDegreeDic concernDegreeDic, IndustrySectorDic industrySectorDic, Date creationDate, String companyName, Float lat, Float lng, String address, Date auditDate, String comment, Long status, Set<ChemicalMaterial> chemicalMaterials, Set<WarehouseRisk> warehouseRisks, Set<CompanyAirEnv> companyAirEnvs, Set<EnvProtPerson> envProtPersons, Set<EquipmentRisk> equipmentRisks, Set<CompanyWaterEnv> companyWaterEnvs, Set<EmergencyMaterial> emergencyMaterials, Set<RiskAversion> riskAversions, Set<EmergencyResponsePlan> emergencyResponsePlans, Set<Workmanship> workmanships) {
+    public Company(AdministrativeDic administrativeDic, AdministrativeDivision administrativeDivision, RiskBasicInfo riskBasicInfo, HousePlan housePlan, OperationMaintanceCompany operationMaintanceCompany, Users usersByCreator, Users usersByAuditor, ConcernDegreeDic concernDegreeDic, IndustrySectorDic industrySectorDic, Date creationDate, String companyName, String lat, String lng, String address, Date auditDate, String comment, Long status, String lvl, Set<ChemicalMaterial> chemicalMaterials, Set<WarehouseRisk> warehouseRisks, Set<CompanyAirEnv> companyAirEnvs, Set<EnvProtPerson> envProtPersons, Set<EquipmentRisk> equipmentRisks, Set<CompanyWaterEnv> companyWaterEnvs, Set<EmergencyMaterial> emergencyMaterials, Set<RiskAversion> riskAversions, Set<EmergencyResponsePlan> emergencyResponsePlans, Set<Workmanship> workmanships) {
        this.administrativeDic = administrativeDic;
        this.administrativeDivision = administrativeDivision;
        this.riskBasicInfo = riskBasicInfo;
@@ -86,6 +87,7 @@ public class Company  implements java.io.Serializable {
        this.auditDate = auditDate;
        this.comment = comment;
        this.status = status;
+       this.lvl = lvl;
        this.chemicalMaterials = chemicalMaterials;
        this.warehouseRisks = warehouseRisks;
        this.companyAirEnvs = companyAirEnvs;
@@ -127,7 +129,7 @@ public class Company  implements java.io.Serializable {
         this.administrativeDivision = administrativeDivision;
     }
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_risk_basic_info", nullable=true)
+    @JoinColumn(name="id_risk_basic_info")
     public RiskBasicInfo getRiskBasicInfo() {
         return this.riskBasicInfo;
     }
@@ -208,21 +210,21 @@ public class Company  implements java.io.Serializable {
         this.companyName = companyName;
     }
     
-    @Column(name="lat", precision=12, scale=0)
-    public Float getLat() {
+    @Column(name="lat", length=20)
+    public String getLat() {
         return this.lat;
     }
     
-    public void setLat(Float lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
     
-    @Column(name="lng", precision=12, scale=0)
-    public Float getLng() {
+    @Column(name="lng", length=20)
+    public String getLng() {
         return this.lng;
     }
     
-    public void setLng(Float lng) {
+    public void setLng(String lng) {
         this.lng = lng;
     }
     
@@ -260,6 +262,15 @@ public class Company  implements java.io.Serializable {
     
     public void setStatus(Long status) {
         this.status = status;
+    }
+    
+    @Column(name="lvl", length=20)
+    public String getLvl() {
+        return this.lvl;
+    }
+    
+    public void setLvl(String lvl) {
+        this.lvl = lvl;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="company")
     public Set<ChemicalMaterial> getChemicalMaterials() {

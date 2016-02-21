@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-17 22:23:55 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -36,8 +36,8 @@ public class EmergencyMaterial  implements java.io.Serializable {
      private String materialCode;
      private String mobile;
      private String address;
-     private Float lat;
-     private Float lng;
+     private String lat;
+     private String lng;
      private String occasion;
      private String func;
      private String purpose;
@@ -53,7 +53,7 @@ public class EmergencyMaterial  implements java.io.Serializable {
     public EmergencyMaterial(String materialName) {
         this.materialName = materialName;
     }
-    public EmergencyMaterial(Company company, Users usersByCreator, EquipmentType equipmentType, Users usersByAuditor, Date creationDate, String materialName, Date quantity, String materialCode, String mobile, String address, Float lat, Float lng, String occasion, String func, String purpose, String note, Date auditDate, String comment, Long status) {
+    public EmergencyMaterial(Company company, Users usersByCreator, EquipmentType equipmentType, Users usersByAuditor, Date creationDate, String materialName, Date quantity, String materialCode, String mobile, String address, String lat, String lng, String occasion, String func, String purpose, String note, Date auditDate, String comment, Long status) {
        this.company = company;
        this.usersByCreator = usersByCreator;
        this.equipmentType = equipmentType;
@@ -176,21 +176,21 @@ public class EmergencyMaterial  implements java.io.Serializable {
         this.address = address;
     }
     
-    @Column(name="lat", precision=12, scale=0)
-    public Float getLat() {
+    @Column(name="lat", length=20)
+    public String getLat() {
         return this.lat;
     }
     
-    public void setLat(Float lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
     
-    @Column(name="lng", precision=12, scale=0)
-    public Float getLng() {
+    @Column(name="lng", length=20)
+    public String getLng() {
         return this.lng;
     }
     
-    public void setLng(Float lng) {
+    public void setLng(String lng) {
         this.lng = lng;
     }
     

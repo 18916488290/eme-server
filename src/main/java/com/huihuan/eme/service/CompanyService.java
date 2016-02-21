@@ -23,7 +23,7 @@ public interface CompanyService {
 	 
 	 public void registCompany(Company company);
 	 public void loadCompanies(InputStream inputStream) throws IOException;
-	 public void loadCompany(String username,String realName, String companyName,String address,float lng,float lat);
+	 public void loadCompany(String username,String realName, String companyName,String address,String lng,String lat);
 	 public List<Company> getCompaniesByStatus(AuditSatusEnum AuditSatusEnum);
 
 

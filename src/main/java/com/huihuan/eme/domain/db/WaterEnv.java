@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-17 22:23:55 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -30,8 +30,8 @@ public class WaterEnv  implements java.io.Serializable {
      private WaterEnvType waterEnvType;
      private EnvFunc envFunc;
      private String waterEnvName;
-     private Float lat;
-     private Float lng;
+     private String lat;
+     private String lng;
      private String emePerson;
      private String emeMobile;
      private Set<CompanyWaterEnv> companyWaterEnvs = new HashSet<CompanyWaterEnv>(0);
@@ -39,7 +39,7 @@ public class WaterEnv  implements java.io.Serializable {
     public WaterEnv() {
     }
 
-    public WaterEnv(WaterEnvType waterEnvType, EnvFunc envFunc, String waterEnvName, Float lat, Float lng, String emePerson, String emeMobile, Set<CompanyWaterEnv> companyWaterEnvs) {
+    public WaterEnv(WaterEnvType waterEnvType, EnvFunc envFunc, String waterEnvName, String lat, String lng, String emePerson, String emeMobile, Set<CompanyWaterEnv> companyWaterEnvs) {
        this.waterEnvType = waterEnvType;
        this.envFunc = envFunc;
        this.waterEnvName = waterEnvName;
@@ -88,21 +88,21 @@ public class WaterEnv  implements java.io.Serializable {
         this.waterEnvName = waterEnvName;
     }
     
-    @Column(name="lat", precision=12, scale=0)
-    public Float getLat() {
+    @Column(name="lat", length=20)
+    public String getLat() {
         return this.lat;
     }
     
-    public void setLat(Float lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
     
-    @Column(name="lng", precision=12, scale=0)
-    public Float getLng() {
+    @Column(name="lng", length=20)
+    public String getLng() {
         return this.lng;
     }
     
-    public void setLng(Float lng) {
+    public void setLng(String lng) {
         this.lng = lng;
     }
     

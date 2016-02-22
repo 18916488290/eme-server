@@ -23,7 +23,7 @@
 	
 	<!-- FONTS -->
 	 <link href='http://fonts.useso.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css' />
-	
+	 <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
 </head>
 <body>
 	<!-- HEADER -->
@@ -174,7 +174,7 @@
 										<span class="arrow"></span>
 										</a>
 										<ul class="sub-sub">
-											<li id="mapRiskSource"><a class="" href="#" th:href="@{/mapRiskSource}"><span class="sub-sub-menu-text">风险源分布</span></a></li>
+										   <li id="mapRiskSource"><a class="" href="#" th:href="@{/mapRiskSource}"><span class="sub-sub-menu-text">风险源分布</span></a></li>
 											<li id="mapAir"><a class="" href="#" th:href="@{/mapAir}"><span class="sub-sub-menu-text">空气质量</span></a></li>
 											<li id="mapOnline"><a class="" href="#" th:href="@{/mapOnline}"><span class="sub-sub-menu-text">在线实时监测</span></a></li>
 											<li id="mapMoniter"><a class="" href="#" th:href="@{/mapMoniter}"><span class="sub-sub-menu-text">视频监控</span></a></li>
@@ -303,12 +303,20 @@
 	<script type="text/javascript" src="../../static/js/jQuery-Cookie/jquery.cookie.min.js" th:src="@{/js/jQuery-Cookie/jquery.cookie.min.js}"></script>
 	<!-- CUSTOM SCRIPT -->
 	<script src="../../static/js/script.js" th:src="@{/js/script.js}"></script>
+   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=VBu4kIUlmnMRvVThgmYuadYB"></script>
   
+   <!-- <script type="text/javascript" src="../../static/js/baidumap.js" th:src="@{/js/baidumap.js}"></script>-->
+   <script type="text/javascript" src="../../static/js/RichMarker.js" th:src="@{/js/RichMarker.js}"></script>
+   <script type="text/javascript" src="../../static/js/Mapv.js" th:src="@{/js/Mapv.js}"></script>
+   <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+	<!--加载鼠标绘制工具-->
+	<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+	<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
 	</div>
 	
 	<script>
 		jQuery(document).ready(function() {		
-			App.init(); 
+			App.init(); //Initialise plugins and elements
 		});
 	</script>
 	<!-- /JAVASCRIPTS -->

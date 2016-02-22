@@ -3,13 +3,9 @@ var baiduMaps = function () {
 	var map;
 
     var mapBasic = function () {
-    	// 百度地图API功能
     	map = new BMap.Map("baidumap");
-    	map.centerAndZoom(new BMap.Point(120.887365,31.983889),13);
-    	//map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
-    	//map.setCurrentCity("南通");  
-		//map.enableScrollWheelZoom(); // 启用滚轮放大缩小
-    		
+    	map.centerAndZoom(new BMap.Point(120.94959,31.90506),13);
+	
     }
     
 	var markers = [
@@ -82,7 +78,7 @@ var baiduMaps = function () {
    
     return {
         //main function to initiate map samples
-        airQAMap: function () {
+        riskSourceMap: function () {
             mapBasic();
             addMapOverlay();
 

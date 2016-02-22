@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/map-layout :: headFragment">
+<!-- <title id="pageTitle">空气质量监测专题</title>-->
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/map-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+
+	<!-- PAGE -->
+	<section id="page">
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/map-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/map-layout :: main-contentFragment">
+			<!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
+				<li><a href="#"  th:href="@{/mapRiskSource}">风险源分布专题</a></li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+				   <div class="gmaps" id="baidumap"></div>
+				  
+			</div>
+			<!-- /mainContentBox -->
+		
+		</div>
+		<!-- /maincontent -->
+	</section>
+
+    <div th:include="fragments/map-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/map-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("mapRiskSource");  //Set current page 
+			App.init(); //Initialise plugins and elements
+		});
+	</script>
+	<script th:inline="javascript">
+                   /*<![CDATA[*/
+                   
+    //创建和初始化地图函数：
+    function initMap(){
+      createMap();//创建地图
+      setMapEvent();//设置地图事件
+      addMapControl();//向地图添加控件
+      addMapOverlay();//向地图添加覆盖物
+	  map.setMapStyle(
+		{styleJson:[
+					  {"featureType":"water",
+					   "elementType":"all",
+					   "stylers":{ 
+								 "color": "#674ea7"
+								 }
+					  }
+					]
+		});
+    }
+    function createMap(){ 
+      map = new BMap.Map("baidumap"); 
+      map.centerAndZoom(new BMap.Point(120.887365,31.983889),12);
+    }
+    function setMapEvent(){
+ 
+   //   map.enableKeyboard();
+      map.enableDragging();
+    
+    }
+    function addClickHandler(target,window){
+      target.addEventListener("click",function(){
+        window.open(target.getPosition());
+      });
+    }
+	
+	
+	 function createInfoWindow(title){
+		 var content = '<fieldset> <legend>风险源基础信息</legend><div  class="panel">'+
+							'<div title="" class="ddv panel-body panel-body-noheader panel-body-noborder" style="padding: 2px 0px; width: 100%;">'+
+								'<style type="text/css">  .dv-table td{border:1px;text-align:center;padding:2px}.dv-label{font-weight:solid;color:#15428B;}</style>'+
+								'<table class="dv-table" style="width:100%;" border="0">'+
+									'<tbody>'+
+										'<tr>'+
+											'<td class="dv-label">企业名称:</td>'+
+											'<td>南通励城生物工程有限公司</td>'+
+											'<td class="dv-label">行政区域:</td>'+
+											'<td>南通开发区</td>'+
+										'</tr>'+
+										'<tr>'+
+											'<td class="dv-label">风险等级:</td>'+
+											'<td>较大环境风险源</td>'+
+											'<td class="dv-label">是否有预案:</td>'+
+											'<td>有</td>'+
+										'</tr>'+
+										'<tr>'+
+											'<td class="dv-label">应急人员</td>'+
+											'<td >张文泉</td>'+
+											'<td class="dv-label">应急人员电话</td>'+
+											'<td >0243-46129001</td>'+
+										'</tr>'+
+										'<tr>'+
+											'<td ><a href="riskSourceInfo?companyId=1" target="_blank" style="width:120px">查看详细</a></td>'+
+											'<td></td>'+
+										'</tr>'+
+									'</tbody>'+
+								'</table>'+
+							'</div>'+
+						'</div>'+
+						'</fieldset>';
+			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
+				title: title, //标题
+				offset: new BMap.Size(0,7),
+				width: 380,//宽度
+				height: 120, //高度
+				panel : "panel", //检索结果面板
+				enableAutoPan : true, //自动平移
+				searchTypes :[
+				]
+			});
+		return infoWindow;
+	 }
+    function addMapOverlay(){
+      var markers = [
+        {content:"风险源",title:"风险源",imageOffset: {width:0,height:3},position:{lat:31.90506,lng:120.94959}}
+       
+      ];
+      for(var index = 0; index < markers.length; index++ ){
+        var point = new BMap.Point(markers[index].position.lng,markers[index].position.lat);
+        var marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/factory.png",new BMap.Size(21,35),{
+          imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+        })});
+        var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
+        var opts = {
+          width: 200,
+          title: markers[index].title,
+          enableMessage: false
+        };
+		var searchInfoWindow=createInfoWindow(markers[index].title);
+        addClickHandler(marker,searchInfoWindow);
+        map.addOverlay(marker);
+      };
+    }
+    //向地图添加控件
+    function addMapControl(){
+      var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+      scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
+      map.addControl(scaleControl);
+      var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+      map.addControl(navControl);
+      var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:true});
+      map.addControl(overviewControl);
+    }
+    var map;
+    initMap();
+	var styleOptions = {
+        strokeColor:"red",    //边线颜色。
+        fillColor:"red",      //填充颜色。当参数为空时，圆形将没有填充效果。
+        strokeWeight: 3,       //边线的宽度，以像素为单位。
+        strokeOpacity: 0.8,	   //边线透明度，取值范围0 - 1。
+        fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
+        strokeStyle: 'solid' //边线的样式，solid或dashed。
+    }
+
+                    /*]]>*/
+                  </script>
+	
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

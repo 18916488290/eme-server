@@ -78,6 +78,11 @@ public class RiskSourceController {
 		return "auditSource";
 	}
 	
+	@RequestMapping(value="/riskSourceInfo",method=RequestMethod.GET)
+	public String populateRiskSourceInfo(@RequestParam(required=true) long companyId, Map<String, Object> model) {
+		model.put("riskSource",companyRepository.findOne(companyId));
+		return "riskSourceInfo";
+	}
 	
 
 	@RequestMapping(value="/auditSource",method=RequestMethod.POST)

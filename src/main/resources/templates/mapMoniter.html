@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/map-layout :: headFragment">
+<!-- <title id="pageTitle">空气质量监测专题</title>-->
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/map-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+
+	<!-- PAGE -->
+	<section id="page">
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/map-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/map-layout :: main-contentFragment">
+			<!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
+				<li><a href="#"  th:href="@{/mapMoniter}">视频监控</a></li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+				   <div class="gmaps" id="baidumap"></div>
+				  
+			</div>
+			<!-- /mainContentBox -->
+		
+		</div>
+		<!-- /maincontent -->
+	</section>
+
+    <div th:include="fragments/map-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/map-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("mapMoniter");  //Set current page 
+			App.init(); //Initialise plugins and elements
+		});
+	</script>
+	<script th:inline="javascript">
+                   /*<![CDATA[*/
+    //创建和初始化地图函数：
+    function initMap(){
+      createMap();//创建地图
+    }
+    function createMap(){ 
+      map = new BMap.Map("baidumap"); 
+      map.centerAndZoom(new BMap.Point(120.887365,31.983889),12);
+	
+    }
+	
+	//初始化地图
+    var map;
+    initMap();
+
+   /*]]>*/
+ </script>
+	
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

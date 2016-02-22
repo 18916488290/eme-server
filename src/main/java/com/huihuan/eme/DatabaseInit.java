@@ -186,8 +186,8 @@ public class DatabaseInit {
 	
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
-		/*
-		 * if(!groupsRepository.findAll().isEmpty())
+		
+		 if(!groupsRepository.findAll().isEmpty())
 		 	return;
 		  groupsService.loadDefaultGroups();
 		  userService.loadDefaultUsers();
@@ -216,7 +216,7 @@ public class DatabaseInit {
 	      loadRiskAvsersionOptionsDic();
 		  loadRiskAvsersionTypes(); 
 		  loadEmergencyPlanTypes();
-		  */  
+		  
 		 companyService.addRiskInfoForTestingData(ctx);
 		 detectFactorDataServiceImpl.loadData(ctx);
 		  

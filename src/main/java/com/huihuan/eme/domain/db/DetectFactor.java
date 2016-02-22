@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-22 12:27:37 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -28,6 +28,7 @@ public class DetectFactor  implements java.io.Serializable {
 
      private Long id;
      private DetectCategory detectCategory;
+     private DetectContentDic detectContentDic;
      private String factorName;
      private float nadir;
      private Float utopia;
@@ -47,8 +48,9 @@ public class DetectFactor  implements java.io.Serializable {
     public DetectFactor(float nadir) {
         this.nadir = nadir;
     }
-    public DetectFactor(DetectCategory detectCategory, String factorName, float nadir, Float utopia, Float reservation, Float aspiration, String unit, Long frequency, Set<DetectHistory> detectHistories, Set<IaqiInfo> iaqiInfos, Set<DetectAir> detectAirs, Set<Detect> detects) {
+    public DetectFactor(DetectCategory detectCategory, DetectContentDic detectContentDic, String factorName, float nadir, Float utopia, Float reservation, Float aspiration, String unit, Long frequency, Set<DetectHistory> detectHistories, Set<IaqiInfo> iaqiInfos, Set<DetectAir> detectAirs, Set<Detect> detects) {
        this.detectCategory = detectCategory;
+       this.detectContentDic = detectContentDic;
        this.factorName = factorName;
        this.nadir = nadir;
        this.utopia = utopia;
@@ -80,6 +82,15 @@ public class DetectFactor  implements java.io.Serializable {
     
     public void setDetectCategory(DetectCategory detectCategory) {
         this.detectCategory = detectCategory;
+    }
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_detect_content")
+    public DetectContentDic getDetectContentDic() {
+        return this.detectContentDic;
+    }
+    
+    public void setDetectContentDic(DetectContentDic detectContentDic) {
+        this.detectContentDic = detectContentDic;
     }
     
     @Column(name="factor_name", length=64)

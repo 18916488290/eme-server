@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-22 12:27:37 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -139,8 +139,7 @@ public class EmergencyMaterial  implements java.io.Serializable {
     public void setMaterialName(String materialName) {
         this.materialName = materialName;
     }
-  
-  
+    
     @Column(name="quantity", length=20)
     public String getQuantity() {
         return this.quantity;

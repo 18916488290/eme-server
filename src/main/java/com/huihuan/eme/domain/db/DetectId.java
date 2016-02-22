@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-22 12:27:37 by Hibernate Tools 3.2.2.GA
 
 
 import javax.persistence.Column;
@@ -14,13 +14,15 @@ public class DetectId  implements java.io.Serializable {
 
      private Long idDetectStation;
      private Long idDetectFactor;
+     private String mn;
 
     public DetectId() {
     }
 
-    public DetectId(Long idDetectStation, Long idDetectFactor) {
+    public DetectId(Long idDetectStation, Long idDetectFactor, String mn) {
        this.idDetectStation = idDetectStation;
        this.idDetectFactor = idDetectFactor;
+       this.mn = mn;
     }
    
 
@@ -42,6 +44,15 @@ public class DetectId  implements java.io.Serializable {
         this.idDetectFactor = idDetectFactor;
     }
 
+    @Column(name="mn", nullable=false, length=64)
+    public String getMn() {
+        return this.mn;
+    }
+    
+    public void setMn(String mn) {
+        this.mn = mn;
+    }
+
 
    public boolean equals(Object other) {
          if ( (this == other ) ) return true;
@@ -50,7 +61,8 @@ public class DetectId  implements java.io.Serializable {
 		 DetectId castOther = ( DetectId ) other; 
          
 		 return ( (this.getIdDetectStation()==castOther.getIdDetectStation()) || ( this.getIdDetectStation()!=null && castOther.getIdDetectStation()!=null && this.getIdDetectStation().equals(castOther.getIdDetectStation()) ) )
- && ( (this.getIdDetectFactor()==castOther.getIdDetectFactor()) || ( this.getIdDetectFactor()!=null && castOther.getIdDetectFactor()!=null && this.getIdDetectFactor().equals(castOther.getIdDetectFactor()) ) );
+ && ( (this.getIdDetectFactor()==castOther.getIdDetectFactor()) || ( this.getIdDetectFactor()!=null && castOther.getIdDetectFactor()!=null && this.getIdDetectFactor().equals(castOther.getIdDetectFactor()) ) )
+ && ( (this.getMn()==castOther.getMn()) || ( this.getMn()!=null && castOther.getMn()!=null && this.getMn().equals(castOther.getMn()) ) );
    }
    
    public int hashCode() {
@@ -58,6 +70,7 @@ public class DetectId  implements java.io.Serializable {
          
          result = 37 * result + ( getIdDetectStation() == null ? 0 : this.getIdDetectStation().hashCode() );
          result = 37 * result + ( getIdDetectFactor() == null ? 0 : this.getIdDetectFactor().hashCode() );
+         result = 37 * result + ( getMn() == null ? 0 : this.getMn().hashCode() );
          return result;
    }   
 

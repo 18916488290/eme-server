@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-22 12:27:37 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -36,8 +36,9 @@ public class Detect  implements java.io.Serializable {
     }
 
 	
-    public Detect(DetectId id, DetectStation detectStation, DetectFactor detectFactor) {
+    public Detect(DetectId id, DataCollectionDevice dataCollectionDevice, DetectStation detectStation, DetectFactor detectFactor) {
         this.id = id;
+        this.dataCollectionDevice = dataCollectionDevice;
         this.detectStation = detectStation;
         this.detectFactor = detectFactor;
     }
@@ -54,7 +55,8 @@ public class Detect  implements java.io.Serializable {
     
     @AttributeOverrides( {
         @AttributeOverride(name="idDetectStation", column=@Column(name="id_detect_station", nullable=false) ), 
-        @AttributeOverride(name="idDetectFactor", column=@Column(name="id_detect_factor", nullable=false) ) } )
+        @AttributeOverride(name="idDetectFactor", column=@Column(name="id_detect_factor", nullable=false) ), 
+        @AttributeOverride(name="mn", column=@Column(name="mn", nullable=false, length=64) ) } )
     public DetectId getId() {
         return this.id;
     }
@@ -63,7 +65,7 @@ public class Detect  implements java.io.Serializable {
         this.id = id;
     }
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="mn")
+    @JoinColumn(name="mn", nullable=false, insertable=false, updatable=false)
     public DataCollectionDevice getDataCollectionDevice() {
         return this.dataCollectionDevice;
     }

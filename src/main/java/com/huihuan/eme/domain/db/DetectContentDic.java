@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-22 12:27:37 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -26,13 +26,15 @@ public class DetectContentDic  implements java.io.Serializable {
 
      private Long id;
      private String detectContent;
+     private Set<DetectFactor> detectFactors = new HashSet<DetectFactor>(0);
      private Set<DetectStationContent> detectStationContents = new HashSet<DetectStationContent>(0);
 
     public DetectContentDic() {
     }
 
-    public DetectContentDic(String detectContent, Set<DetectStationContent> detectStationContents) {
+    public DetectContentDic(String detectContent, Set<DetectFactor> detectFactors, Set<DetectStationContent> detectStationContents) {
        this.detectContent = detectContent;
+       this.detectFactors = detectFactors;
        this.detectStationContents = detectStationContents;
     }
    
@@ -54,6 +56,14 @@ public class DetectContentDic  implements java.io.Serializable {
     
     public void setDetectContent(String detectContent) {
         this.detectContent = detectContent;
+    }
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectContentDic")
+    public Set<DetectFactor> getDetectFactors() {
+        return this.detectFactors;
+    }
+    
+    public void setDetectFactors(Set<DetectFactor> detectFactors) {
+        this.detectFactors = detectFactors;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectContentDic")
     public Set<DetectStationContent> getDetectStationContents() {

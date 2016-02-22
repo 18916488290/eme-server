@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/m-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/m-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+
+	<!-- PAGE -->
+	<section id="page">
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/m-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/m-layout :: main-contentFragment">
+			<!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
+				<li><a href="#"  th:href="@{/allRiskSourceList}">风险源管理</a></li>
+				<li>风险源列表</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+		
+		
+		   <!-- BOX -->
+						<div class="box border">
+
+										<table id="datatable2" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>企业名称</th>
+													<th>行政区域</th>
+													<th>行业类别</th>
+													<th>组织机构代码</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody th:each="nc : ${riskSources}">
+												<tr>
+													<td th:text="${nc.companyName}">企业名称</td>
+													<td th:text="${nc.administrativeDivision.division}">行政区域</td>
+													<td th:text="${nc.industrySectorDic.industrySector}">行业类别</td>
+													<td th:text="${nc.riskBasicInfo.registrationCode}">组织机构代码</td>
+													<td><a href="#" th:href="@{/auditSourceTab(companyId=${nc.id})}"><i class="fa fa-pencil-square-o"></i><span>编辑</span></a></td>
+												</tr>
+									
+											</tbody>
+											
+										</table>
+							
+									
+								</div>
+								<!-- /BOX -->
+		
+		
+		
+		
+			</div>
+			<!-- /mainContentBox -->
+		
+		</div>
+		<!-- /maincontent -->
+	</section>
+
+    <div th:include="fragments/m-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/m-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("allRiskSourceList");
+			App.init(); //Initialise plugins and elements
+			App.handleCompanies();
+
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

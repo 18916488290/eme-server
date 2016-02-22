@@ -58,7 +58,7 @@ public class DetectFactorDataServiceImpl {
 	@Transactional(readOnly=false)
 	public void loadData(ConfigurableApplicationContext ctx) throws IOException
 	{
-		/**检测因子分类： 废水，废气，重金属*
+		/**检测因子分类： 废水，废气，重金属*/
 		for(String s:detectCategories)
 		{
 			DetectCategory dc = new DetectCategory();
@@ -66,7 +66,7 @@ public class DetectFactorDataServiceImpl {
 			detectCategoryRepository.save(dc);
 		}
 		
-		/**检测内容： 空气质量，在线检测，等*
+		/**检测内容： 空气质量，在线检测，等*/
 		for(String s:detectContentDics)
 		{
 			DetectContentDic dc = new DetectContentDic();
@@ -74,7 +74,7 @@ public class DetectFactorDataServiceImpl {
 			detectContentDicRepository.save(dc);
 		}
 		
-		/**检测站点*
+		/**检测站点*/
 		DetectStation ds = new DetectStation();
 		ds.setEpb(epbRepository.findOne(1l));
 		ds.setAdministrativeDivision(administrativeDivisionRepository.findOne(1l));
@@ -92,7 +92,7 @@ public class DetectFactorDataServiceImpl {
 		detectStationRepository.save(ds1);
 		
 		
-		/**检测站点检测的内容，目前只添加检测空气质量
+		/**检测站点检测的内容，目前只添加检测空气质量*/
 	    DetectStationContent dsc = new DetectStationContent();
 	    DetectStationContentId dscId = new DetectStationContentId(1l, 1l);
 	    dsc.setId(dscId);
@@ -106,7 +106,7 @@ public class DetectFactorDataServiceImpl {
 	    detectStationContentRepository.save(dsc1);
 		
 	    
-	    /**数采仪*
+	    /**数采仪*/
 	    DataCollectionDevice dcd = new DataCollectionDevice("20050708S00001");
 	    dcd.setDeviceName("万维盈创空气质量数采仪");
 	    dcd.setDetectStation(detectStationRepository.findOne(1l));
@@ -118,7 +118,7 @@ public class DetectFactorDataServiceImpl {
 	    dataCollectionDeviceRepository.save(dcd1);
 	    
 	    
-		/**空气质量信息 0,50,一级,第一级别,优,绿色,#0000FF,空气质量令人满意，基本无空气污染,各类人群可正常活动
+		/**空气质量信息 0,50,一级,第一级别,优,绿色,#0000FF,空气质量令人满意，基本无空气污染,各类人群可正常活动*/
 		Resource aqiRes = ctx.getResource("classpath:data/aqiInfo.csv");
 		CsvReader aqiReader = new CsvReader(aqiRes.getInputStream(), Charset.forName("UTF-8"));
 		while(aqiReader.readRecord())
@@ -136,7 +136,7 @@ public class DetectFactorDataServiceImpl {
 		}
 	    
 		
-		/**检测因子 二氧化硫,0,2620,20,2000,ug/m3
+		/**检测因子 二氧化硫,0,2620,20,2000,ug/m3*/
 		Resource factorRes = ctx.getResource("classpath:data/factors.csv");
 		CsvReader factorReader = new CsvReader(factorRes.getInputStream(), Charset.forName("UTF-8"));
 		while(factorReader.readRecord())
@@ -153,7 +153,7 @@ public class DetectFactorDataServiceImpl {
 			detectFactorRepository.save(df);
 		}
 	 
-		/*空气质量分指数
+		/*空气质量分指数*/
 		Resource iaqiRes = ctx.getResource("classpath:data/iaqiInfo.csv");
 		CsvReader iaqiReader = new CsvReader(iaqiRes.getInputStream(), Charset.forName("UTF-8"));
 		while(iaqiReader.readRecord())
@@ -165,7 +165,7 @@ public class DetectFactorDataServiceImpl {
 			ii.setChigh(Float.parseFloat(iaqiReader.get(3).trim()));
 			iaqiInfoRepository.save(ii);
 		}
-		*/
+		
 	}
 
 }

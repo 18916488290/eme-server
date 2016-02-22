@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-22 12:27:37 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -48,6 +48,8 @@ public class Company  implements java.io.Serializable {
      private String comment;
      private Long status;
      private String lvl;
+     private Long riskStatus;
+     private String riskComment;
      private Set<ChemicalMaterial> chemicalMaterials = new HashSet<ChemicalMaterial>(0);
      private Set<WarehouseRisk> warehouseRisks = new HashSet<WarehouseRisk>(0);
      private Set<CompanyAirEnv> companyAirEnvs = new HashSet<CompanyAirEnv>(0);
@@ -63,13 +65,12 @@ public class Company  implements java.io.Serializable {
     }
 
 	
-    public Company(RiskBasicInfo riskBasicInfo, Users usersByCreator, String companyName, Long status) {
-        this.riskBasicInfo = riskBasicInfo;
+    public Company(Users usersByCreator, String companyName, Long status) {
         this.usersByCreator = usersByCreator;
         this.companyName = companyName;
         this.status = status;
     }
-    public Company(AdministrativeDic administrativeDic, AdministrativeDivision administrativeDivision, RiskBasicInfo riskBasicInfo, HousePlan housePlan, OperationMaintanceCompany operationMaintanceCompany, Users usersByCreator, Users usersByAuditor, ConcernDegreeDic concernDegreeDic, IndustrySectorDic industrySectorDic, Date creationDate, String companyName, String lat, String lng, String address, Date auditDate, String comment, Long status, String lvl, Set<ChemicalMaterial> chemicalMaterials, Set<WarehouseRisk> warehouseRisks, Set<CompanyAirEnv> companyAirEnvs, Set<EnvProtPerson> envProtPersons, Set<EquipmentRisk> equipmentRisks, Set<CompanyWaterEnv> companyWaterEnvs, Set<EmergencyMaterial> emergencyMaterials, Set<RiskAversion> riskAversions, Set<EmergencyResponsePlan> emergencyResponsePlans, Set<Workmanship> workmanships) {
+    public Company(AdministrativeDic administrativeDic, AdministrativeDivision administrativeDivision, RiskBasicInfo riskBasicInfo, HousePlan housePlan, OperationMaintanceCompany operationMaintanceCompany, Users usersByCreator, Users usersByAuditor, ConcernDegreeDic concernDegreeDic, IndustrySectorDic industrySectorDic, Date creationDate, String companyName, String lat, String lng, String address, Date auditDate, String comment, Long status, String lvl, Long riskStatus, String riskComment, Set<ChemicalMaterial> chemicalMaterials, Set<WarehouseRisk> warehouseRisks, Set<CompanyAirEnv> companyAirEnvs, Set<EnvProtPerson> envProtPersons, Set<EquipmentRisk> equipmentRisks, Set<CompanyWaterEnv> companyWaterEnvs, Set<EmergencyMaterial> emergencyMaterials, Set<RiskAversion> riskAversions, Set<EmergencyResponsePlan> emergencyResponsePlans, Set<Workmanship> workmanships) {
        this.administrativeDic = administrativeDic;
        this.administrativeDivision = administrativeDivision;
        this.riskBasicInfo = riskBasicInfo;
@@ -88,6 +89,8 @@ public class Company  implements java.io.Serializable {
        this.comment = comment;
        this.status = status;
        this.lvl = lvl;
+       this.riskStatus = riskStatus;
+       this.riskComment = riskComment;
        this.chemicalMaterials = chemicalMaterials;
        this.warehouseRisks = warehouseRisks;
        this.companyAirEnvs = companyAirEnvs;
@@ -271,6 +274,24 @@ public class Company  implements java.io.Serializable {
     
     public void setLvl(String lvl) {
         this.lvl = lvl;
+    }
+    
+    @Column(name="risk_status")
+    public Long getRiskStatus() {
+        return this.riskStatus;
+    }
+    
+    public void setRiskStatus(Long riskStatus) {
+        this.riskStatus = riskStatus;
+    }
+    
+    @Column(name="risk_comment", length=256)
+    public String getRiskComment() {
+        return this.riskComment;
+    }
+    
+    public void setRiskComment(String riskComment) {
+        this.riskComment = riskComment;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="company")
     public Set<ChemicalMaterial> getChemicalMaterials() {

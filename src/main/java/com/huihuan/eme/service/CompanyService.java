@@ -27,6 +27,7 @@ public interface CompanyService {
 	 public void loadCompanies(InputStream inputStream) throws IOException;
 	 public void loadCompany(String username,String realName, String companyName,String address,String lng,String lat);
 	 public List<Company> getCompaniesByStatus(AuditSatusEnum AuditSatusEnum);
+	 public List<Company> getCompaniesByRiskStatus(AuditSatusEnum AuditSatusEnum);
 	 public void addRiskBasicInfo(Long companyId, RiskBasicInfo riskBasicInfo );
 	 public void addRiskInfoForTestingData(ConfigurableApplicationContext ctx) throws IOException;
 

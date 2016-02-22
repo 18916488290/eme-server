@@ -39,46 +39,66 @@ public class RiskSourceController {
 	@RequestMapping("/riskSourceList")
 	public String populateRiskSources(Map<String, Object> model) {
 		
-		model.put("notAuditCompanies", companyService.getCompaniesByStatus(AuditSatusEnum.NotAudit));
-		model.put("yesAuditCompanies", companyService.getCompaniesByStatus(AuditSatusEnum.Yes));
-		model.put("deniedAuditCompanies", companyService.getCompaniesByStatus(AuditSatusEnum.No));
+		model.put("notAuditSources", companyService.getCompaniesByRiskStatus(AuditSatusEnum.NotAudit));
+		model.put("yesAuditSources", companyService.getCompaniesByRiskStatus(AuditSatusEnum.Yes));
+		model.put("deniedAuditSources", companyService.getCompaniesByRiskStatus(AuditSatusEnum.No));
 		
-		return "companyList";
+		return "riskSourceList";
 	}
-	@RequestMapping(value="/auditCompany",method=RequestMethod.GET)
-	public String populateCompany(@RequestParam(required=true) long companyId,@RequestParam(required=false) String view,  Map<String, Object> model) {
-		model.put("company",companyRepository.findOne(companyId));
+	
+	
+	@RequestMapping("/allRiskSourceList")
+	public String populateAllRiskSources(Map<String, Object> model) {
+		
+		model.put("riskSources", companyService.getCompaniesByRiskStatus(AuditSatusEnum.NotAudit));
+		
+		return "allRiskSourceList";
+	}
+	
+	
+	@RequestMapping(value="/auditSourceTab",method=RequestMethod.GET)
+	public String populateCompanyTab(@RequestParam(required=true) long companyId,@RequestParam(required=false) String view,  Map<String, Object> model) {
+		model.put("riskSource",companyRepository.findOne(companyId));
 		if(view!=null)
 		{
 			model.put("view", "yes");
 		}
-		return "auditCompany";
+		return "auditSourceTab";
 	}
 	
-	@RequestMapping(value="/auditCompany",method=RequestMethod.POST)
-	public String postCompany(@ModelAttribute("company") Company company,@RequestParam String action,Principal principal) {
-		logger.debug("company:" + company.getId() +", comment: " + company.getComment() +", action: " + action);
-		Company dbCompany = companyRepository.findOne(company.getId());
-		dbCompany.setComment(company.getComment());
-		dbCompany.setAuditDate(new Date());
-		dbCompany.setUsersByAuditor(usersRepository.findOne(principal.getName()));
+	
+	
+	@RequestMapping(value="/auditSource",method=RequestMethod.GET)
+	public String populateCompany(@RequestParam(required=true) long companyId,@RequestParam(required=false) String view,  Map<String, Object> model) {
+		model.put("riskSource",companyRepository.findOne(companyId));
+		if(view!=null)
+		{
+			model.put("view", "yes");
+		}
+		return "auditSource";
+	}
+	
+	
+
+	@RequestMapping(value="/auditSource",method=RequestMethod.POST)
+	public String postRiskSource(@ModelAttribute("riskSource") Company riskSource,@RequestParam String action,Principal principal) {
+		
+		Company dbCompany = companyRepository.findOne(riskSource.getId());
+		dbCompany.setRiskComment(riskSource.getRiskComment());
 		if(action.equals("yes"))
 		{
-			dbCompany.setStatus(AuditSatusEnum.Yes.getIndex());
-			Users u = dbCompany.getUsersByCreator();
-			u.setEnabled(true);
-			usersRepository.save(u);
+			dbCompany.setRiskStatus(AuditSatusEnum.Yes.getIndex());
+
 		}
 		else if(action.equals("no"))
-			dbCompany.setStatus(AuditSatusEnum.No.getIndex());
+			dbCompany.setRiskStatus(AuditSatusEnum.No.getIndex());
 		else
 		{
-			return "redirect:/companyList";
+			return "redirect:/riskSourceList";
 		}
 		companyRepository.save(dbCompany);
-		return "redirect:/companyList";
+		return "redirect:/riskSourceList";
 	}
-	
 	
 	
 }

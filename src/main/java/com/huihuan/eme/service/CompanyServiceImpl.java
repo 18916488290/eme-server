@@ -180,6 +180,14 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
+	public List<Company> getCompaniesByRiskStatus(AuditSatusEnum auditSatusEnum) {
+	
+		return companyRepository.getByRiskStatus(auditSatusEnum.getIndex());
+	}
+
+	
+	
+	@Override
 	@Transactional(readOnly=false)
 	public void loadCompanies(InputStream inputStream) throws IOException {
 		CsvReader reader = new CsvReader(inputStream,',', Charset.forName("UTF-8"));
@@ -198,6 +206,7 @@ public class CompanyServiceImpl implements CompanyService {
 		Company c = companyRepository.findOne(companyId);
 		c.setRiskBasicInfo(riskBasicInfo);
 		c.setLvl("较大环境风险源");
+		c.setRiskStatus(AuditSatusEnum.NotAudit.getIndex());
 		companyRepository.save(c);
 	}
 
@@ -207,7 +216,7 @@ public class CompanyServiceImpl implements CompanyService {
 		Company c = companyRepository.findOne(1l);
 	
 		/*
-		/*begin风险源基础信息*
+		/*begin风险源基础信息*/
 		RiskBasicInfo r = new RiskBasicInfo();
         r.setCreationDate(new Date());
         r.setRegistrationCode("2040334-6");
@@ -222,14 +231,14 @@ public class CompanyServiceImpl implements CompanyService {
         addRiskBasicInfo(1l,r);
    
 		
-		/*添加单位明面图*
+		/*添加单位明面图*/
 		HousePlan housePlan =  new HousePlan("house1.png");
 		housePlanRepository.save(housePlan);
 		c.setHousePlan(housePlan);
 		companyRepository.save(c);
 		
 		
-		/*添加产品，原料*
+		/*添加产品，原料*/
 		Resource cRes = ctx.getResource("classpath:data/chemicalMaterials.csv");
 		CsvReader creader = new CsvReader(cRes.getInputStream(),',', Charset.forName("UTF-8"));
 		while(creader.readRecord())
@@ -255,7 +264,7 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		
 		
-		/**生产工艺***
+		/**生产工艺***/
 		
 		Workmanship w = new Workmanship("石墨生产工艺");
 		w.setCompany(c);
@@ -264,7 +273,7 @@ public class CompanyServiceImpl implements CompanyService {
 		workmanshipRepository.save(w);
 		
 		
-	   /*风险防控措施*
+	   /*风险防控措施*/
 		for(int i=0;i<2;i++)
 		{
 			RiskAversion ra = new RiskAversion();
@@ -276,6 +285,7 @@ public class CompanyServiceImpl implements CompanyService {
 			else
 				ra.setRemark("防震措施");
 			ra.setRiskAversionType(riskAversionTypeRepository.findOne(3l));
+			ra.setFileName("emePlan1.pdf");
 			riskAversionRepository.save(ra);
 			for(RiskAversionOptionsDic dic: riskAversionOptionsDicRepository.findAll())
 			{
@@ -292,7 +302,7 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 	
 		
-		/*水气环境字典*
+		/*水气环境字典*/
 		Resource aRes = ctx.getResource("classpath:data/airEnv.csv");
 		CsvReader reader = new CsvReader(aRes.getInputStream(),',', Charset.forName("UTF-8"));
 		while(reader.readRecord())
@@ -308,24 +318,24 @@ public class CompanyServiceImpl implements CompanyService {
 			airEnvRepository.save(a);
 		}
 		
-		/*水环境字典*
+		/*水环境字典*/
 		Resource wRes = ctx.getResource("classpath:data/waterEnv.csv");
 		CsvReader wreader = new CsvReader(wRes.getInputStream(),',', Charset.forName("UTF-8"));
 		while(wreader.readRecord())
 		{
 			WaterEnv a = new WaterEnv();
-			a.setWaterEnvName(reader.get(0).trim());
-			a.setLng(reader.get(1).trim());
-			a.setLat(reader.get(2).trim());
-			a.setEmePerson(reader.get(3).trim());
-			a.setEmeMobile(reader.get(4).trim());
+			a.setWaterEnvName(wreader.get(0).trim());
+			a.setLng(wreader.get(1).trim());
+			a.setLat(wreader.get(2).trim());
+			a.setEmePerson(wreader.get(3).trim());
+			a.setEmeMobile(wreader.get(4).trim());
 			a.setWaterEnvType(waterEnvTypeRepository.findOne(2l));
 			a.setEnvFunc(envFuncRepository.findOne(2l));
 			waterEnvRepository.save(a);
 		}
-		*/
 		
-		/*水环境*
+		
+		/*水环境*/
 		CompanyAirEnv companyAirEnv = new CompanyAirEnv();
 		CompanyAirEnvId aId = new CompanyAirEnvId(1l, c.getId());
 		companyAirEnv.setId(aId);
@@ -333,16 +343,16 @@ public class CompanyServiceImpl implements CompanyService {
 		companyAirEnv.setLocationDic(locationDicRepository.findOne(3l));
 		companyAirEnvRepository.save(companyAirEnv);
 		
-		/*气环境*
+		/*气环境*/
 		CompanyWaterEnv companyWaterEnv = new CompanyWaterEnv();
 		CompanyWaterEnvId wId = new CompanyWaterEnvId(1l, c.getId());
 		companyWaterEnv.setId(wId);
 		companyWaterEnv.setDistance(12l);
 		companyWaterEnv.setLocation("上游");
 		companyWaterEnvRepository.save(companyWaterEnv);
-		*/
 		
-		/*应急预案
+		
+		/*应急预案*/
 		EmergencyResponsePlan er = new EmergencyResponsePlan();
 		er.setCompany(c);
 		er.setCreationDate(new Date());
@@ -352,9 +362,9 @@ public class CompanyServiceImpl implements CompanyService {
 		er.setTitle("环境风险事故应急预案");
 		er.setRegistCode("NTYJ－00879");
 		emergencyResponsePlanRepository.save(er);
-		*/
 		
-		/*仓库风险
+		
+		/*仓库风险*/
 		WarehouseRisk wr= new WarehouseRisk();
 		wr.setCompany(c);
 		wr.setArea(78.9f);
@@ -367,9 +377,9 @@ public class CompanyServiceImpl implements CompanyService {
 		wr.setVolume(1000f);
 		wr.setWarehouseName("北一仓");
 		warehouseRiskRepository.save(wr);
-		*/
 		
-		/*设备风险
+		
+		/*设备风险*/
 		
 		EquipmentRisk erisk = new EquipmentRisk();
 		erisk.setCompany(c);
@@ -382,9 +392,9 @@ public class CompanyServiceImpl implements CompanyService {
 		erisk.setLng(c.getLng());
 		erisk.setLifetime("10年");
 		equipmentRiskRepository.save(erisk);
-		*/
 		
-		/*环保人员
+		
+		/*环保人员*/
 		Resource pRes = ctx.getResource("classpath:data/envProtPerson.csv");
 		CsvReader preader = new CsvReader(pRes.getInputStream(),',', Charset.forName("UTF-8"));
 		while(preader.readRecord())
@@ -403,7 +413,7 @@ public class CompanyServiceImpl implements CompanyService {
 			
 			envProtPersonRepository.save(p);
 		}
-		*/
+		
 	}
 
 	

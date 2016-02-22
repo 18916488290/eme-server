@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-21 10:11:30 by Hibernate Tools 3.2.2.GA
+// Generated 2016-2-22 12:27:37 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -31,16 +31,18 @@ public class DetectAir  implements java.io.Serializable {
      private Float avgVal;
      private Date reportTime;
      private Boolean isDaily;
+     private Float val;
 
     public DetectAir() {
     }
 
-    public DetectAir(DetectStation detectStation, DetectFactor detectFactor, Float avgVal, Date reportTime, Boolean isDaily) {
+    public DetectAir(DetectStation detectStation, DetectFactor detectFactor, Float avgVal, Date reportTime, Boolean isDaily, Float val) {
        this.detectStation = detectStation;
        this.detectFactor = detectFactor;
        this.avgVal = avgVal;
        this.reportTime = reportTime;
        this.isDaily = isDaily;
+       this.val = val;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -97,6 +99,15 @@ public class DetectAir  implements java.io.Serializable {
     
     public void setIsDaily(Boolean isDaily) {
         this.isDaily = isDaily;
+    }
+    
+    @Column(name="val", precision=12, scale=0)
+    public Float getVal() {
+        return this.val;
+    }
+    
+    public void setVal(Float val) {
+        this.val = val;
     }
 
 

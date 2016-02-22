@@ -1,10 +1,11 @@
 package com.huihuan.eme.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-import com.huihuan.eme.domain.db.DetectContentDic;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.huihuan.eme.domain.db.DetectCategory;
 import com.huihuan.eme.domain.db.DetectFactor;
-import com.huihuan.eme.domain.db.EmergencyReponsePlanType;
+
 
 
 /**
@@ -14,6 +15,8 @@ import com.huihuan.eme.domain.db.EmergencyReponsePlanType;
  *
  */
 public interface DetectFactorRepository  extends JpaRepository<DetectFactor, Long> {
+	
+	public List<DetectFactor> getByDetectCategory(DetectCategory detectCategory);
 	
 
 }

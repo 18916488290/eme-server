@@ -69,6 +69,7 @@ public class DetectServiceImpl implements DetectService {
 		DetectId id = new DetectId();
 		id.setIdDetectFactor(factorValue.getFactorId());
 		id.setIdDetectStation(factorValue.getStationId());
+		id.setMn(factorValue.getMn());
 		Detect dbDetect = detectRepository.findOne(id);
 		if(dbDetect==null)
 		{

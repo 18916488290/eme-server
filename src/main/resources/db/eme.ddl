@@ -135,7 +135,9 @@ CREATE TABLE company
 	status                INTEGER NOT NULL,
 	id_risk_basic_info    INTEGER NULL,
 	id_house_plan         INTEGER NULL,
-	lvl                   VARCHAR(20) NULL
+	lvl                   VARCHAR(20) NULL,
+	risk_status           INTEGER NULL,
+	risk_comment          VARCHAR(256) NULL
 )
 ;
 
@@ -216,7 +218,7 @@ CREATE TABLE detect
 (
 	id_detect_station     INTEGER NOT NULL,
 	id_detect_factor      INTEGER NOT NULL,
-	mn                    VARCHAR(64) NULL,
+	mn                    VARCHAR(64) NOT NULL,
 	detect_time           TIMESTAMP NULL,
 	val                   FLOAT NULL
 )
@@ -225,7 +227,7 @@ CREATE TABLE detect
 
 
 ALTER TABLE detect
-	ADD  PRIMARY KEY (id_detect_station,id_detect_factor)
+	ADD  PRIMARY KEY (id_detect_station,id_detect_factor,mn)
 ;
 
 
@@ -237,7 +239,8 @@ CREATE TABLE detect_air
 	id_detect_factor      INTEGER NULL,
 	avg_val               FLOAT NULL,
 	report_time           TIMESTAMP NULL,
-	is_daily              boolean NULL
+	is_daily              boolean NULL,
+	val                   FLOAT NULL
 )
 ;
 
@@ -289,7 +292,8 @@ CREATE TABLE detect_factor
 	aspiration            FLOAT NULL,
 	id_detect_category    INTEGER NULL,
 	unit                  VARCHAR(20) NULL,
-	frequency             INTEGER NULL
+	frequency             INTEGER NULL,
+	id_detect_content     INTEGER NULL
 )
 ;
 
@@ -1145,6 +1149,11 @@ ALTER TABLE detect_air
 
 ALTER TABLE detect_factor
 	ADD FOREIGN KEY R_61 (id_detect_category) REFERENCES detect_category(id)
+;
+
+
+ALTER TABLE detect_factor
+	ADD FOREIGN KEY R_77 (id_detect_content) REFERENCES detect_content_dic(id)
 ;
 
 

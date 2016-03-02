@@ -49,15 +49,25 @@
 		});
 	</script>
 	<script th:inline="javascript">
-                   /*<![CDATA[*/
+   /*<![CDATA[*/
     //创建和初始化地图函数：
     function initMap(){
       createMap();//创建地图
     }
     function createMap(){ 
       map = new BMap.Map("baidumap"); 
-      map.centerAndZoom(new BMap.Point(120.887365,31.983889),12);
-	
+      
+      $.getCenter(function(data){
+          if(data==null) 
+             alert("不能获取地图中心点");
+          else
+			{
+        	  alert("地图中心点 " +JSON.stringify(data));
+        	  map.centerAndZoom(new BMap.Point(data.lng,data.lat),12);
+			}
+      });
+      
+      
     }
 	
 	//初始化地图

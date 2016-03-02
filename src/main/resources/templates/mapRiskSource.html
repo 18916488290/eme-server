@@ -27,8 +27,35 @@
 
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
-				   <div class="gmaps" id="baidumap"></div>
-				  
+				  <div class="gmaps" id="baidumap"></div>  
+	              <div class="easyui-window" title="风险源信息" data-options="iconCls:'icon-save',left:800,top:400">
+				  <div class="easyui-panel" title="" style="width:440px;height:140px;">
+										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>企业名称</th>
+													<th>行政区域</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody th:each="nc : ${riskSources}">
+												<tr>
+													<td th:text="${nc.companyName}">企业名称</td>
+													<td th:text="${nc.administrativeDivision.division}">行政区域</td>								
+													<td>
+													<a href="#" th:href="@{/riskSourceInfo(companyId=${nc.id})}" target="_blank"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
+													<a th:href="'javascript:theLocation('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ');'"><i class="fa  fa-map-marker"></i><span>定位</span></a>
+													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'学校\');'"><i class="fa"></i><span>🏫学校</span></a>
+													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'医院\');'"><i class="fa"></i><span>🏥医院</span></a>
+													</td>
+												</tr>
+									
+											</tbody>
+											
+										</table>
+								
+								</div>
+							</div>	  
 			</div>
 			<!-- /mainContentBox -->
 		
@@ -49,14 +76,39 @@
 		});
 	</script>
 	<script th:inline="javascript">
-                   /*<![CDATA[*/
+    /*<![CDATA[*/
+               
+    // 用经纬度设置地图中心点
+	function theLocation(sourceId,lng,lat){
+			var new_point = new BMap.Point(lng,lat);
+			map.panTo(new_point);   
+			map.clearOverlays(); 
+			addMapOverlay(sourceId);
+			//var searchInfoWindow=createInfoWindow(marker);
+          //  addClickHandler(marker,searchInfoWindow);
+          //  searchInfoWindow.open(target.getPosition());
+		
+	}
+
+	// Local search
+	function localSearch(sourceId,lng,lat,s){
+			var new_point = new BMap.Point(lng,lat);
+			map.panTo(new_point);    
+			map.clearOverlays(); 
+			addMapOverlay(sourceId);
+			var circle = new BMap.Circle(new_point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
+		    map.addOverlay(circle);
+		    var local =  new BMap.LocalSearch(map, {renderOptions: {map: map, autoViewport: false}});  
+		    local.searchNearby(s,new_point,5000);
+	}
+       
                    
     //创建和初始化地图函数：
     function initMap(){
       createMap();//创建地图
       setMapEvent();//设置地图事件
       addMapControl();//向地图添加控件
-      addMapOverlay();//向地图添加覆盖物
+      addMapOverlay(-1000);//向地图添加覆盖物
 	  map.setMapStyle(
 		{styleJson:[
 					  {"featureType":"water",
@@ -70,14 +122,15 @@
     }
     function createMap(){ 
       map = new BMap.Map("baidumap"); 
-      map.centerAndZoom(new BMap.Point(120.887365,31.983889),12);
+      $.getCenter(function(data){
+         map.centerAndZoom(new BMap.Point(data.lng,data.lat),12);
+      });
+      
     }
     function setMapEvent(){
- 
-   //   map.enableKeyboard();
       map.enableDragging();
-    
     }
+ 
     function addClickHandler(target,window){
       target.addEventListener("click",function(){
         window.open(target.getPosition());
@@ -85,32 +138,32 @@
     }
 	
 	
-	 function createInfoWindow(title){
-		 var content = '<fieldset> <legend>风险源基础信息</legend><div  class="panel">'+
+	 function createInfoWindow(marker){
+		 var content = '<fieldset> <div  class="panel">'+
 							'<div title="" class="ddv panel-body panel-body-noheader panel-body-noborder" style="padding: 2px 0px; width: 100%;">'+
 								'<style type="text/css">  .dv-table td{border:1px;text-align:center;padding:2px}.dv-label{font-weight:solid;color:#15428B;}</style>'+
 								'<table class="dv-table" style="width:100%;" border="0">'+
 									'<tbody>'+
 										'<tr>'+
 											'<td class="dv-label">企业名称:</td>'+
-											'<td>南通励城生物工程有限公司</td>'+
+											'<td>'+marker.riskSourceInfo.companyName+'</td>'+
 											'<td class="dv-label">行政区域:</td>'+
-											'<td>南通开发区</td>'+
+											'<td>'+marker.riskSourceInfo.divsion+'</td>'+
 										'</tr>'+
 										'<tr>'+
 											'<td class="dv-label">风险等级:</td>'+
-											'<td>较大环境风险源</td>'+
+											'<td>'+marker.riskSourceInfo.lvl+'</td>'+
 											'<td class="dv-label">是否有预案:</td>'+
-											'<td>有</td>'+
+											'<td>'+marker.riskSourceInfo.riskAversion+'</td>'+
 										'</tr>'+
 										'<tr>'+
 											'<td class="dv-label">应急人员</td>'+
-											'<td >张文泉</td>'+
+											'<td>'+marker.riskSourceInfo.emePersion+'</td>'+
 											'<td class="dv-label">应急人员电话</td>'+
-											'<td >0243-46129001</td>'+
+											'<td>'+marker.riskSourceInfo.emeTel+'</td>'+
 										'</tr>'+
 										'<tr>'+
-											'<td ><a href="riskSourceInfo?companyId=1" target="_blank" style="width:120px">查看详细</a></td>'+
+											'<td ><a href="riskSourceInfo?companyId='+marker.riskSourceInfo.companyId+'" target="_blank" style="width:120px">查看详细</a></td>'+
 											'<td></td>'+
 										'</tr>'+
 									'</tbody>'+
@@ -119,7 +172,7 @@
 						'</div>'+
 						'</fieldset>';
 			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
-				title: title, //标题
+				title: marker.title, //标题
 				offset: new BMap.Size(0,7),
 				width: 380,//宽度
 				height: 120, //高度
@@ -130,36 +183,53 @@
 			});
 		return infoWindow;
 	 }
-    function addMapOverlay(){
-      var markers = [
-        {content:"风险源",title:"风险源",imageOffset: {width:0,height:3},position:{lat:31.90506,lng:120.94959}}
-       
-      ];
-      for(var index = 0; index < markers.length; index++ ){
-        var point = new BMap.Point(markers[index].position.lng,markers[index].position.lat);
-        var marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/factory.png",new BMap.Size(21,35),{
-          imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
-        })});
-        var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
-        var opts = {
-          width: 200,
-          title: markers[index].title,
-          enableMessage: false
-        };
-		var searchInfoWindow=createInfoWindow(markers[index].title);
-        addClickHandler(marker,searchInfoWindow);
-        map.addOverlay(marker);
-      };
+    function addMapOverlay(sourceId){
+    	
+        $.getRiskSourcesMarkers(function(data){
+                         var markers = data;
+                         for(var index = 0; index < markers.length; index++ ){
+                          // alert('marker:' + JSON.stringify(markers[index].point));
+                           var point = new BMap.Point(markers[index].point.lng,markers[index].point.lat);
+                           var marker;
+                           if(sourceId==markers[index].riskSourceInfo.companyId)
+                        	 {
+                                marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation-active.png",new BMap.Size(21,35),{
+                                   imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+                                 })});
+                        	 }
+                           else
+                        	   { 
+                        	   marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation.png",new BMap.Size(21,35),{
+                                   imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+                               })});
+                        	   
+                        	   }
+                           
+                           
+                           var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
+                           var opts = {
+                             width: 250,
+                             title: markers[index].title,
+                             enableMessage: true
+                           };
+                   		  var searchInfoWindow=createInfoWindow(markers[index]);
+                           addClickHandler(marker,searchInfoWindow);
+                           map.addOverlay(marker);
+                         };
+         });
+         
+    	
+
     }
     //向地图添加控件
     function addMapControl(){
-      var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
-      scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
-      map.addControl(scaleControl);
-      var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
-      map.addControl(navControl);
-      var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:true});
-      map.addControl(overviewControl);
+     // var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+     // scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
+     // map.addControl(scaleControl);
+     // var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+     // map.addControl(navControl);
+     // var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:true});
+     // map.addControl(overviewControl);
     }
     var map;
     initMap();
@@ -172,8 +242,8 @@
         strokeStyle: 'solid' //边线的样式，solid或dashed。
     }
 
-                    /*]]>*/
-                  </script>
+     /*]]>*/
+   </script>
 	
 	<!-- /JAVASCRIPTS -->
 </body>

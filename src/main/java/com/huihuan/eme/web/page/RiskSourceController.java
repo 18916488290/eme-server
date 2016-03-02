@@ -50,7 +50,7 @@ public class RiskSourceController {
 	@RequestMapping("/allRiskSourceList")
 	public String populateAllRiskSources(Map<String, Object> model) {
 		
-		model.put("riskSources", companyService.getCompaniesByRiskStatus(AuditSatusEnum.NotAudit));
+		model.put("riskSources", companyService.getRiskSources());
 		
 		return "allRiskSourceList";
 	}

@@ -4,8 +4,11 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.huihuan.eme.service.CompanyService;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn
@@ -17,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MapController {
 	
 	private static final Log logger = LogFactory.getLog(MapController.class);
+	@Autowired private CompanyService companyService;
 	
 	@RequestMapping("/mapRiskSource")
 	public String mapRiskSource(Map<String, Object> model) {
-		model.put("centerLng", 120.94912);
-		model.put("centerLat",31.905);
+		
+		model.put("riskSources", companyService.getRiskSources());
+	
 		return "mapRiskSource";
 	}
 	

@@ -43,5 +43,11 @@
  
      };
      
+     //1. 监测站标注
+     $.getDetectStationMarkers = function(callback){
+             $.EMEClient('getDetectStationMarkers',{},callback);
+ 
+     };
+     
      
 })(jQuery, window, document);

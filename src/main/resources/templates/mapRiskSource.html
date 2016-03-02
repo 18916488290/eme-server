@@ -109,7 +109,7 @@
       setMapEvent();//设置地图事件
       addMapControl();//向地图添加控件
       addMapOverlay(-1000);//向地图添加覆盖物
-	  map.setMapStyle(
+	/*  map.setMapStyle(
 		{styleJson:[
 					  {"featureType":"water",
 					   "elementType":"all",
@@ -119,6 +119,7 @@
 					  }
 					]
 		});
+      */
     }
     function createMap(){ 
       map = new BMap.Map("baidumap"); 
@@ -184,7 +185,6 @@
 		return infoWindow;
 	 }
     function addMapOverlay(sourceId){
-    	
         $.getRiskSourcesMarkers(function(data){
                          var markers = data;
                          for(var index = 0; index < markers.length; index++ ){
@@ -205,13 +205,7 @@
                         	   
                         	   }
                            
-                           
-                           var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
-                           var opts = {
-                             width: 250,
-                             title: markers[index].title,
-                             enableMessage: true
-                           };
+             
                    		  var searchInfoWindow=createInfoWindow(markers[index]);
                            addClickHandler(marker,searchInfoWindow);
                            map.addOverlay(marker);
@@ -233,15 +227,6 @@
     }
     var map;
     initMap();
-	var styleOptions = {
-        strokeColor:"red",    //边线颜色。
-        fillColor:"red",      //填充颜色。当参数为空时，圆形将没有填充效果。
-        strokeWeight: 3,       //边线的宽度，以像素为单位。
-        strokeOpacity: 0.8,	   //边线透明度，取值范围0 - 1。
-        fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
-        strokeStyle: 'solid' //边线的样式，solid或dashed。
-    }
-
      /*]]>*/
    </script>
 	

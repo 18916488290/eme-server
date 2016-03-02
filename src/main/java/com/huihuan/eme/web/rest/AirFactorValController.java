@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.huihuan.eme.domain.db.Company;
+import com.huihuan.eme.domain.db.DetectStation;
 import com.huihuan.eme.domain.db.RiskBasicInfo;
+import com.huihuan.eme.domain.page.DetectStationMarker;
 import com.huihuan.eme.domain.page.FactorValue;
 import com.huihuan.eme.domain.page.ImageOffset;
 import com.huihuan.eme.domain.page.Point;
 import com.huihuan.eme.domain.page.RiskSourceInfo;
 import com.huihuan.eme.domain.page.RiskSourceMarker;
+import com.huihuan.eme.repository.DetectStationRepository;
 import com.huihuan.eme.repository.RiskBasicInfoRepository;
 import com.huihuan.eme.service.DetectService;
 
@@ -37,7 +40,7 @@ public class AirFactorValController {
 	private static final Log logger = LogFactory.getLog(AirFactorValController.class);
 	@Autowired private DetectService detectService;
 	@Autowired private RiskBasicInfoRepository riskBasicInfoRepository;
-	
+	@Autowired private DetectStationRepository detectStationRepository;
 
 	@Transactional(readOnly = false)
 	@RequestMapping(value="/uploadFactorValue", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -64,7 +67,7 @@ public class AirFactorValController {
 		Point center = new Point();
 		center.setLng(120.94959);
 		center.setLat(31.90506);
-		logger.warn(" 获取地图中心点坐标： 经度： " +center.getLng() +", 纬度： " + center.getLat());
+		//logger.warn(" 获取地图中心点坐标： 经度： " +center.getLng() +", 纬度： " + center.getLat());
 		return center;
 	}
 	
@@ -99,4 +102,27 @@ public class AirFactorValController {
 	
 		return riskMarkers;
 	}
+	
+	
+	@Transactional(readOnly = true)
+	@RequestMapping(value="/getDetectStationMarkers", method=RequestMethod.GET,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public List<DetectStationMarker> getDetectStationMarkers()
+	{
+		List<DetectStationMarker> markers = new ArrayList<DetectStationMarker>();
+		
+		List<DetectStation> stations = detectStationRepository.findAll();
+		for(DetectStation station:stations)
+		{
+		
+			DetectStationMarker marker =new DetectStationMarker();
+			marker.setTitle(station.getDetectStationName());
+			marker.setContent(station.getDetectStationName());
+			marker.setImageOffset(new ImageOffset());
+			marker.setPoint(new Point(Double.parseDouble(station.getLng()),Double.parseDouble(station.getLat())));
+			markers.add(marker);
+		}
+	
+		return markers;
+	}
+	
 }

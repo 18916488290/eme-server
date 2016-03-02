@@ -87,8 +87,8 @@ public class DetectFactorDataServiceImpl {
 		ds1.setEpb(epbRepository.findOne(1l));
 		ds1.setAdministrativeDivision(administrativeDivisionRepository.findOne(1l));
 		ds1.setDetectStationName("东文空气质量检测站");
-		ds1.setLng("120.943752");
-		ds1.setLat("31.893659");
+		ds1.setLng("120.945479");
+		ds1.setLat("31.9614665");
 		detectStationRepository.save(ds1);
 		
 		

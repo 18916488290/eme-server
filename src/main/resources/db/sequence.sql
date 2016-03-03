@@ -30,6 +30,9 @@ modify `id` int(11) not null auto_increment;
 alter table `detect_air` 
 modify `id` int(11) not null auto_increment;
 
+alter table `detect_air_report` 
+modify `id` int(11) not null auto_increment;
+
 alter table `detect_category` 
 modify `id` int(11) not null auto_increment;
 

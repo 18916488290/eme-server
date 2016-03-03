@@ -252,6 +252,32 @@ ALTER TABLE detect_air
 
 
 
+CREATE TABLE detect_air_report
+(
+	id                    INTEGER NOT NULL,
+	id_detect_station     INTEGER NULL,
+	id_detect_content     INTEGER NULL,
+	report_time           TIMESTAMP NULL,
+	is_daily              boolean NULL,
+	aqi                   FLOAT NULL,
+	so2_aqi               FLOAT NULL,
+	o3_aqi                FLOAT NULL,
+	no2_aqi               FLOAT NULL,
+	pm10_aqi              FLOAT NULL,
+	pm25_aqi              FLOAT NULL,
+	co_aqi                FLOAT NULL,
+	id_aqi_info           INTEGER NULL
+)
+;
+
+
+
+ALTER TABLE detect_air_report
+	ADD  PRIMARY KEY (id)
+;
+
+
+
 CREATE TABLE detect_category
 (
 	id                    INTEGER NULL,
@@ -1143,6 +1169,22 @@ ALTER TABLE detect_air
 
 ALTER TABLE detect_air
 	ADD FOREIGN KEY R_76 (id_detect_factor) REFERENCES detect_factor(id)
+;
+
+
+
+ALTER TABLE detect_air_report
+	ADD FOREIGN KEY R_79 (id_detect_station) REFERENCES detect_station(id)
+;
+
+
+ALTER TABLE detect_air_report
+	ADD FOREIGN KEY R_80 (id_detect_content) REFERENCES detect_content_dic(id)
+;
+
+
+ALTER TABLE detect_air_report
+	ADD FOREIGN KEY R_81 (id_aqi_info) REFERENCES aqi_info(id)
 ;
 
 

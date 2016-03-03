@@ -45,6 +45,7 @@ CONSTRAINT fk_acl_entry_acl FOREIGN KEY (sid) REFERENCES acl_sid (id)
 );
 
 
+
 CREATE TABLE administrative_dic
 (
 	id                    INTEGER NOT NULL,
@@ -293,6 +294,32 @@ CREATE TABLE detect_air
 
 
 ALTER TABLE detect_air
+	ADD  PRIMARY KEY (id)
+;
+
+
+
+CREATE TABLE detect_air_report
+(
+	id                    INTEGER NOT NULL,
+	id_detect_station     INTEGER NULL,
+	id_detect_content     INTEGER NULL,
+	report_time           TIMESTAMP NULL,
+	is_daily              boolean NULL,
+	aqi                   FLOAT NULL,
+	so2_aqi               FLOAT NULL,
+	o3_aqi                FLOAT NULL,
+	no2_aqi               FLOAT NULL,
+	pm10_aqi              FLOAT NULL,
+	pm25_aqi              FLOAT NULL,
+	co_aqi                FLOAT NULL,
+	id_aqi_info           INTEGER NULL
+)
+;
+
+
+
+ALTER TABLE detect_air_report
 	ADD  PRIMARY KEY (id)
 ;
 
@@ -1193,6 +1220,22 @@ ALTER TABLE detect_air
 
 
 
+ALTER TABLE detect_air_report
+	ADD FOREIGN KEY R_79 (id_detect_station) REFERENCES detect_station(id)
+;
+
+
+ALTER TABLE detect_air_report
+	ADD FOREIGN KEY R_80 (id_detect_content) REFERENCES detect_content_dic(id)
+;
+
+
+ALTER TABLE detect_air_report
+	ADD FOREIGN KEY R_81 (id_aqi_info) REFERENCES aqi_info(id)
+;
+
+
+
 ALTER TABLE detect_factor
 	ADD FOREIGN KEY R_61 (id_detect_category) REFERENCES detect_category(id)
 ;
@@ -1409,6 +1452,9 @@ ALTER TABLE workmanship
 
 
 
+
+
+
 set foreign_key_checks =0;
 
 
@@ -1439,6 +1485,9 @@ alter table `concern_degree_dic`
 modify `id` int(11) not null auto_increment;
 
 alter table `detect_air` 
+modify `id` int(11) not null auto_increment;
+
+alter table `detect_air_report` 
 modify `id` int(11) not null auto_increment;
 
 alter table `detect_category` 
@@ -1551,3 +1600,4 @@ modify `id` int(11) not null auto_increment;
 
 
 set foreign_key_checks =1;
+

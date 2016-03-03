@@ -28,6 +28,36 @@
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 				   <div class="gmaps" id="baidumap"></div>
+				   	  <div class="easyui-window" title="空气监测站信息" data-options="iconCls:'icon-save',left:800,top:400">
+				         <div class="easyui-panel" title="" style="width:440px;height:140px;">
+										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>监测站</th>
+													<th>行政区域</th>
+													<th>空气质量</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody th:each="nc : ${detectStations}">
+												<tr>
+													<td th:text="${nc.detectStationName}">名称</td>
+													<td th:text="${nc.administrativeDivision.division}">行政区域</td>		
+													<td th:text="${nc.administrativeDivision.division}">行政区域</td>							
+													<td>
+													<a href="#" th:href="@{/detectStationInfo(detectStationId=${nc.id})}" target="_blank"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
+													<a th:href="'javascript:theLocation('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ');'"><i class="fa  fa-map-marker"></i><span>定位</span></a>
+													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'学校\');'"><i class="fa"></i><span>🏫学校</span></a>
+													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'医院\');'"><i class="fa"></i><span>🏥医院</span></a>
+													</td>
+												</tr>
+									
+											</tbody>
+											
+										</table>
+								
+								</div>
+							</div>	 
 				  
 			</div>
 			<!-- /mainContentBox -->
@@ -51,13 +81,36 @@
 	<script th:inline="javascript">
    /*<![CDATA[*/
               
-    var map; 
+              
+         // 用经纬度设置地图中心点
+	function theLocation(sourceId,lng,lat){
+			var new_point = new BMap.Point(lng,lat);
+			map.panTo(new_point);   
+			map.clearOverlays(); 
+			addMapOverlay(sourceId);
+	}
 
+	// Local search
+	function localSearch(sourceId,lng,lat,s){
+			var new_point = new BMap.Point(lng,lat);
+			map.panTo(new_point);    
+			map.clearOverlays(); 
+			addMapOverlay(sourceId);
+			var circle = new BMap.Circle(new_point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
+		    map.addOverlay(circle);
+		    var local =  new BMap.LocalSearch(map, {renderOptions: {map: map, autoViewport: false}});  
+		    local.searchNearby(s,new_point,5000);
+	}
+               
+              
+              
+              
+    var map; 
     //创建和初始化地图函数：
     function initMap(){
       createMap();//创建地图
       setMapEvent();//设置地图事件
-      addMapOverlay();//向地图添加覆盖物
+      addMapOverlay(-1000);//向地图添加覆盖物
 	 
     }
     function createMap(){ 
@@ -79,17 +132,28 @@
 	
   
 	//创建richMarker地图标注
-	 function addMapOverlay(){
+	 function addMapOverlay(detectStationId){
 		
 		   $.getDetectStationMarkers(function(data){
 			   var markers =data;
 				for (var i = 0; i < markers.length; i++) {
+					var marker;
 					   var point = new BMap.Point(markers[i].point.lng,
 								markers[i].point.lat);
-					 marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation-active.png",new BMap.Size(21,35),{
-			             imageOffset: new BMap.Size(markers[i].imageOffset.width,markers[i].imageOffset.height)
-			           })});
-			         
+					    if(detectStationId==markers[i].stationId)
+                   	 {
+                           marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation-active.png",new BMap.Size(21,35),{
+                              imageOffset: new BMap.Size(markers[i].imageOffset.width,markers[i].imageOffset.height)
+                            })});
+                   	 }
+					    else
+					    	{
+							 marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation.png",new BMap.Size(21,35),{
+					             imageOffset: new BMap.Size(markers[i].imageOffset.width,markers[i].imageOffset.height)
+					           })});
+					         
+					    	}
+
 					var searchInfoWindow=createInfoWindow(markers[i]);
 				    addClickHandler(marker,searchInfoWindow);
 					map.addOverlay(marker);//添加企业Marker标注

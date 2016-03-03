@@ -2,6 +2,7 @@ package com.huihuan.eme.domain.page;
 
 public class DetectStationMarker {
 	
+	private Long stationId;
 	private String title;
 	private String content;
 	private ImageOffset imageOffset;
@@ -53,6 +54,18 @@ public class DetectStationMarker {
 	 */
 	public void setPoint(Point point) {
 		this.point = point;
+	}
+	/**
+	 * @return the stationId
+	 */
+	public Long getStationId() {
+		return stationId;
+	}
+	/**
+	 * @param stationId the stationId to set
+	 */
+	public void setStationId(Long stationId) {
+		this.stationId = stationId;
 	}
 
 

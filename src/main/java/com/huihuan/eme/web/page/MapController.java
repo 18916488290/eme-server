@@ -8,38 +8,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.huihuan.eme.repository.DetectStationRepository;
 import com.huihuan.eme.service.CompanyService;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn
- *
  * @created 2016年1月4日 下午9:38:36
- *
  */
+
 @Controller
 public class MapController {
 	
 	private static final Log logger = LogFactory.getLog(MapController.class);
 	@Autowired private CompanyService companyService;
+	@Autowired private DetectStationRepository detectStationRepository;
 	
 	@RequestMapping("/mapRiskSource")
 	public String mapRiskSource(Map<String, Object> model) {
-		
 		model.put("riskSources", companyService.getRiskSources());
-	
 		return "mapRiskSource";
 	}
 	
 	@RequestMapping("/mapAir")
 	public String mapAir(Map<String, Object> model) {
-		model.put("centerLng", 120.94912);
-		model.put("centerLat",31.905);
+		model.put("detectStations",detectStationRepository.findAll());
 		return "mapAir";
 	}
 	@RequestMapping("/mapOnline")
 	public String mapOnline(Map<String, Object> model) {
-		model.put("centerLng", 120.94912);
-		model.put("centerLat",31.905);
 		return "mapOnline";
 	}
 	

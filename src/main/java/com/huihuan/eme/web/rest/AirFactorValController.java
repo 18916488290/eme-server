@@ -115,6 +115,7 @@ public class AirFactorValController {
 		{
 		
 			DetectStationMarker marker =new DetectStationMarker();
+			marker.setStationId(station.getId());
 			marker.setTitle(station.getDetectStationName());
 			marker.setContent(station.getDetectStationName());
 			marker.setImageOffset(new ImageOffset());

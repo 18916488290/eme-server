@@ -28,8 +28,8 @@
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 				   <div class="gmaps" id="baidumap"></div>
-				   	  <div class="easyui-window" title="空气监测站信息" data-options="iconCls:'icon-save',left:800,top:400">
-				         <div class="easyui-panel" title="" style="width:440px;height:140px;">
+				   	  <div id="w" class="easyui-window" title="空气监测站信息" data-options="left:800,top:54,minimizable:false">
+				         <div class="easyui-panel" title="" style="width:440px;">
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
@@ -43,7 +43,7 @@
 												<tr>
 													<td th:text="${nc.detectStationName}">名称</td>
 													<td th:text="${nc.administrativeDivision.division}">行政区域</td>		
-													<td th:text="${nc.administrativeDivision.division}">行政区域</td>							
+													<td style="background-color: #800080; color: white">重度污染</td>													
 													<td>
 													<a href="#" th:href="@{/detectStationInfo(detectStationId=${nc.id})}" target="_blank"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
 													<a th:href="'javascript:theLocation('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ');'"><i class="fa  fa-map-marker"></i><span>定位</span></a>
@@ -73,7 +73,8 @@
 	<!-- JQUERY -->
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
-		jQuery(document).ready(function() {		
+		jQuery(document).ready(function() {	
+			$('#w').window('collapse');
 			App.setPage("mapAir");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});
@@ -86,6 +87,7 @@
 	function theLocation(sourceId,lng,lat){
 			var new_point = new BMap.Point(lng,lat);
 			map.panTo(new_point);   
+			map.setZoom(13);
 			map.clearOverlays(); 
 			addMapOverlay(sourceId);
 	}
@@ -93,7 +95,8 @@
 	// Local search
 	function localSearch(sourceId,lng,lat,s){
 			var new_point = new BMap.Point(lng,lat);
-			map.panTo(new_point);    
+			map.panTo(new_point);
+			map.setZoom(13);
 			map.clearOverlays(); 
 			addMapOverlay(sourceId);
 			var circle = new BMap.Circle(new_point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
@@ -170,13 +173,55 @@
 		      });
 		    }
 	
+
 	 function createInfoWindow(marker){
-		 var content = '<table> <tr><td>API值:</td><td><label>104</label></td></tr><tr><td>首要污染物:</td><td><label>可吸入颗粒物</label></td></tr><tr><td>空气质量状况:</td><td><label>轻度污染</label></td></tr><tr><td>空气质量级别:</td><td><label>Ⅲ</label></td></tr><tr><td>二氧化硫（SO2）:</td><td><label>39μg/m3</label></td></tr><tr><td>二氧化氮:</td><td><label>78μg/m3</label></td></tr><tr><td>一氧化碳:</td><td><label>2.4mg/m3</label></td></tr><tr><td>臭氧:</td><td><label>132μg/m<sub>3</sub></label></td></tr></table>';
+		 var content = '<fieldset> <div  class="panel">'+
+							'<div title="" class="ddv panel-body panel-body-noheader panel-body-noborder" style="padding: 2px 0px; width: 100%;">'+
+								'<style type="text/css">  .dv-table td{border:1px;text-align:center;padding:2px}.dv-label{font-weight:solid;color:#15428B;}</style>'+
+								'<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">'+
+									'<tbody>'+					
+										'<tr>'+
+											'<td class="dv-label">AQI:</td>'+
+											'<td>45</td>'+
+											'<td class="dv-label">首要污染物:</td>'+
+											'<td>'+'PM<sub>2.5</sub>'+'</td>'+
+										'</tr>'+
+										'<tr>'+
+											'<td class="dv-label">空气质量状况</td>'+
+											'<td>'+'良'+'</td>'+
+											'<td class="dv-label">空气质量级别</td>'+
+											'<td>'+'II'+'</td>'+
+										'</tr>'+
+										'<tr>'+
+										'<td class="dv-label">二氧化硫(SO<sub>2</sub>)</td>'+
+										'<td>'+'39μg/m<sup>3</sup>'+'</td>'+
+										'<td class="dv-label">二氧化氮(SO<sub>2</sub>)</td>'+
+										'<td>'+'58μg/m<sup>3</sup>'+'</td>'+
+									'</tr>'+
+									'<tr>'+
+									'<td class="dv-label">一氧化碳(CO)</td>'+
+									'<td>'+'69mg/m<sup>3</sup>'+'</td>'+
+									'<td class="dv-label">臭氧(O<sub>3</sub>)</td>'+
+									'<td>'+'58μg/m<sup>3</sup>'+'</td>'+
+								'</tr>'+
+								'<tr>'+
+								'<td class="dv-label">PM<sub>10</sub></td>'+
+								'<td>'+'69μg/m<sup>3</sup>'+'</td>'+
+								'<td class="dv-label">PM<sub>2.5</sub></td>'+
+								'<td>'+'58μg/m<sup>3</sup>'+'</td>'+
+							'</tr>'+
+									
+									'</tbody>'+
+								'</table>'+
+								'<a href="aqiInfo?stationId='+marker.stationId+'" target="_blank">查看详细</a>'+
+							'</div>'+
+						'</div>'+
+						'</fieldset>';
 			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
 				title: marker.title, //标题
-				offset: new BMap.Size(0,30),
-				width: 200,//宽度
-				height: 200, //高度
+				offset: new BMap.Size(0,7),
+				width: 350,//宽度
+				height: 220, //高度
 				panel : "panel", //检索结果面板
 				enableAutoPan : true, //自动平移
 				searchTypes :[
@@ -184,6 +229,11 @@
 			});
 		return infoWindow;
 	 }
+	 
+	 
+	 
+	 
+	 
 	 
 
 	//初始化地图

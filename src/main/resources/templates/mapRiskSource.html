@@ -28,8 +28,8 @@
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 				  <div class="gmaps" id="baidumap"></div>  
-	              <div class="easyui-window" title="风险源信息" data-options="iconCls:'icon-save',left:800,top:400">
-				  <div class="easyui-panel" title="" style="width:440px;height:140px;">
+	              <div id="w" class="easyui-window" title="风险源信息" data-options="left:800,top:54,minimizable:false">
+				  <div class="easyui-panel" title="" style="width:440px;">
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
@@ -55,6 +55,7 @@
 										</table>
 								
 								</div>
+						
 							</div>	  
 			</div>
 			<!-- /mainContentBox -->
@@ -71,6 +72,7 @@
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {		
+			$('#w').window('collapse');
 			App.setPage("mapRiskSource");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});
@@ -81,7 +83,9 @@
     // 用经纬度设置地图中心点
 	function theLocation(sourceId,lng,lat){
 			var new_point = new BMap.Point(lng,lat);
-			map.panTo(new_point);   
+			map.panTo(new_point);  
+			map.setZoom(13);
+			//   map.centerAndZoom(new BMap.Point(data.lng,data.lat),12);
 			map.clearOverlays(); 
 			addMapOverlay(sourceId);
 	}
@@ -89,7 +93,8 @@
 	// Local search
 	function localSearch(sourceId,lng,lat,s){
 			var new_point = new BMap.Point(lng,lat);
-			map.panTo(new_point);    
+			map.panTo(new_point); 
+			map.setZoom(13);
 			map.clearOverlays(); 
 			addMapOverlay(sourceId);
 			var circle = new BMap.Circle(new_point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
@@ -139,7 +144,7 @@
 		 var content = '<fieldset> <div  class="panel">'+
 							'<div title="" class="ddv panel-body panel-body-noheader panel-body-noborder" style="padding: 2px 0px; width: 100%;">'+
 								'<style type="text/css">  .dv-table td{border:1px;text-align:center;padding:2px}.dv-label{font-weight:solid;color:#15428B;}</style>'+
-								'<table class="dv-table" style="width:100%;" border="0">'+
+								'<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">'+
 									'<tbody>'+
 										'<tr>'+
 											'<td class="dv-label">企业名称:</td>'+
@@ -150,29 +155,25 @@
 										'<tr>'+
 											'<td class="dv-label">风险等级:</td>'+
 											'<td>'+marker.riskSourceInfo.lvl+'</td>'+
-											'<td class="dv-label">是否有预案:</td>'+
+											'<td class="dv-label">是否预案:</td>'+
 											'<td>'+marker.riskSourceInfo.riskAversion+'</td>'+
 										'</tr>'+
 										'<tr>'+
 											'<td class="dv-label">应急人员</td>'+
 											'<td>'+marker.riskSourceInfo.emePersion+'</td>'+
-											'<td class="dv-label">应急人员电话</td>'+
+											'<td class="dv-label">应急电话</td>'+
 											'<td>'+marker.riskSourceInfo.emeTel+'</td>'+
 										'</tr>'+
-										'<tr>'+
-											'<td ><a href="riskSourceInfo?companyId='+marker.riskSourceInfo.companyId+'" target="_blank" style="width:120px">查看详细</a></td>'+
-											'<td></td>'+
-										'</tr>'+
 									'</tbody>'+
-								'</table>'+
+								'</table><a href="riskSourceInfo?companyId='+marker.riskSourceInfo.companyId+'" target="_blank" style="width:120px">查看详细</a>'+
 							'</div>'+
 						'</div>'+
 						'</fieldset>';
 			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
 				title: marker.title, //标题
 				offset: new BMap.Size(0,7),
-				width: 380,//宽度
-				height: 120, //高度
+				width: 430,//宽度
+				height: 140, //高度
 				panel : "panel", //检索结果面板
 				enableAutoPan : true, //自动平移
 				searchTypes :[

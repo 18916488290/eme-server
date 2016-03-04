@@ -7,6 +7,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
+	
+	
+	
 	<!-- STYLESHEETS --><!--[if lt IE 9]><script  th:src="@{/js/flot/excanvas.min.js}" src="../../static/js/flot/excanvas.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
 	<link rel="stylesheet" type="text/css" href="../../static/css/cloud-admin.css" th:href="@{/css/cloud-admin.css}" />
 	<link rel="stylesheet" type="text/css"  href="../../static/css/themes/default.css" th:href="@{/css/themes/default.css}" id="skin-switcher" />
@@ -25,7 +28,7 @@
 	 <link href='http://fonts.useso.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css' />
 	 <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
 	 
-	 <link rel="stylesheet" type="text/css"  href="../../static/css/easyui.css" th:href="@{/css/easyui.css}" />
+     <link rel="stylesheet" type="text/css"  href="../../static/css/easyui.css" th:href="@{/css/easyui.css}" />
 </head>
 <body>
 	<!-- HEADER -->
@@ -141,7 +144,7 @@
 	
 	<!-- PAGE -->
 	<section id="page">
-				<!-- SIDEBAR --> <!-- sidebar-fixed -->
+					<!-- SIDEBAR --> <!-- sidebar-fixed -->
 				<div id="sidebar" class="sidebar" th:fragment="sidebarFragment">
 					<div class="sidebar-menu nav-collapse">
 
@@ -176,7 +179,7 @@
 										<span class="arrow"></span>
 										</a>
 										<ul class="sub-sub">
-										   <li id="mapRiskSource"><a class="" href="#" th:href="@{/mapRiskSource}"><span class="sub-sub-menu-text">风险源分布</span></a></li>
+											<li id="mapRiskSource"><a class="" href="#" th:href="@{/mapRiskSource}"><span class="sub-sub-menu-text">风险源分布</span></a></li>
 											<li id="mapAir"><a class="" href="#" th:href="@{/mapAir}"><span class="sub-sub-menu-text">空气质量</span></a></li>
 											<li id="mapOnline"><a class="" href="#" th:href="@{/mapOnline}"><span class="sub-sub-menu-text">在线实时监测</span></a></li>
 											<li id="mapMoniter"><a class="" href="#" th:href="@{/mapMoniter}"><span class="sub-sub-menu-text">视频监控</span></a></li>

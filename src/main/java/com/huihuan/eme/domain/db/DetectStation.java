@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-22 12:27:37 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-3 16:33:56 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -33,6 +33,7 @@ public class DetectStation  implements java.io.Serializable {
      private String lat;
      private String lng;
      private Set<DataCollectionDevice> dataCollectionDevices = new HashSet<DataCollectionDevice>(0);
+     private Set<DetectAirReport> detectAirReports = new HashSet<DetectAirReport>(0);
      private Set<DetectAir> detectAirs = new HashSet<DetectAir>(0);
      private Set<DetectStationContent> detectStationContents = new HashSet<DetectStationContent>(0);
      private Set<Detect> detects = new HashSet<Detect>(0);
@@ -41,13 +42,14 @@ public class DetectStation  implements java.io.Serializable {
     public DetectStation() {
     }
 
-    public DetectStation(AdministrativeDivision administrativeDivision, Epb epb, String detectStationName, String lat, String lng, Set<DataCollectionDevice> dataCollectionDevices, Set<DetectAir> detectAirs, Set<DetectStationContent> detectStationContents, Set<Detect> detects, Set<DetectHistory> detectHistories) {
+    public DetectStation(AdministrativeDivision administrativeDivision, Epb epb, String detectStationName, String lat, String lng, Set<DataCollectionDevice> dataCollectionDevices, Set<DetectAirReport> detectAirReports, Set<DetectAir> detectAirs, Set<DetectStationContent> detectStationContents, Set<Detect> detects, Set<DetectHistory> detectHistories) {
        this.administrativeDivision = administrativeDivision;
        this.epb = epb;
        this.detectStationName = detectStationName;
        this.lat = lat;
        this.lng = lng;
        this.dataCollectionDevices = dataCollectionDevices;
+       this.detectAirReports = detectAirReports;
        this.detectAirs = detectAirs;
        this.detectStationContents = detectStationContents;
        this.detects = detects;
@@ -116,6 +118,14 @@ public class DetectStation  implements java.io.Serializable {
     
     public void setDataCollectionDevices(Set<DataCollectionDevice> dataCollectionDevices) {
         this.dataCollectionDevices = dataCollectionDevices;
+    }
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectStation")
+    public Set<DetectAirReport> getDetectAirReports() {
+        return this.detectAirReports;
+    }
+    
+    public void setDetectAirReports(Set<DetectAirReport> detectAirReports) {
+        this.detectAirReports = detectAirReports;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectStation")
     public Set<DetectAir> getDetectAirs() {

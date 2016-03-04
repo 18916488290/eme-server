@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-22 12:27:37 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-3 16:33:56 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -33,12 +33,13 @@ public class AqiInfo  implements java.io.Serializable {
      private String color;
      private String healthDescription;
      private String advice;
+     private Set<DetectAirReport> detectAirReports = new HashSet<DetectAirReport>(0);
      private Set<IaqiInfo> iaqiInfos = new HashSet<IaqiInfo>(0);
 
     public AqiInfo() {
     }
 
-    public AqiInfo(Float ilow, Float ihigh, String lvl, String description, String colorDescription, String color, String healthDescription, String advice, Set<IaqiInfo> iaqiInfos) {
+    public AqiInfo(Float ilow, Float ihigh, String lvl, String description, String colorDescription, String color, String healthDescription, String advice, Set<DetectAirReport> detectAirReports, Set<IaqiInfo> iaqiInfos) {
        this.ilow = ilow;
        this.ihigh = ihigh;
        this.lvl = lvl;
@@ -47,6 +48,7 @@ public class AqiInfo  implements java.io.Serializable {
        this.color = color;
        this.healthDescription = healthDescription;
        this.advice = advice;
+       this.detectAirReports = detectAirReports;
        this.iaqiInfos = iaqiInfos;
     }
    
@@ -131,6 +133,14 @@ public class AqiInfo  implements java.io.Serializable {
     
     public void setAdvice(String advice) {
         this.advice = advice;
+    }
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="aqiInfo")
+    public Set<DetectAirReport> getDetectAirReports() {
+        return this.detectAirReports;
+    }
+    
+    public void setDetectAirReports(Set<DetectAirReport> detectAirReports) {
+        this.detectAirReports = detectAirReports;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="aqiInfo")
     public Set<IaqiInfo> getIaqiInfos() {

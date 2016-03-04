@@ -4,9 +4,8 @@
 package com.huihuan.eme.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-import com.huihuan.eme.domain.db.AirEnv;
-import com.huihuan.eme.domain.db.AirEnvType;
 import com.huihuan.eme.domain.db.AqiInfo;
 
 
@@ -17,6 +16,9 @@ import com.huihuan.eme.domain.db.AqiInfo;
  *
  */
 public interface AqiInfoRepository  extends JpaRepository<AqiInfo, Long> {
+	
+	@Query("select a from AqiInfo a where a.ilow<=?1 and a.ihigh>=?1")
+	public AqiInfo getAqiInfoByAqiValue(float aqi);
 	
 
 }

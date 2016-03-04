@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-2-22 12:27:37 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-3 16:33:56 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -26,14 +26,16 @@ public class DetectContentDic  implements java.io.Serializable {
 
      private Long id;
      private String detectContent;
+     private Set<DetectAirReport> detectAirReports = new HashSet<DetectAirReport>(0);
      private Set<DetectFactor> detectFactors = new HashSet<DetectFactor>(0);
      private Set<DetectStationContent> detectStationContents = new HashSet<DetectStationContent>(0);
 
     public DetectContentDic() {
     }
 
-    public DetectContentDic(String detectContent, Set<DetectFactor> detectFactors, Set<DetectStationContent> detectStationContents) {
+    public DetectContentDic(String detectContent, Set<DetectAirReport> detectAirReports, Set<DetectFactor> detectFactors, Set<DetectStationContent> detectStationContents) {
        this.detectContent = detectContent;
+       this.detectAirReports = detectAirReports;
        this.detectFactors = detectFactors;
        this.detectStationContents = detectStationContents;
     }
@@ -56,6 +58,14 @@ public class DetectContentDic  implements java.io.Serializable {
     
     public void setDetectContent(String detectContent) {
         this.detectContent = detectContent;
+    }
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectContentDic")
+    public Set<DetectAirReport> getDetectAirReports() {
+        return this.detectAirReports;
+    }
+    
+    public void setDetectAirReports(Set<DetectAirReport> detectAirReports) {
+        this.detectAirReports = detectAirReports;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectContentDic")
     public Set<DetectFactor> getDetectFactors() {

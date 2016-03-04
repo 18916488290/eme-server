@@ -2278,6 +2278,7 @@
   border-width: 1px;
   border-style: solid;
 }
+/*
 .menu-text {
   height: 20px;
   line-height: 20px;
@@ -2376,6 +2377,7 @@
   background: transparent;
   color: #333;
 }
+*/
 .m-btn-downarrow,
 .s-btn-downarrow {
   display: inline-block;

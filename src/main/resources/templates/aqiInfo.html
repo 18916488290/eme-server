@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/aqi-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/aqi-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+	<!-- PAGE -->
+	<section id="page">
+		
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/aqi-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/aqi-layout :: main-contentFragment">
+			
+	      <!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li>空气质量详情</li>
+				<li  th:text="${station.detectStationName}">监测站</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+				<div id="chartContainer" style="min-width: 310px; height:280px; margin: 0 auto"></div>
+				    <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped  table-hover">
+				    		<thead style="height: 1px;">
+												<tr>
+													<th>监测时间</th>
+													<th>AQI</th>
+													<th>级别</th>
+													<th>类别</th>
+													<th>首要污染物</th>
+													<th>SO<sub>2</sub></th>
+													<th>NO<sub>2</sub></th>
+													<th>O<sub>3</sub></th>
+													<th>CO<sub>2</sub></th>
+													<th>PM<sub>10</sub></th>
+													<th>PM<sub>2.5</sub></th>
+													
+												</tr>
+							</thead> 
+				           <tr>
+				           <td>2016 3-3 12:00</td>
+				           <td>103</td>
+				           <td style="background-color: #FFA500;">3级</td>
+				           <td>轻度污染</td>
+				           <td>二氧化氮</td>
+				           <td>35</td>
+				           <td>103</td>
+				           <td>49</td>
+				           <td>100</td>
+				           <td>99</td>
+				           <td>42</td>
+				           
+				           </tr>
+				          <tr>
+				           <td>2016 3-3 13:00</td>
+				           <td>163</td>
+				           <td style="background-color: #FFA500;">4级</td>
+				           <td>中度污染</td>
+				           <td>二氧化碳</td>
+				           <td>48</td>
+				           <td>75</td>
+				           <td>40</td>
+				           <td>163</td>
+				           <td>106</td>
+				           <td>140</td>
+				           
+				           </tr>
+				                     <tr>
+				           <td>2016 3-3 14:00</td>
+				           <td>182</td>
+				            <td style="background-color: #FFA500;">4级</td>
+				           <td>中度污染</td>
+				           <td>PM<sub>2.5</sub></td>
+				           <td>62</td>
+				           <td>32</td>
+				           <td>32</td>
+				           <td>167</td>
+				           <td>135</td>
+				           <td>182</td>
+				           
+				           </tr>
+				                     <tr>
+				           <td>2016 3-3 15:00</td>
+				           <td>204</td>
+				           <td style="background-color: #800080;">5级</td>
+				           <td>重度污染</td>
+				           <td>PM<sub>2.5</sub></td>
+				           <td>53</td>
+				           <td>96</td>
+				           <td>25</td>
+				           <td>172</td>
+				           <td>84</td>
+				           <td>204</td>
+				           
+				           </tr>
+				          <tr>
+				           <td>2016 3-3 16:00</td>
+				           <td>301</td>
+				            <td style="background-color: #7D0552;">6级</td>
+				           <td>严重污染</td>        
+				           <td>PM<sub>2.5</sub></td>
+				           <td>47</td>
+				           <td>74</td>
+				           <td>81</td>
+				           <td>98</td>
+				           <td>73</td>
+				           <td>301</td>
+				           
+				           </tr>
+				                     <tr>
+				           <td>2016 3-3 17:00</td>
+				           <td>210</td>
+				           <td style="background-color: #800080;">5级</td>
+				           <td>重度污染</td>
+				           <td>PM<sub>2.5</sub></td>
+				           <td>69</td>
+				           <td>52</td>
+				           <td>11</td>
+				           <td>105</td>
+				           <td>86</td>
+				           <td>210</td>
+				           
+				           </tr>
+				                     <tr>
+				           <td>2016 3-3 18:00</td>
+				           <td>108</td>
+				           <td style="background-color: #FFA500;">3级</td>
+				           <td>轻度污染</td>
+				   
+				           <td>二氧化氮</td>
+				           <td>79</td>
+				           <td>108</td>
+				           <td>17</td>
+				           <td>85</td>
+				           <td>86</td>
+				           <td>72</td>
+				           
+				           </tr>
+				                     <tr>
+				           <td>2016 3-3 19:00</td>
+				           <td>82</td>
+				          <td style="background-color: #FFFF00;">2级</td>
+				           <td>良</td>
+				           <td>二氧化氮</td>
+				           <td>44</td>
+				           <td>82</td>
+				           <td>15</td>
+				           <td>74</td>
+				           <td>79</td>
+				           <td>66 </td>
+				           
+				           </tr>
+				           <tr>
+				           <td>2016 3-3 20:00</td>
+				           <td>143</td>
+				             <td style="background-color: #FFA500;">3级</td>
+				           <td>轻度污染</td>
+				           <td>PM<sub>10</sub></td>
+				           <td>49</td>
+				           <td>64</td>
+				           <td>17</td>
+				           <td>32</td>
+				           <td>143</td>
+				           <td>74</td>
+				           
+				           </tr>
+				                     <tr>
+				           <td>2016 3-3 21:00</td>
+				            <td>109</td>
+				             <td style="background-color: #FFA500;">3级</td>
+				           <td>轻度污染</td>
+				           <td>PM<sub>10</sub></td>
+				           <td>100</td>
+				           <td>89</td>
+				           <td>16</td>
+				           <td>86</td>
+				           <td>109</td>
+				           <td>103</td>
+				           
+				           </tr>
+				                     <tr>
+				           <td>2016 3-3 22:00</td>
+				           <td>88</td>
+				           <td style="background-color: #FFFF00;">2级</td>
+				           <td>良</td>
+				           <td>二氧化碳</td>
+				           <td>73</td>
+				           <td>12</td>
+				           <td>66</td>
+				           <td>88</td>
+				           <td>49</td>
+				           <td>66</td>
+				           
+				           </tr>
+				                     <tr>
+				           <td>2016 3-3 23:00</td>
+				           <td>101</td>
+				           <td style="background-color: #FFA500;">3级</td>
+				           <td>轻度污染</td>
+				           <td>二氧化氮</td>
+				           <td>42</td>
+				           <td>101</td>
+				           <td>68</td>
+				           <td>88</td>
+				           <td>86</td>
+				           <td>48</td>
+				           
+				           </tr>
+				            </table>
+		      
+		    </div>					
+		     <!-- /maincontent -->
+		   </div>
+	</section>
+    <div th:include="fragments/aqi-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/aqi-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("aqiInfo");
+			App.init(); //Initialise plugins and elements
+			App.handleTables();
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+	
+	
+<script th:inline="javascript">
+   /*<![CDATA[*/          
+ $(function () {
+    $('#chartContainer').highcharts({
+    	 credits: {
+    	      enabled: false
+    	  },
+        title: {
+            text: '近12小时空气质量数据',
+            x: -20 //center
+        },
+        xAxis: {
+            categories: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
+                '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+        },
+        yAxis: {
+            title: {
+                text: '空气质量指数(分指数)AQI/IAQI'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'AQI',
+            data: [103, 163, 182, 204, 301, 210, 108, 82, 143, 109, 88, 101]
+        }, {
+            name: '二氧化硫',
+            data: [35, 48, 62, 53, 47, 69, 79, 44, 82, 69, 73, 26]
+        }, {
+            name: '二氧化氮',
+            data: [103, 75, 32, 96, 74, 52, 108, 82, 64, 89, 12, 101]
+        }, {
+            name: '臭氧',
+            data: [49, 40, 32, 81, 11, 15, 17, 16, 14, 32, 66, 88]
+        }, {
+            name: '一氧化碳',
+            data: [100, 163, 167, 172, 98, 105, 85, 74, 32, 88, 86, 88]
+        }, {
+            name: 'PM10',
+            data: [99, 106, 135, 84, 73, 86, 86, 79, 143, 109, 49, 86]
+        }, {
+            name: 'PM2.5',
+            data: [42, 140, 182, 204, 301, 210, 72, 66, 74, 103, 66, 48]
+        }
+        ]
+    });
+});
+   /*]]>*/
+  </script>
+	
+</body>
+</html>

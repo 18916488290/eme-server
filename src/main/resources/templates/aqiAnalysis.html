@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/aqi-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/aqi-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+	<!-- PAGE -->
+	<section id="page">
+		
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/aqi-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/aqi-layout :: main-contentFragment">
+			
+	      <!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li>空气质量分析</li>
+				<li  th:text="${station.detectStationName}">监测站</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+				<div id="chartContainer" style="min-width: 310px; height:280px; margin: 0 auto"></div>
+				    <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped  table-hover">
+				    		<thead style="height: 1px;">
+												<tr>
+													<th>空气质量级别</th>
+													<th>空气质量指数类别</th>
+													<th>天数</th>
+													<th>百分比</th>								
+												</tr>
+							</thead> 
+				         
+				         
+				            <tr>
+				           <td style="background-color: #0000FF;">1级</td>
+				           <td>优</td>
+				           <td>2</td>
+				           <td>6.7％</td>
+				           </tr>
+				                 <tr>
+				           <td style="background-color: #FFFF00;">2级</td>
+				           <td>良</td>
+				           <td>4</td>
+				           <td>13.3％</td>
+				           </tr>
+				         
+				         
+				            <tr>
+				           <td style="background-color: #FFA500;">3级</td>
+				           <td>轻度污染</td>
+				           <td>6</td>
+				           <td>20.0％</td>
+				           </tr>
+				           
+				                 <tr>
+				           <td style="background-color: #FF0000;">4级</td>
+				           <td>中度污染</td>
+				           <td>10</td>
+				           <td>33.3％</td>
+				           </tr>
+				         
+				         
+				               <tr>
+				           <td style="background-color: #800080;">5级</td>
+				           <td>重度污染</td>
+				           <td>7</td>
+				           <td>23.3％</td>
+				           </tr>
+				         
+				         
+				               <tr>
+				           <td style="background-color: #7D0552;">6级</td>
+				           <td>严重污染</td>
+				           <td>1</td>
+				           <td>3.3％</td>
+				           </tr>
+				         
+				           
+				            </table>
+		      
+		    </div>					
+		     <!-- /maincontent -->
+		   </div>
+	</section>
+    <div th:include="fragments/aqi-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/aqi-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {	
+			App.setPage("aqiAnalysis");
+			App.init(); //Initialise plugins and elements
+			App.handleTables();
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+	
+	
+<script th:inline="javascript">
+   /*<![CDATA[*/          
+$(function () {
+    $('#chartContainer').highcharts({
+    	 credits: {
+   	      enabled: false
+   	  },
+   	colors: ['#0000FF', '#FFFF00', '#FFA500', '#FF0000', '#800080', 
+   	      '#7D0552', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1'],
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: true,
+            plotShadow: true,
+            type: 'pie'
+        },
+        title: {
+            text: '近一个月空气质量统计分析'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: {point.percentage:.1f}%'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: '天',
+            colorByPoint: true,
+            data: [{
+                name: '优',
+                y: 2
+            }, {
+                name: '良',
+                y: 4
+            }, {
+                name: '轻度污染',
+                y: 6
+            }, {
+                name: '中度污染',
+                y: 10
+            }, {
+                name: '重度污染',
+                y: 7
+            }, {
+                name: '严重污染',
+                y: 1
+            }]
+        }]
+    });
+});
+   /*]]>*/
+  </script>
+	
+</body>
+</html>

@@ -80,14 +80,17 @@
 	<script th:inline="javascript">
     /*<![CDATA[*/
                
+    // var markers;
+    // var baiduMarkers = new Array(); ;
+               
     // 用经纬度设置地图中心点
 	function theLocation(sourceId,lng,lat){
 			var new_point = new BMap.Point(lng,lat);
 			map.panTo(new_point);  
 			map.setZoom(13);
-			//   map.centerAndZoom(new BMap.Point(data.lng,data.lat),12);
 			map.clearOverlays(); 
 			addMapOverlay(sourceId);
+			//map.openInfoWindow(infoWnd:InfoWindow, new_point);
 	}
 
 	// Local search
@@ -96,7 +99,7 @@
 			map.panTo(new_point); 
 			map.setZoom(13);
 			map.clearOverlays(); 
-			addMapOverlay(sourceId);
+			addMapOverlay(-1000);
 			var circle = new BMap.Circle(new_point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
 		    map.addOverlay(circle);
 		    var local =  new BMap.LocalSearch(map, {renderOptions: {map: map, autoViewport: false}});  
@@ -134,7 +137,7 @@
     }
  
     function addClickHandler(target,window){
-      target.addEventListener("click",function(){
+        target.addEventListener("click",function(){
         window.open(target.getPosition());
       });
     }
@@ -183,20 +186,22 @@
 	 }
     function addMapOverlay(sourceId){
         $.getRiskSourcesMarkers(function(data){
-                         var markers = data;
+                       var markers=data;
                          for(var index = 0; index < markers.length; index++ ){
-                          // alert('marker:' + JSON.stringify(markers[index].point));
                            var point = new BMap.Point(markers[index].point.lng,markers[index].point.lat);
+                         //  var selectedmarker;
                            var marker;
                            if(sourceId==markers[index].riskSourceInfo.companyId)
                         	 {
                                 marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation-active.png",new BMap.Size(21,35),{
                                    imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
                                  })});
+                                var selectedWin=createInfoWindow(markers[index]);
+                                selectedWin.open(point);
                         	 }
                            else
                         	   { 
-                        	   marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation.png",new BMap.Size(21,35),{
+                        	   marker  = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation.png",new BMap.Size(21,35),{
                                    imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
                                })});
                         	   
@@ -224,8 +229,8 @@
     }
     var map;
     initMap();
-     /*]]>*/
-   </script>
+   /*]]>*/
+  </script>
 	
 	<!-- /JAVASCRIPTS -->
 </body>

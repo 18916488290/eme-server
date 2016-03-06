@@ -43,6 +43,7 @@ public class MapController {
 	
 	@RequestMapping("/mapMoniter")
 	public String mapMoniter(Map<String, Object> model) {
+		model.put("companies", companyService.getCompaniesByStatus(AuditSatusEnum.Yes));
 		return "mapMoniter";
 	}
 	

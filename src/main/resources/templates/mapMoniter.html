@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/map-layout :: headFragment">
-<!-- <title id="pageTitle">空气质量监测专题</title>-->
 </head>
 <body>
 	<!-- HEADER -->
@@ -25,15 +24,43 @@
 			</ul>
 			<!-- /BREADCRUMBS -->
 
-			<!-- mainContentBox -->
+		<!-- mainContentBox -->
 			<div id="mainContentBox">
-				   <div class="gmaps" id="baidumap"></div>
-				  
+				  <div class="gmaps" id="baidumap"></div>  
+	              <div id="w" class="easyui-window" title="视频监控信息" data-options="left:800,top:54,minimizable:false">
+				  <div class="easyui-panel" title="" style="width:440px;">
+										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>视频站点</th>
+													<th>行政区域</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody th:each="nc : ${companies}">
+												<tr>
+													<td th:text="${nc.companyName}">名称</td>
+													<td th:text="${nc.administrativeDivision.division}">行政区域</td>								
+													<td>  
+													<a th:href="'javascript:theLocation('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ');'"><i class="fa  fa-map-marker"></i><span>定位</span></a>
+													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'学校\');'"><i class="fa"></i><span>🏫学校</span></a>
+													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'医院\');'"><i class="fa"></i><span>🏥医院</span></a>
+													</td>
+												</tr>
+									
+											</tbody>
+											
+										</table>
+								
+								</div>
+						
+							</div>	  
 			</div>
 			<!-- /mainContentBox -->
 		
 		</div>
 		<!-- /maincontent -->
+		
 	</section>
 
     <div th:include="fragments/map-layout :: footerFragment"></div>
@@ -44,29 +71,130 @@
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {		
+			$('#w').window('collapse');
 			App.setPage("mapMoniter");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});
 	</script>
-	<script th:inline="javascript">
-                   /*<![CDATA[*/
+<script th:inline="javascript">
+    /*<![CDATA[*/
+                
+    // 用经纬度设置地图中心点
+	function theLocation(sourceId,lng,lat){
+			var new_point = new BMap.Point(lng,lat);
+			map.panTo(new_point);  
+			map.setZoom(13);
+			map.clearOverlays(); 
+			addMapOverlay(sourceId);
+			
+	}
+
+	// Local search
+	function localSearch(sourceId,lng,lat,s){
+			var new_point = new BMap.Point(lng,lat);
+			map.panTo(new_point); 
+			map.setZoom(13);
+			map.clearOverlays(); 
+			addMapOverlay(-1000);
+			var circle = new BMap.Circle(new_point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
+		    map.addOverlay(circle);
+		    var local =  new BMap.LocalSearch(map, {renderOptions: {map: map, autoViewport: false}});  
+		    local.searchNearby(s,new_point,5000);
+	}
+       
+                   
     //创建和初始化地图函数：
     function initMap(){
       createMap();//创建地图
+      setMapEvent();//设置地图事件
+      addMapOverlay(-1000);//向地图添加覆盖物
     }
     function createMap(){ 
       map = new BMap.Map("baidumap"); 
-      map.centerAndZoom(new BMap.Point(120.887365,31.983889),12);
-	
+      $.getCenter(function(data){
+         map.centerAndZoom(new BMap.Point(data.lng,data.lat),12);
+      });
+      
+    }
+    function setMapEvent(){
+      map.enableDragging();
+    }
+ 
+    function addClickHandler(target,window){
+        target.addEventListener("click",function(){
+        window.open(target.getPosition());
+      });
     }
 	
-	//初始化地图
+	
+	 function createInfoWindow(marker){
+		 var content = 
+			'<div>'+
+				'<video controls="controls"  autoplay="autoplay" loop="loop">'+
+				      '<source src="img/proj/movie.ogg" type="video/ogg" />'+
+					  '<source src="img/proj/movie.mp4" type="video/mp4" />'+	
+				      '您的浏览器不支持 video 标签。'+
+				'</video>'+
+			'</div>';
+			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
+				title: marker.title +":" +marker.riskSourceInfo.companyName, //标题
+				offset: new BMap.Size(0,7),
+				width: 340,//宽度
+				height: 260, //高度
+				panel : "panel", //检索结果面板
+				enableAutoPan : true, //自动平移
+				searchTypes :[
+				]
+			});
+		return infoWindow;
+	 }
+    function addMapOverlay(sourceId){
+        $.getCompanyMarkers(function(data){
+                       var markers=data;
+                         for(var index = 0; index < markers.length; index++ ){
+                           var point = new BMap.Point(markers[index].point.lng,markers[index].point.lat);
+                           var marker;
+                           if(sourceId==markers[index].riskSourceInfo.companyId)
+                        	 {
+                                marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation-active.png",new BMap.Size(21,35),{
+                                   imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+                                 })});
+                                var selectedWin=createInfoWindow(markers[index]);
+                                selectedWin.open(point);
+                        	 }
+                           else
+                        	   { 
+                        	   marker  = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation.png",new BMap.Size(21,35),{
+                                   imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+                               })});
+                        	   
+                        	   }
+                           
+             
+                   		  var searchInfoWindow=createInfoWindow(markers[index]);
+                           addClickHandler(marker,searchInfoWindow);
+                           map.addOverlay(marker);
+                         };
+         });
+         
+    	
+
+    }
     var map;
     initMap();
-
    /*]]>*/
- </script>
-	
+  </script>
+
+  <style scoped="scoped">
+			.tt-inner{
+				display:inline-block;
+				line-height:12px;
+				padding-top:5px;
+			}
+			.tt-inner img{
+				border:0;
+			}
+		</style>
 	<!-- /JAVASCRIPTS -->
 </body>
 </html>

@@ -52,6 +52,12 @@ public class MapController {
 		model.put("companies", companyService.getCompaniesByStatus(AuditSatusEnum.Yes));
 		return "mapAlert";
 	}
+	@RequestMapping("/mapVOCs")
+	public String mapVOCs(Map<String, Object> model) {
+		model.put("companies", companyService.getCompaniesByStatus(AuditSatusEnum.Yes));
+		return "mapVOCs";
+	}
+	
 	@RequestMapping("/mapPopu")
 	public String mapPopu(Map<String, Object> model) {
 		return "mapPopu";

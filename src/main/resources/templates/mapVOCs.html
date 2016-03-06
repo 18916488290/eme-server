@@ -29,6 +29,10 @@
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 				  <div class="gmaps" id="baidumap"></div>  
+				  <div class="alert alert-block alert-warning fade in">
+					<p><i class="fa fa-exclamation-circle"></i>南通励城生物工程有限公司： 氯化氢，苯，非甲烷总烃超标， 监测时间 2016-3-8 14:00， 系统已经通知相关责任人</p>
+				    <p><i class="fa fa-exclamation-circle"></i>南通星辰合成材料有限公司： 苯，非甲烷总烃超标， 监测时间 2016-3-8 14:00， 系统已经通知相关责任人</p>
+				  </div>
 	              <div id="w" class="easyui-window" title="厂区VOCs监测信息" data-options="left:800,top:54,minimizable:false">
 				  <div class="easyui-panel" title="" style="width:440px;">
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
@@ -44,7 +48,6 @@
 													<td th:text="${nc.companyName}">企业名称</td>
 													<td th:text="${nc.administrativeDivision.division}">行政区域</td>								
 													<td>
-                                                    <a href="#" th:href="@{/alertInfo(companyId=${nc.id})}" target="_blank"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
 													<a th:href="'javascript:theLocation('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ');'"><i class="fa  fa-map-marker"></i><span>定位</span></a>
 													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'学校\');'"><i class="fa"></i><span>🏫学校</span></a>
 													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'医院\');'"><i class="fa"></i><span>🏥医院</span></a>
@@ -148,55 +151,53 @@
 									'<td>颗粒物</td>'+
 									'<td>0.2</td>'+
 									'<td>0.5</td>'+
-									'<td>未超标</td>'+
+									'<td><span class="label label-success label-sm">未超标</span></td>'+
 								     '</tr>'+
 										'<tr>'+
 										'<td>2016-3-8 14:00</td>'+
 										'<td>氯化氢</td>'+
 										'<td>0.2</td>'+
 										'<td>0.15</td>'+
-										'<td style="background-color:red;color:white">超标</td>'+
+										'<td><span class="label label-danger label-sm">超标</span></td>'+
 									     '</tr>'+
 											'<tr>'+
 											'<td>2016-3-8 14:00</td>'+
 											'<td>苯</td>'+
 											'<td>0.1</td>'+
 											'<td>0.05</td>'+
-											'<td>未超标</td>'+
+											'<td><span class="label label-success label-sm">未超标</span></td>'+
 										     '</tr>'+
 										 	'<tr>'+
 											'<td>2016-3-8 14:00</td>'+
 											'<td>苯</td>'+
 											'<td>0.3</td>'+
 											'<td>0.2</td>'+
-											'<td style="background-color:red;color:white">超标</td>'+
+											'<td><span class="label label-danger label-sm">超标</span></td>'+
 										     '</tr>'+
 										 	'<tr>'+
 											'<td>2016-3-8 14:00</td>'+
 											'<td>非甲烷总烃</td>'+
 											'<td>13</td>'+
 											'<td>4</td>'+
-											'<td style="background-color:red;color:white">超标</td>'+
+											'<td><span class="label label-danger label-sm">超标</span></td>'+
 										     '</tr>'+
 										 	'<tr>'+
 											'<td>2016-3-8 14:00</td>'+
 											'<td>铅及其化合物</td>'+
 											'<td>0.0004</td>'+
 											'<td>0.006</td>'+
-											'<td>未超标</td>'+
+											'<td><span class="label label-success label-sm">未超标</span></td>'+
 										     '</tr>'+
 											 	'<tr>'+
 												'<td>2016-3-8 14:00</td>'+
 												'<td>汞及其化合物</td>'+
 												'<td>0.0001</td>'+
 												'<td>0.0003</td>'+
-												'<td>未超标</td>'+
+												'<td><span class="label label-success label-sm">未超标</span></td>'+
 											     '</tr>'+
 										 
 									'</tbody>'+
 								'</table>'+
-								
-									'<a href="alertInfo?companyId='+marker.riskSourceInfo.companyId+'" target="_blank" style="width:120px">查看详细</a>'+
 							'</div>'+
 						'</div>'+
 						'</fieldset>';

@@ -330,6 +330,9 @@ $('#phContainer').highcharts({
        }
    },
    yAxis: {
+  	 max:14, // 定义Y轴 最大值  
+     min:0, // 定义最小值  
+     tickInterval:2, // 刻度值  
 	   title: {
            text: 'PH值'
        },
@@ -338,7 +341,7 @@ $('#phContainer').highcharts({
        alternateGridColor: null,
        plotBands: [ {
            from: 0,
-           to: 6,
+           to: 4,
            color: 'rgba(255, 255, 0, 0.2)',
            label: {
                text: '超标',
@@ -348,7 +351,7 @@ $('#phContainer').highcharts({
            }
        },
        { 
-           from: 6,
+           from: 4,
            to: 10,
            color: 'rgba(68, 170, 213, 0.1)',
            label: {
@@ -360,7 +363,7 @@ $('#phContainer').highcharts({
        }, 
        {
            from: 10,
-           to: 100,
+           to: 14,
            color: 'rgba(255, 255, 0, 0.2)',
            label: {
                text: '超标',
@@ -381,7 +384,7 @@ $('#phContainer').highcharts({
    },
    series: [{
        name: 'PH',
-       data: [4.2, 5.45, 10.7, 8, 4, 7.4, 7.6, 8.9, 7.9, 8.2, 6.4, 4.7, 12.5, 16.7, 15, 14, 13.4, 12.5, 12.3, 11, 10.2, 9.8, 7.7, 7.6]
+       data: [4.2, 5.45, 10.7, 8, 4, 7.4, 7.6, 8.9, 7.9, 8.2, 6.4, 4.7, 12.5, 10.7, 15, 13.5, 13.4, 12.5, 12.3, 11, 10.2, 9.8, 7.7, 7.6]
 
    }],
    navigation: {

@@ -49,6 +49,7 @@ public class MapController {
 	
 	@RequestMapping("/mapAlert")
 	public String mapAlert(Map<String, Object> model) {
+		model.put("companies", companyService.getCompaniesByStatus(AuditSatusEnum.Yes));
 		return "mapAlert";
 	}
 	@RequestMapping("/mapPopu")

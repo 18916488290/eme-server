@@ -418,7 +418,6 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Company> getRiskSources() {
-		// TODO Auto-generated method stub
 		return companyRepository.getAllRiskSources();
 	}
 

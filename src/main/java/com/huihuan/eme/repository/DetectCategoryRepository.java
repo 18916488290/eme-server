@@ -14,5 +14,7 @@ import com.huihuan.eme.domain.db.DetectHistory;
  */
 public interface DetectCategoryRepository  extends JpaRepository<DetectCategory, Long> {
 	
+	public DetectCategory getByDetectCategory(String detectCategory);
+	
 
 }

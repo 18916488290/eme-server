@@ -123,16 +123,16 @@ $(function () {
         title: {
             text: '近一个月空气质量统计分析'
         },
-        tooltip: {
-            pointFormat: '{series.name}: {point.percentage:.1f}%'
-        },
+       // tooltip: {
+       //     pointFormat: '{series.name}: {point.percentage:.1f}%'
+       // },
         plotOptions: {
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                //    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
                     style: {
                         color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                     }
@@ -140,7 +140,7 @@ $(function () {
             }
         },
         series: [{
-            name: '天',
+            name: '天数：',
             colorByPoint: true,
             data: [{
                 name: '优',

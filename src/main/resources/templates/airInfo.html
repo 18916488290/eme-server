@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/online-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/online-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+	<!-- PAGE -->
+	<section id="page">
+		
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/online-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/online-layout :: main-contentFragment">
+			
+	      <!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li>在线监测详情</li>
+				<li  th:text="${company.companyName}">监测点</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+				<div id="codContainer" style="min-width: 310px; height:180px; margin: 0 auto"></div>
+				<div id="andanContainer" style="min-width: 310px; height:180px; margin: 0 auto"></div>
+				<div id="zonglinContainer" style="min-width: 310px; height:180px; margin: 0 auto"></div>
+				<div id="phContainer" style="min-width: 310px; height:180px; margin: 0 auto"></div>
+		    </div>					
+		     <!-- /maincontent -->
+		   </div>
+	</section>
+    <div th:include="fragments/online-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/online-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("airInfo");
+			App.init(); //Initialise plugins and elements
+			App.handleTables();
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+	
+	
+<script th:inline="javascript">
+   /*<![CDATA[*/          
+ $(function () {
+    $('#codContainer').highcharts({
+    	 credits: {
+   	      enabled: false
+   	     },
+   	  tooltip:{
+   		 crosshairs:true,
+   		 formatter: function() {
+             return  ''+ Highcharts.dateFormat('%Y-%m-%d %H', this.x) + '点<br/>' +
+                     this.series.name +':'+ this.y;
+           }
+   	     
+   	  },
+   	  legend:{
+   		enabled:false
+   	  },
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: '二氧化硫'
+        },
+        xAxis: {
+            type: 'datetime',
+            labels: {
+                overflow: 'justify'
+            },
+            dateTimeLabelFormats: {
+                day:'%Y-%m-%d %H'
+            }
+        },
+        yAxis: {
+            title: {
+                text: '浓度 (ug/m3)'
+            },
+            minorGridLineWidth: 0,
+            gridLineWidth: 0,
+            alternateGridColor: null,
+            plotBands: [{ 
+                from: 0,
+                to: 32.5,
+                color: 'rgba(68, 170, 213, 0.1)',
+                label: {
+                    text: '正常值',
+                    style: {
+                        color: '#606060'
+                    }
+                }
+            }, {
+                from: 32.5,
+                to: 100,
+                color: 'rgba(255, 255, 0, 0.2)',
+                label: {
+                    text: '超标',
+                    style: {
+                        color: '#606060'
+                    }
+                }
+            }]
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    enabled: false
+                },
+                pointInterval: 3600000, // one hour
+                pointStart: Date.UTC(2016, 2, 7) 
+            }
+        },
+        series: [{
+            name: '二氧化硫',
+            data: [23.34, 25.45, 10.7, 38, 24, 13, 15, 29, 19, 26, 16.4, 34, 43, 36.7, 45, 42, 45, 45, 42.3, 31, 27, 42, 27, 23]
+
+        }],
+        navigation: {
+            menuItemStyle: {
+                fontSize: '10px'
+            }
+        }
+    });
+});
+   
+   
+ $('#andanContainer').highcharts({
+	 credits: {
+	      enabled: false
+	     },
+	  tooltip:{
+		 crosshairs:true,
+		 formatter: function() {
+         return  ''+ Highcharts.dateFormat('%Y-%m-%d %H', this.x) + '点<br/>' +
+                 this.series.name +':'+ this.y;
+       }
+	     
+	  },
+	  legend:{
+		enabled:false
+	  },
+    chart: {
+        type: 'spline'
+    },
+    title: {
+        text: '烟尘'
+    },
+    xAxis: {
+        type: 'datetime',
+        labels: {
+            overflow: 'justify'
+        },
+        dateTimeLabelFormats: {
+            day:'%Y-%m-%d %H'
+        }
+    },
+    yAxis: {
+        title: {
+            text: '浓度 (ug/m3)'
+        },
+        minorGridLineWidth: 0,
+        gridLineWidth: 0,
+        alternateGridColor: null,
+        plotBands: [{ 
+            from: 0,
+            to: 32.5,
+            color: 'rgba(68, 170, 213, 0.1)',
+            label: {
+                text: '正常值',
+                style: {
+                    color: '#606060'
+                }
+            }
+        }, {
+            from: 32.5,
+            to: 100,
+            color: 'rgba(255, 255, 0, 0.2)',
+            label: {
+                text: '超标',
+                style: {
+                    color: '#606060'
+                }
+            }
+        }]
+    },
+    plotOptions: {
+        spline: {
+            marker: {
+                enabled: false
+            },
+            pointInterval: 3600000, // one hour
+            pointStart: Date.UTC(2016, 2, 7) 
+        }
+    },
+    series: [{
+        name: '烟尘',
+        data: [23.34, 25.45, 10.7, 38, 24, 13, 15, 29, 19, 26, 16.4, 34, 43, 36.7, 45, 42, 45, 45, 42.3, 31, 27, 42, 27, 23]
+
+    }],
+    navigation: {
+        menuItemStyle: {
+            fontSize: '10px'
+        }
+    }
+});
+
+
+
+
+$('#zonglinContainer').highcharts({
+	 credits: {
+	      enabled: false
+	     },
+	  tooltip:{
+		 crosshairs:true,
+		 formatter: function() {
+        return  ''+ Highcharts.dateFormat('%Y-%m-%d %H', this.x) + '点<br/>' +
+                this.series.name +':'+ this.y;
+      }
+	     
+	  },
+	  legend:{
+		enabled:false
+	  },
+   chart: {
+       type: 'spline'
+   },
+   title: {
+       text: '二氧化氮'
+   },
+   xAxis: {
+       type: 'datetime',
+       labels: {
+           overflow: 'justify'
+       },
+       dateTimeLabelFormats: {
+           day:'%Y-%m-%d %H'
+       }
+   },
+   yAxis: {
+       title: {
+           text: '浓度 (ug/m3)'
+       },
+       minorGridLineWidth: 0,
+       gridLineWidth: 0,
+       alternateGridColor: null,
+       plotBands: [{ 
+           from: 0,
+           to: 32.5,
+           color: 'rgba(68, 170, 213, 0.1)',
+           label: {
+               text: '正常值',
+               style: {
+                   color: '#606060'
+               }
+           }
+       }, {
+           from: 32.5,
+           to: 100,
+           color: 'rgba(255, 255, 0, 0.2)',
+           label: {
+               text: '超标',
+               style: {
+                   color: '#606060'
+               }
+           }
+       }]
+   },
+   plotOptions: {
+       spline: {
+           marker: {
+               enabled: false
+           },
+           pointInterval: 3600000, // one hour
+           pointStart: Date.UTC(2016, 2, 7) 
+       }
+   },
+   series: [{
+       name: '二氧化氮',
+       data: [23.34, 25.45, 10.7, 38, 24, 13, 15, 29, 19, 26, 16.4, 34, 43, 36.7, 45, 42, 45, 45, 42.3, 31, 27, 42, 27, 23]
+
+   }],
+   navigation: {
+       menuItemStyle: {
+           fontSize: '10px'
+       }
+   }
+});
+
+
+$('#phContainer').highcharts({
+	 credits: {
+	      enabled: false
+	     },
+	  tooltip:{
+		 crosshairs:true,
+		 formatter: function() {
+        return  ''+ Highcharts.dateFormat('%Y-%m-%d %H', this.x) + '点<br/>' +
+                this.series.name +':'+ this.y;
+      }
+	     
+	  },
+	  legend:{
+		enabled:false
+	  },
+   chart: {
+       type: 'spline'
+   },
+   title: {
+       text: '氮氧化物'
+   },
+   xAxis: {
+       type: 'datetime',
+       labels: {
+           overflow: 'justify'
+       },
+       dateTimeLabelFormats: {
+           day:'%Y-%m-%d %H'
+       }
+   },
+   yAxis: {
+	   title: {
+		   text: '浓度 (ug/m3)'
+       },
+       minorGridLineWidth: 0,
+       gridLineWidth: 0,
+       alternateGridColor: null,
+       plotBands: 
+      [{ 
+           from: 0,
+           to: 10,
+           color: 'rgba(68, 170, 213, 0.1)',
+           label: {
+               text: '正常值',
+               style: {
+                   color: '#606060'
+               }
+           }
+       }, 
+       {
+           from: 10,
+           to: 100,
+           color: 'rgba(255, 255, 0, 0.2)',
+           label: {
+               text: '超标',
+               style: {
+                   color: '#606060'
+               }
+           }
+       }]
+   },
+   plotOptions: {
+       spline: {
+           marker: {
+               enabled: false
+           },
+           pointInterval: 3600000, // one hour
+           pointStart: Date.UTC(2016, 2, 7) 
+       }
+   },
+   series: [{
+       name: '氮氧化物',
+       data: [4.2, 5.45, 10.7, 8, 4, 7.4, 7.6, 8.9, 7.9, 8.2, 6.4, 4.7, 12.5, 16.7, 15, 14, 13.4, 12.5, 12.3, 11, 10.2, 9.8, 7.7, 7.6]
+
+   }],
+   navigation: {
+       menuItemStyle: {
+           fontSize: '10px'
+       }
+   }
+});
+
+   
+   /*]]>*/
+  </script>
+	
+</body>
+</html>

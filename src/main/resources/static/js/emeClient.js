@@ -48,6 +48,11 @@
              $.EMEClient('getDetectStationMarkers',{},callback);
  
      };
+     //1. 在线监测标注
+     $.getCompanyMarkers = function(callback){
+             $.EMEClient('getCompanyMarkers',{},callback);
+ 
+     };
      
      
 })(jQuery, window, document);

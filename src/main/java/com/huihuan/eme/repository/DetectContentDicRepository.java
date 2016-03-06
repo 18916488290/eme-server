@@ -14,5 +14,7 @@ import com.huihuan.eme.domain.db.EmergencyReponsePlanType;
  */
 public interface DetectContentDicRepository  extends JpaRepository<DetectContentDic, Long> {
 	
+	public DetectContentDic getByDetectContent(String detectContent);
+	
 
 }

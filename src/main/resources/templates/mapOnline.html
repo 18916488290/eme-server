@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/map-layout :: headFragment">
-<!-- <title id="pageTitle">空气质量监测专题</title>-->
 </head>
 <body>
 	<!-- HEADER -->
@@ -25,10 +24,39 @@
 			</ul>
 			<!-- /BREADCRUMBS -->
 
+		
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
-				   <div class="gmaps" id="baidumap"></div>
-				  
+				  <div class="gmaps" id="baidumap"></div>  
+	              <div id="w" class="easyui-window" title="在线检测信息" data-options="left:800,top:54,minimizable:false">
+				  <div class="easyui-panel" title="" style="width:440px;">
+										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>企业名称</th>
+													<th>行政区域</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody th:each="nc : ${companies}">
+												<tr>
+													<td th:text="${nc.companyName}">企业名称</td>
+													<td th:text="${nc.administrativeDivision.division}">行政区域</td>								
+													<td>
+                                                    <a href="#" th:href="@{/onlineInfo(companyId=${nc.id})}" target="_blank"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
+													<a th:href="'javascript:theLocation('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ');'"><i class="fa  fa-map-marker"></i><span>定位</span></a>
+													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'学校\');'"><i class="fa"></i><span>🏫学校</span></a>
+													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'医院\');'"><i class="fa"></i><span>🏥医院</span></a>
+													</td>
+												</tr>
+									
+											</tbody>
+											
+										</table>
+								
+								</div>
+						
+							</div>	  
 			</div>
 			<!-- /mainContentBox -->
 		
@@ -44,38 +72,174 @@
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {		
+			$('#w').window('collapse');
 			App.setPage("mapOnline");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});
 	</script>
-	<script th:inline="javascript">
-   /*<![CDATA[*/
+		<script th:inline="javascript">
+    /*<![CDATA[*/
+                
+    // 用经纬度设置地图中心点
+	function theLocation(sourceId,lng,lat){
+			var new_point = new BMap.Point(lng,lat);
+			map.panTo(new_point);  
+			map.setZoom(13);
+			map.clearOverlays(); 
+			addMapOverlay(sourceId);
+			
+	}
+
+	// Local search
+	function localSearch(sourceId,lng,lat,s){
+			var new_point = new BMap.Point(lng,lat);
+			map.panTo(new_point); 
+			map.setZoom(13);
+			map.clearOverlays(); 
+			addMapOverlay(-1000);
+			var circle = new BMap.Circle(new_point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
+		    map.addOverlay(circle);
+		    var local =  new BMap.LocalSearch(map, {renderOptions: {map: map, autoViewport: false}});  
+		    local.searchNearby(s,new_point,5000);
+	}
+       
+                   
     //创建和初始化地图函数：
     function initMap(){
       createMap();//创建地图
+      setMapEvent();//设置地图事件
+      addMapOverlay(-1000);//向地图添加覆盖物
     }
     function createMap(){ 
       map = new BMap.Map("baidumap"); 
-      
       $.getCenter(function(data){
-          if(data==null) 
-             alert("不能获取地图中心点");
-          else
-			{
-        	  alert("地图中心点 " +JSON.stringify(data));
-        	  map.centerAndZoom(new BMap.Point(data.lng,data.lat),12);
-			}
+         map.centerAndZoom(new BMap.Point(data.lng,data.lat),12);
       });
       
-      
+    }
+    function setMapEvent(){
+      map.enableDragging();
+    }
+ 
+    function addClickHandler(target,window){
+        target.addEventListener("click",function(){
+        window.open(target.getPosition());
+      });
     }
 	
-	//初始化地图
+	
+	 function createInfoWindow(marker){
+		 var content = '<fieldset> <div  class="panel">'+
+							'<div title="" class="ddv panel-body panel-body-noheader panel-body-noborder" style="padding: 2px 0px; width: 100%;">'+
+								'<style type="text/css">  .dv-table td{border:1px;text-align:center;padding:2px}.dv-label{font-weight:solid;color:#15428B;}</style>'+
+								'废水: 最近监测时间:2016-3-8:13:00'+
+								'<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">'+
+									'<tbody>'+
+									    '<tr>'+
+										'<td class="dv-label">COD:</td>'+
+										'<td>23.3443</td>'+
+										'<td class="dv-label">氨氮:</td>'+
+										'<td>3.2432</td>'+
+									'</tr>'+
+									'<tr>'+
+									'<td class="dv-label">总磷:</td>'+
+									'<td>11.223</td>'+
+									'<td class="dv-label">PH:</td>'+
+									'<td>6</td>'+
+								'</tr>'+
+									'</tbody>'+
+								'</table>'+
+								
+								
+								'废气: 最近监测时间:2016-3-8:13:00'+
+								'<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">'+
+									'<tbody>'+
+									    '<tr>'+
+										'<td class="dv-label">二氧化硫:</td>'+
+										'<td>63.3443</td>'+
+										'<td class="dv-label">二氧化氮:</td>'+
+										'<td>33.2432</td>'+
+									'</tr>'+
+									'<tr>'+
+									'<td class="dv-label">烟尘:</td>'+
+									'<td>1.223</td>'+
+									'<td class="dv-label">氮氧化物:</td>'+
+									'<td>16</td>'+
+								'</tr>'+
+									'</tbody>'+
+								'</table>'+
+								
+								'重金属: 最近监测时间:2016-3-8:13:00'+
+								'<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">'+
+									'<tbody>'+
+									    '<tr>'+
+										'<td class="dv-label">六价铬:</td>'+
+										'<td>65.3443</td>'+
+										'<td class="dv-label">总铜:</td>'+
+										'<td>23.2432</td>'+
+									'</tr>'+
+									'<tr>'+
+									'<td class="dv-label">总铬:</td>'+
+									'<td>13.123</td>'+
+									'<td class="dv-label">总镍:</td>'+
+									'<td>66.34</td>'+
+								'</tr>'+
+									'</tbody>'+
+								'</table>'+
+									
+									
+									'<a href="onlineInfo?companyId='+marker.riskSourceInfo.companyId+'" target="_blank" style="width:120px">查看详细</a>'+
+							'</div>'+
+						'</div>'+
+						'</fieldset>';
+			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
+				title: marker.title +":" +marker.riskSourceInfo.companyName, //标题
+				offset: new BMap.Size(0,7),
+				width: 300,//宽度
+				//height: 140, //高度
+				panel : "panel", //检索结果面板
+				enableAutoPan : true, //自动平移
+				searchTypes :[
+				]
+			});
+		return infoWindow;
+	 }
+    function addMapOverlay(sourceId){
+        $.getCompanyMarkers(function(data){
+                       var markers=data;
+                         for(var index = 0; index < markers.length; index++ ){
+                           var point = new BMap.Point(markers[index].point.lng,markers[index].point.lat);
+                           var marker;
+                           if(sourceId==markers[index].riskSourceInfo.companyId)
+                        	 {
+                                marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation-active.png",new BMap.Size(21,35),{
+                                   imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+                                 })});
+                                var selectedWin=createInfoWindow(markers[index]);
+                                selectedWin.open(point);
+                        	 }
+                           else
+                        	   { 
+                        	   marker  = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation.png",new BMap.Size(21,35),{
+                                   imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+                               })});
+                        	   
+                        	   }
+                           
+             
+                   		  var searchInfoWindow=createInfoWindow(markers[index]);
+                           addClickHandler(marker,searchInfoWindow);
+                           map.addOverlay(marker);
+                         };
+         });
+         
+    	
+
+    }
     var map;
     initMap();
-
    /*]]>*/
- </script>
+  </script>
 	
 	<!-- /JAVASCRIPTS -->
 </body>

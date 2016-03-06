@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.huihuan.eme.domain.db.Company;
 import com.huihuan.eme.domain.db.DetectStation;
 import com.huihuan.eme.domain.db.RiskBasicInfo;
+import com.huihuan.eme.domain.page.AuditSatusEnum;
 import com.huihuan.eme.domain.page.DetectStationMarker;
 import com.huihuan.eme.domain.page.FactorValue;
 import com.huihuan.eme.domain.page.ImageOffset;
@@ -24,6 +25,7 @@ import com.huihuan.eme.domain.page.RiskSourceInfo;
 import com.huihuan.eme.domain.page.RiskSourceMarker;
 import com.huihuan.eme.repository.DetectStationRepository;
 import com.huihuan.eme.repository.RiskBasicInfoRepository;
+import com.huihuan.eme.service.CompanyService;
 import com.huihuan.eme.service.DetectService;
 
 
@@ -41,6 +43,7 @@ public class MapRestController {
 	@Autowired private DetectService detectService;
 	@Autowired private RiskBasicInfoRepository riskBasicInfoRepository;
 	@Autowired private DetectStationRepository detectStationRepository;
+	@Autowired private CompanyService companyService;
 
 	
 	//获得地图中心点
@@ -110,5 +113,34 @@ public class MapRestController {
 	
 		return markers;
 	}
+	
+	
+	@Transactional(readOnly = true)
+	@RequestMapping(value="/getCompanyMarkers", method=RequestMethod.GET,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public List<RiskSourceMarker> getCompanyMarkers()
+	{
+		List<RiskSourceMarker> markers = new ArrayList<RiskSourceMarker>();
+		
+		List<Company> companies = companyService.getCompaniesByStatus(AuditSatusEnum.Yes);
+		for(Company company:companies)
+		{
+		
+			RiskSourceMarker riskMarker =new RiskSourceMarker();
+			riskMarker.setTitle("在线监测源");
+			riskMarker.setContent("在线监测源");
+			riskMarker.setImageOffset(new ImageOffset());
+			riskMarker.setPoint(new Point(Double.parseDouble(company.getLng()),Double.parseDouble(company.getLat())));
+			RiskSourceInfo info = new RiskSourceInfo();
+			info.setCompanyId(company.getId());
+			info.setCompanyName(company.getCompanyName());
+			info.setDivsion(company.getAdministrativeDivision().getDivision());
+			
+			riskMarker.setRiskSourceInfo(info);
+			markers.add(riskMarker);
+		}
+	
+		return markers;
+	}
+	
 	
 }

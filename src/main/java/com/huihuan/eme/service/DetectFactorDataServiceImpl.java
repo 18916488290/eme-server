@@ -38,6 +38,7 @@ import com.huihuan.eme.repository.IaqiInfoRepository;
 @Service("detectFactorDataServiceImpl")
 public class DetectFactorDataServiceImpl {
 	
+	
 	@Autowired private DetectCategoryRepository detectCategoryRepository;
 	private String[] detectCategories = new String[] { "废水", "废气", "重金属","空气质量"};
 	
@@ -149,7 +150,10 @@ public class DetectFactorDataServiceImpl {
 			df.setAspiration(Float.parseFloat(factorReader.get(4).trim()));
 			df.setUnit(factorReader.get(5).trim());
 			df.setFrequency(60l);
-			df.setDetectCategory(detectCategoryRepository.findOne(4l));
+			String content =factorReader.get(6).trim();
+			String category =factorReader.get(7).trim();
+			df.setDetectCategory(detectCategoryRepository.getByDetectCategory(category));
+			df.setDetectContentDic(detectContentDicRepository.getByDetectContent(content));
 			detectFactorRepository.save(df);
 		}
 	 

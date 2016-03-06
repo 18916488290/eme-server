@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.huihuan.eme.domain.page.AuditSatusEnum;
 import com.huihuan.eme.repository.DetectStationRepository;
 import com.huihuan.eme.service.CompanyService;
 
@@ -36,6 +37,7 @@ public class MapController {
 	}
 	@RequestMapping("/mapOnline")
 	public String mapOnline(Map<String, Object> model) {
+		model.put("companies", companyService.getCompaniesByStatus(AuditSatusEnum.Yes));
 		return "mapOnline";
 	}
 	

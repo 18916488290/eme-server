@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headFragment">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8" />
+	<title>南通市环保局环境应急系统平台</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<!-- STYLESHEETS --><!--[if lt IE 9]><script  th:src="@{/js/flot/excanvas.min.js}" src="../../static/js/flot/excanvas.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
+	<link rel="stylesheet" type="text/css" href="../../static/css/cloud-admin.css" th:href="@{/css/cloud-admin.css}" />
+	<link rel="stylesheet" type="text/css"  href="../../static/css/themes/default.css" th:href="@{/css/themes/default.css}" id="skin-switcher" />
+	<link rel="stylesheet" type="text/css"  href="../../static/css/responsive.css" th:href="@{/css/responsive.css}" />
+	
+	<link href="../../static/font-awesome/css/font-awesome.min.css" th:href="@{/font-awesome/css/font-awesome.min.css}"  rel="stylesheet" />
+	<!-- DATE RANGE PICKER -->
+	<link rel="stylesheet" type="text/css" href="../../static/js/bootstrap-daterangepicker/daterangepicker-bs3.css" th:href="@{/js/bootstrap-daterangepicker/daterangepicker-bs3.css}" />
+	
+	<!-- DATA TABLES -->
+	<link rel="stylesheet" type="text/css" href="../../static/js/datatables/media/css/jquery.dataTables.min.css" th:href="@{/js/datatables/media/css/jquery.dataTables.min.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../static/js/datatables/media/assets/css/datatables.min.css" th:href="@{/js/datatables/media/assets/css/datatables.min.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../static/js/datatables/extras/TableTools/media/css/TableTools.min.css" th:href="@{/js/datatables/extras/TableTools/media/css/TableTools.min.css}"/>
+	
+	<!-- FONTS -->
+	 <link href='http://fonts.useso.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css' />
+	
+</head>
+<body>
+	<!-- HEADER -->
+	<header  class="navbar clearfix navbar-fixed-top" id="header" th:fragment="headerFragment">
+		<div class="container">
+				<div class="navbar-brand">
+					<!-- COMPANY LOGO -->
+					<img src="../../static/img/logo/logo.png" th:src="@{/img/logo/logo.png}" class="img-responsive"/>
+					<!-- /COMPANY LOGO -->
+					
+					<!-- SIDEBAR COLLAPSE -->
+					<div id="sidebar-collapse" class="sidebar-collapse btn">
+						<i class="fa fa-bars" 
+							data-icon1="fa fa-bars" 
+							data-icon2="fa fa-bars" ></i>
+					</div>
+					<!-- /SIDEBAR COLLAPSE -->
+				</div>		
+			
+		</div>
+		
+		
+	</header>
+	<!--/HEADER -->
+	
+	<!-- PAGE -->
+	<section id="page">
+				<!-- SIDEBAR --> <!-- sidebar-fixed -->
+				<div id="sidebar" class="sidebar" th:fragment="sidebarFragment">
+					<div class="sidebar-menu nav-collapse">
+
+						<!-- SIDEBAR MENU -->
+						<ul>
+				
+				
+				
+							<li id="vocsBasicInfo" class="sub">
+								<a href="javascript:;"  th:href="@{/vocsBasicInfo(companyId=${company.id})}" class="">
+								<i class="fa fa-bookmark-o fa-fw"></i><span class="menu-text">基本信息</span>
+								</a>
+
+							</li>
+							<li id="vocsInfo" class="sub">
+								<a th:href="@{/vocsInfo(companyId=${company.id})}" class="">
+								<i class="fa fa-bookmark-o fa-fw"></i><span class="menu-text">实时数据</span>
+								</a>
+
+							</li>
+				
+							<li id="vocsAnalysis" class="sub">
+								<a href="javascript:;" class="">
+								<i class="fa fa-bookmark-o fa-fw"></i><span class="menu-text">VOCs分析</span>
+								</a>
+
+							</li>
+
+		
+						</ul>
+						<!-- /SIDEBAR MENU -->
+					</div>
+				</div>
+				<!-- /SIDEBAR -->
+				
+	   <div id="main-content" th:fragment="main-contentFragment">
+			<div class="container">
+				<div class="row">
+					<div id="content" class="col-lg-12">
+						<!-- PAGE HEADER-->
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="page-header">
+								
+								<!-- BREADCRUMBS -->
+									<ul class="breadcrumb" th:include=":: #BREADCRUMBS">
+										<li>
+											<i class="fa fa-home"></i>
+											<a href="index.html" th:href="@{/}" >主页</a>
+										</li>
+										
+									</ul>
+									<!-- /BREADCRUMBS -->
+	
+								</div>
+							</div>
+						</div>
+						<!-- /PAGE HEADER -->
+						<!-- body -->
+						<div class="row">
+							<div class="col-md-12">
+								<!-- mainContentBox -->
+							     <div th:include=":: #mainContentBox">
+								</div>
+								<!-- /mainContentBox -->
+							</div>
+						</div>
+						<!-- /body -->
+				
+					</div><!-- /CONTENT-->
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<div th:fragment="footerFragment">
+    <footer class="footer navbar-fixed-bottom">
+     <div class="container text-center">
+           技术支持：华东理工大学能源经济与环境管理研究所 &amp; 江苏汇环环保科技有限公司 (版本信息：D0.1： 仅用于演示)
+     </div>
+    </footer>
+    </div>
+
+
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:fragment="jsFragment">
+	<script src="../../static/js/jquery/jquery-2.0.3.min.js" th:src="@{/js/jquery/jquery-2.0.3.min.js}"></script>
+	<!-- JQUERY UI-->
+	<script src="../../static/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js" th:src="@{/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js}"></script>
+	<!-- BOOTSTRAP -->
+	<script src="../../static/bootstrap-dist/js/bootstrap.min.js" th:src="@{/bootstrap-dist/js/bootstrap.min.js}"></script>	
+	
+	<!-- DATA TABLES -->
+	<script type="text/javascript" src="js/datatables/media/js/jquery.dataTables.min.js" th:src="@{/js/datatables/media/js/jquery.dataTables.min.js}"></script>
+	<script type="text/javascript" src="js/datatables/media/assets/js/datatables.min.js" th:src="@{/js/datatables/media/assets/js/datatables.min.js}"></script>
+	
+    <!-- COOKIE -->
+	<script type="text/javascript" src="../../static/js/jQuery-Cookie/jquery.cookie.min.js" th:src="@{/js/jQuery-Cookie/jquery.cookie.min.js}"></script>
+	<!-- CUSTOM SCRIPT -->
+	<script src="../../static/js/script.js" th:src="@{/js/script.js}"></script>
+	<script src="../../static/js/emeClient.js" th:src="@{/js/emeClient.js}"></script>
+	<script src="../../static/js/highCharts.js" th:src="@{/js/highCharts.js}"></script>
+	
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=VBu4kIUlmnMRvVThgmYuadYB"></script>
+  
+	</div>
+	
+	<script>
+		jQuery(document).ready(function() {		
+			App.init(); 
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

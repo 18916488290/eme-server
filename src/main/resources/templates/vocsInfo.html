@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/vocs-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/vocs-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+	<!-- PAGE -->
+	<section id="page">
+		
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/vocs-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/vocs-layout :: main-contentFragment">
+			
+	      <!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li>VOCs详情</li>
+				<li th:text="${company.companyName}">VOCs监测点</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+				<div id="zonglinContainer" style="min-width: 310px; height:180px; margin: 0 auto"></div>
+				<div id="zongdanContainer" style="min-width: 310px; height:180px; margin: 0 auto"></div>
+				<div id="phContainer" style="min-width: 310px; height:180px; margin: 0 auto"></div>
+		    </div>					
+		     <!-- /maincontent -->
+		   </div>
+	</section>
+    <div th:include="fragments/vocs-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/vocs-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("vocsInfo");
+			App.init(); //Initialise plugins and elements
+			App.handleTables();
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+	
+	
+<script th:inline="javascript">
+/*<![CDATA[*/          
+ $(function () {
+	 
+	 
+   Highcharts.setOptions({
+         global: {
+             useUTC: false
+         }
+     });
+	 
+   
+ $('#zongdanContainer').highcharts({
+	 credits: {
+	      enabled: false
+	     },
+	  tooltip:{
+		 crosshairs:true,
+		 formatter: function() {
+         return  ''+ Highcharts.dateFormat('%Y-%m-%d %H', this.x) + '点<br/>' +
+                 this.series.name +':'+ this.y;
+       }
+	     
+	  },
+	  legend:{
+		enabled:false
+	  },
+      chart: {
+        type: 'spline',
+        animation: Highcharts.svg, // don't animate in old IE
+        marginRight: 10,
+         events: {
+                   load: function () {
+                       // set up the updating of the chart each second
+                       var series = this.series[0];
+                       setInterval(function () {
+                           var x = (new Date()).getTime(), // current time
+                               y = Math.random()*60;
+                           series.addPoint([x, y], true, true);
+                       }, 1000*5);
+                   }
+               }
+           
+    },
+    title: {
+        text: '颗粒物'
+    },
+    xAxis: {
+        type: 'datetime',
+        tickPixelInterval: 150
+    },
+    yAxis: {
+    	 max:60, // 定义Y轴 最大值  
+         min:0, // 定义最小值  
+         tickInterval:5, // 刻度值  
+        title: {
+            text: '浓度 (ug/m3)'
+        },
+        minorGridLineWidth: 0,
+        gridLineWidth: 0,
+        alternateGridColor: null,
+        plotBands: [{ 
+            from: 0,
+            to: 32.5,
+            color: 'rgba(68, 170, 213, 0.1)',
+            label: {
+                text: '正常值',
+                style: {
+                    color: '#606060'
+                }
+            }
+        }, {
+            from: 32.5,
+            to: 60,
+            color: 'rgba(255, 255, 0, 0.2)',
+            label: {
+                text: '超标',
+                style: {
+                    color: '#606060'
+                }
+            }
+        }]
+    },
+    series:[{
+    name: '颗粒物',
+    data: (function () {
+        // generate an array of random data
+        var data = [],
+            time = (new Date()).getTime(),
+            i;
+
+        for (i = -19; i <= 0; i += 1) {
+            data.push({
+                x: time + i * 1000*5,
+                y: Math.random()*60
+            });
+        }
+        return data;
+     }())
+   }]
+});
+
+
+
+
+ $('#zonglinContainer').highcharts({
+	 credits: {
+	      enabled: false
+	     },
+	  tooltip:{
+		 crosshairs:true,
+		 formatter: function() {
+         return  ''+ Highcharts.dateFormat('%Y-%m-%d %H', this.x) + '点<br/>' +
+                 this.series.name +':'+ this.y;
+       }
+	     
+	  },
+	  legend:{
+		enabled:false
+	  },
+      chart: {
+        type: 'spline',
+        animation: Highcharts.svg, // don't animate in old IE
+        marginRight: 10,
+         events: {
+                   load: function () {
+                       // set up the updating of the chart each second
+                       var series = this.series[0];
+                       setInterval(function () {
+                           var x = (new Date()).getTime(), // current time
+                               y = Math.random()*50;
+                           series.addPoint([x, y], true, true);
+                       }, 1000);
+                   }
+               }
+           
+    },
+    title: {
+        text: '氯化氢'
+    },
+    xAxis: {
+        type: 'datetime',
+        tickPixelInterval: 150
+    },
+    yAxis: {
+    	 max:50, // 定义Y轴 最大值  
+         min:0, // 定义最小值  
+         tickInterval:5, // 刻度值  
+        title: {
+            text: '浓度 (mg/m3)'
+        },
+        minorGridLineWidth: 0,
+        gridLineWidth: 0,
+        alternateGridColor: null,
+        plotBands: [{ 
+            from: 0,
+            to: 30,
+            color: 'rgba(68, 170, 213, 0.1)',
+            label: {
+                text: '正常值',
+                style: {
+                    color: '#606060'
+                }
+            }
+        }, {
+            from: 30,
+            to: 50,
+            color: 'rgba(255, 255, 0, 0.2)',
+            label: {
+                text: '超标',
+                style: {
+                    color: '#606060'
+                }
+            }
+        }]
+    },
+    series:[{
+    name: '氯化氢',
+    data: (function () {
+        // generate an array of random data
+        var data = [],
+            time = (new Date()).getTime(),
+            i;
+
+        for (i = -19; i <= 0; i += 1) {
+            data.push({
+                x: time + i * 1000,
+                y: Math.random()*50
+            });
+        }
+        return data;
+     }())
+   }]
+});
+
+
+ $('#phContainer').highcharts({
+	 credits: {
+	      enabled: false
+	     },
+	  tooltip:{
+		 crosshairs:true,
+		 formatter: function() {
+         return  ''+ Highcharts.dateFormat('%Y-%m-%d %H', this.x) + '点<br/>' +
+                 this.series.name +':'+ this.y;
+       }
+	     
+	  },
+	  legend:{
+		enabled:false
+	  },
+      chart: {
+        type: 'spline',
+        animation: Highcharts.svg, // don't animate in old IE
+        marginRight: 10,
+         events: {
+                   load: function () {
+                       // set up the updating of the chart each second
+                       var series = this.series[0];
+                       setInterval(function () {
+                           var x = (new Date()).getTime(), // current time
+                               y = Math.random()*14;
+                           series.addPoint([x, y], true, true);
+                       }, 1000*10);
+                   }
+               }
+           
+    },
+    title: {
+        text: '甲苯'
+    },
+    xAxis: {
+        type: 'datetime',
+        tickPixelInterval: 150
+    },
+    yAxis: {
+    	 max:14, // 定义Y轴 最大值  
+         min:0, // 定义最小值  
+         tickInterval:2, // 刻度值  
+        title: {
+            text: '浓度mg/m3'
+        },
+        minorGridLineWidth: 0,
+        gridLineWidth: 0,
+        alternateGridColor: null,
+        plotBands: [
+          {
+            from: 0,
+            to: 8,
+            color: 'rgba(68, 170, 213, 0.1)',
+            label: {
+                text: '正常值',
+                style: {
+                    color: '#606060'
+                }
+            }
+        }, {
+            from: 8,
+            to: 14,
+            color: 'rgba(255, 255, 0, 0.2)',
+            label: {
+                text: '超标',
+                style: {
+                    color: '#606060'
+                }
+            }
+        }]
+    },
+    series:[{
+    name: '甲苯',
+    data: (function () {
+        // generate an array of random data
+        var data = [],
+            time = (new Date()).getTime(),
+            i;
+
+        for (i = -19; i <= 0; i += 1) {
+            data.push({
+                x: time + i * 1000*10,
+                y: Math.random()*14
+            });
+        }
+        return data;
+     }())
+   }]
+});
+
+ });
+
+/*]]>*/
+ </script>
+	
+</body>
+</html>

@@ -45,7 +45,7 @@
 													<td th:text="${nc.administrativeDivision.division}">行政区域</td>		
 													<td style="background-color: #800080; color: white">重度污染</td>													
 													<td>
-													<a href="#" th:href="@{/detectStationInfo(detectStationId=${nc.id})}" target="_blank"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
+													<a href="#" th:href="@{/aqiInfo(stationId=${nc.id})}" target="_blank"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
 													<a th:href="'javascript:theLocation('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ');'"><i class="fa  fa-map-marker"></i><span>定位</span></a>
 													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'学校\');'"><i class="fa"></i><span>🏫学校</span></a>
 													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'医院\');'"><i class="fa"></i><span>🏥医院</span></a>

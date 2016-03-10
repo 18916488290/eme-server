@@ -45,7 +45,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/login").permitAll().anyRequest()
 		.fullyAuthenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/", true)
 	    .failureUrl("/login?error").and().logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.and()
 		.exceptionHandling().accessDeniedPage("/access?error");
 		http.httpBasic();
 		//http.rememberMe().key("SpringSecurityAclDemo-rmkey-BUUttZnBJCa#U=4Dwg@%5_ptCC8wHtlY").userDetailsService(jdbcUserService);

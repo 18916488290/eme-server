@@ -16,7 +16,8 @@ public class LoginController {
 	@RequestMapping("/login")
 	public String login(Model model)
 	{
-		return "/login";
+		//System.out.println("XXXXXXXXXXXXXXXX login:");
+		return "login";
 	}
 
 }

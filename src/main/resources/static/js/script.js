@@ -663,7 +663,7 @@ var App = function () {
 	var handleTables = function () {
 	
 		$('.exportdatatable').dataTable({
-			dom: 'Btip',
+			dom: 'Bftip',
          
             buttons: [
                       'copy', 'csv', 'excel', 'print'

@@ -43,8 +43,8 @@
 													<th>操作</th>
 												</tr>
 											</thead>
-											<tbody th:each="nc : ${companies}">
-												<tr>
+											<tbody>
+												<tr  th:each="nc : ${companies}">
 													<td th:text="${nc.companyName}">企业名称</td>
 													<td th:text="${nc.administrativeDivision.division}">行政区域</td>								
 													<td>

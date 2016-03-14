@@ -46,7 +46,7 @@
 										  </ul>
 										  <div class="tab-content">
 											 <div class="tab-pane fade in active" id="box_tab1">
-										<table id="datatable2" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
 													<th>企业名称</th>
@@ -58,8 +58,8 @@
 											</thead>               
 										   
 										
-											<tbody th:each="nce : ${notAuditMaterials}">
-												<tr>
+											<tbody>
+												<tr  th:each="nce : ${notAuditMaterials}">
 													<td th:text="${nce.company.companyName}">企业名称</td>
 													<td th:text="${nce.materialName}">物资名称</td>
 													<td th:text="${nce.quantity}">数量</td>
@@ -72,7 +72,7 @@
 										</table>
 											 </div>
 											 <div class="tab-pane fade" id="box_tab2">
-											<table id="datatable3" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+											<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
 													<th>企业名称</th>
@@ -82,8 +82,8 @@
 													<th>操作</th>
 												</tr>
 											</thead>
-											<tbody th:each="nce : ${yesAuditMaterials}">
-												<tr>
+											<tbody>
+												<tr  th:each="nce : ${yesAuditMaterials}">
 													<td th:text="${nce.company.companyName}">企业名称</td>
 													<td th:text="${nce.materialName}">物资名称</td>
 													<td th:text="${nce.quantity}">数量</td>
@@ -96,7 +96,7 @@
 										</table>
 											 </div>
 											 <div class="tab-pane fade" id="box_tab3">
-												<table id="datatable2" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+												<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
 													<th>企业名称</th>
@@ -106,8 +106,8 @@
 													<th>操作</th>
 												</tr>
 											</thead>
-											<tbody th:each="nce : ${deniedAuditMaterials}">
-												<tr>
+											<tbody>
+												<tr  th:each="nce : ${deniedAuditMaterials}">
 													<td th:text="${nce.company.companyName}">企业名称</td>
 													<td th:text="${nce.materialName}">物资名称</td>
 													<td th:text="${nce.quantity}">数量</td>

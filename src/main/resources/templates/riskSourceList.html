@@ -56,8 +56,8 @@
 													<th>操作</th>
 												</tr>
 											</thead>
-											<tbody th:each="nc : ${notAuditSources}">
-												<tr>
+											<tbody>
+												<tr  th:each="nc : ${notAuditSources}">
 													<td th:text="${nc.companyName}">企业名称</td>
 													<td th:text="${nc.administrativeDivision.division}">行政区域</td>
 													<td th:text="${nc.industrySectorDic.industrySector}">行业类别</td>
@@ -80,8 +80,8 @@
 													<th>操作</th>
 												</tr>
 											</thead>
-											<tbody th:each="nc : ${yesAuditSources}">
-												<tr>
+											<tbody>
+												<tr  th:each="nc : ${yesAuditSources}">
 													<td th:text="${nc.companyName}">企业名称</td>
 													<td th:text="${nc.administrativeDivision.division}">行政区域</td>
 													<td th:text="${nc.industrySectorDic.industrySector}">行业类别</td>
@@ -104,8 +104,8 @@
 													<th>操作</th>
 												</tr>
 											</thead>
-											<tbody th:each="nc : ${deniedAuditSources}">
-												<tr>
+											<tbody>
+												<tr  th:each="nc : ${deniedAuditSources}">
 													<td th:text="${nc.companyName}">企业名称</td>
 												    <td th:text="${nc.administrativeDivision.division}">行政区域</td>
 													<td th:text="${nc.industrySectorDic.industrySector}">行业类别</td>

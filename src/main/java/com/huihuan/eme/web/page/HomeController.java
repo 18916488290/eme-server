@@ -21,7 +21,9 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home(Map<String, Object> model) {
 		
-		return "redirect:/mapRiskSource";
+		return "index";
+		
+		//return "redirect:/mapRiskSource";
 	}
 	
 }

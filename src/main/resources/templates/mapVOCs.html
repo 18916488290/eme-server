@@ -33,7 +33,7 @@
 					<p><i class="fa fa-exclamation-circle"></i>南通励城生物工程有限公司： 氯化氢，苯，非甲烷总烃超标， 监测时间 2016-3-8 14:00， 系统已经通知相关责任人</p>
 				    <p><i class="fa fa-exclamation-circle"></i>南通星辰合成材料有限公司： 苯，非甲烷总烃超标， 监测时间 2016-3-8 14:00， 系统已经通知相关责任人</p>
 				  </div>
-	              <div id="w" class="easyui-window" title="厂区VOCs监测信息" data-options="left:800,top:54,minimizable:false">
+	              <div id="w" class="easyui-window" title="厂区VOCs监测信息" data-options="left:800,top:254,minimizable:false">
 				  <div class="easyui-panel" title="" style="width:440px;">
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
@@ -76,7 +76,7 @@
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {	
-			$('#w').window('collapse');
+		//	$('#w').window('collapse');
 			App.setPage("mapVOCs");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});
@@ -111,6 +111,7 @@
     //创建和初始化地图函数：
     function initMap(){
       createMap();//创建地图
+      add_control();
       setMapEvent();//设置地图事件
       addMapOverlay(-1000);//向地图添加覆盖物
     }
@@ -246,8 +247,23 @@
     	
 
     }
+
+	var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+	var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+	var mapType = new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP,BMAP_HYBRID_MAP]});
+	var overView = new BMap.OverviewMapControl();
+	var overViewOpen = new BMap.OverviewMapControl({isOpen:true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT});
+
+	function add_control(){
+		map.addControl(top_left_control);        
+		map.addControl(top_left_navigation);  
+		map.addControl(mapType);    
+		map.addControl(overView);          //添加默认缩略地图控件
+		map.addControl(overViewOpen);      //右下角，打开
+	}
     var map;
     initMap();
+
    /*]]>*/
   </script>
 	<!-- /JAVASCRIPTS -->

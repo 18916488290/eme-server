@@ -8057,7 +8057,7 @@ div[data-role="editor-toolbar"] {
 /* Baidu Maps */
 .gmaps {
   height:auto !important;
-  height:700px; 
+  height:600px; 
   min-height:700px; 
   width: 100%;
 }
@@ -8210,10 +8210,15 @@ div[data-role="editor-toolbar"] {
   width: 100%;
 }
 .login-box-plain {
-  background: none repeat scroll 0 0 #FFFFFF;
+ /* background: none repeat scroll 0 0 #FFFFFF;
+  filter:alpha(opacity:10); 
+  opacity:0.1; 
+  -moz-opacity:0.1;
+  -khtml-opacity: 0.1;
   border: 1px solid #D8D8D8;
   border-radius: 7px 7px 7px 7px;
   box-shadow: 0 1px 4px #D3D3D3;
+  */
   margin: 50px auto;
   padding: 55px 60px 60px;
   position: relative;
@@ -8815,8 +8820,9 @@ div[data-role="editor-toolbar"] {
   right: 12px;
 }
 .form-actions {
-  background-color: #F5F5F5;
+ /* background-color: #F5F5F5;
   border-top: 1px solid #E5E5E5;
+  */
   margin-bottom: 20px;
   margin-top: 10px;
   padding: 19px 20px 20px;

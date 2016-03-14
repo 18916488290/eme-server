@@ -27,7 +27,7 @@
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 				  <div class="gmaps" id="baidumap"></div>  
-	              <div id="w" class="easyui-window" title="风险源信息" data-options="left:800,top:54,minimizable:false">
+	              <div id="w" class="easyui-window" title="风险源信息" data-options="left:800,top:254,minimizable:false">
 				  <div class="easyui-panel" title="" style="width:440px;">
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
@@ -71,7 +71,7 @@
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {		
-			$('#w').window('collapse');
+		//	$('#w').window('collapse');
 			App.setPage("mapRiskSource");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});
@@ -109,8 +109,8 @@
     //创建和初始化地图函数：
     function initMap(){
       createMap();//创建地图
+      add_control();
       setMapEvent();//设置地图事件
-      addMapControl();//向地图添加控件
       addMapOverlay(-1000);//向地图添加覆盖物
 	/*  map.setMapStyle(
 		{styleJson:[
@@ -216,16 +216,21 @@
     	
 
     }
+
+	var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+	var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+	var mapType = new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP,BMAP_HYBRID_MAP]});
+	var overView = new BMap.OverviewMapControl();
+	var overViewOpen = new BMap.OverviewMapControl({isOpen:true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT});
+
+	function add_control(){
+		map.addControl(top_left_control);        
+		map.addControl(top_left_navigation);  
+		map.addControl(mapType);    
+		map.addControl(overView);          //添加默认缩略地图控件
+		map.addControl(overViewOpen);      //右下角，打开
+	}
     //向地图添加控件
-    function addMapControl(){
-     // var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
-     // scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
-     // map.addControl(scaleControl);
-     // var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
-     // map.addControl(navControl);
-     // var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:true});
-     // map.addControl(overviewControl);
-    }
     var map;
     initMap();
    /*]]>*/

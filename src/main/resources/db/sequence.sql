@@ -48,7 +48,7 @@ modify `id` int(11) not null auto_increment;
 alter table `detect_history` 
 modify `id` int(11) not null auto_increment;
 
-alter table `detect_rive_rcross` 
+alter table `detect_river_cross` 
 modify `id` int(11) not null auto_increment;
 
 alter table `detect_station` 

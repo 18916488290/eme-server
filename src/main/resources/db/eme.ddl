@@ -134,7 +134,6 @@ CREATE TABLE company
 	comment               VARCHAR(128) NULL,
 	status                INTEGER NOT NULL,
 	id_house_plan         INTEGER NULL,
-	lvl                   VARCHAR(20) NULL,
 	registration_code     VARCHAR(64) NULL,
 	license_code          VARCHAR(64) NULL,
 	corporation           VARCHAR(20) NULL,
@@ -372,7 +371,7 @@ ALTER TABLE detect_pullant
 
 
 
-CREATE TABLE detect_rive_rcross
+CREATE TABLE detect_river_cross
 (
 	id                    INTEGER NOT NULL,
 	id_factor             INTEGER NULL,
@@ -386,7 +385,7 @@ CREATE TABLE detect_rive_rcross
 
 
 
-ALTER TABLE detect_rive_rcross
+ALTER TABLE detect_river_cross
 	ADD  PRIMARY KEY (id)
 ;
 
@@ -963,7 +962,8 @@ CREATE TABLE risk_basic_info
 	comment               VARCHAR(256) NULL,
 	lat                   VARCHAR(20) NULL,
 	lng                   VARCHAR(20) NULL,
-	description           VARCHAR(256) NULL
+	description           VARCHAR(256) NULL,
+	lvl                   VARCHAR(20) NULL
 )
 ;
 
@@ -1343,12 +1343,12 @@ ALTER TABLE detect_pullant
 
 
 
-ALTER TABLE detect_rive_rcross
+ALTER TABLE detect_river_cross
 	ADD FOREIGN KEY R_86 (id_factor) REFERENCES detect_factor(id)
 ;
 
 
-ALTER TABLE detect_rive_rcross
+ALTER TABLE detect_river_cross
 	ADD FOREIGN KEY R_87 (id_river_cross) REFERENCES river_cross(id)
 ;
 

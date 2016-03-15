@@ -202,11 +202,12 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	@Transactional(readOnly=false)
 	public void addRiskBasicInfo(Long companyId, RiskBasicInfo riskBasicInfo) {
-		riskBasicInfoRepository.save(riskBasicInfo);
+		
 		Company c = companyRepository.findOne(companyId);
-		c.setRiskBasicInfo(riskBasicInfo);
+		riskBasicInfo.setCompany(c);
+		riskBasicInfoRepository.save(riskBasicInfo);
 		c.setLvl("较大环境风险源");
-		c.setRiskStatus(AuditSatusEnum.NotAudit.getIndex());
+		//c.setRiskStatus(AuditSatusEnum.NotAudit.getIndex());
 		companyRepository.save(c);
 	}
 
@@ -219,15 +220,16 @@ public class CompanyServiceImpl implements CompanyService {
 		/*begin风险源基础信息*/
 		RiskBasicInfo r = new RiskBasicInfo();
         r.setCreationDate(new Date());
-        r.setRegistrationCode("2040334-6");
-        r.setLicenseCode("430019330007821");
-        r.setCorporation("张文泉");
-        r.setCorporationFax("0243-46129001");
+        c.setRegistrationCode("2040334-6");
+        c.setLicenseCode("430019330007821");
+        c.setCorporation("张文泉");
+        c.setCorporationFax("0243-46129001");
         r.setArea(1028.8f);
         r.setIndustrialPark(industrialParkRepository.findOne(2l));
         r.setProductStatus(productStatusRepository.findOne(1l));
         r.setEmePerson("李军");
         r.setEmeMobile("13934692234");
+        r.setStatus(AuditSatusEnum.Yes.getIndex());
         addRiskBasicInfo(1l,r);
    
 		

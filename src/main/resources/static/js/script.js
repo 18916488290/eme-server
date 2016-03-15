@@ -666,7 +666,7 @@ var App = function () {
 			dom: 'Bftip',
          
             buttons: [
-                      'copy', 'csv', 'excel', 'print'
+                      'csv', 'excel', 'print'
                   ],
 	       
             language:

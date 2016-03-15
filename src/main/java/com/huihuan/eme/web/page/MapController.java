@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.huihuan.eme.domain.page.AuditSatusEnum;
 import com.huihuan.eme.repository.DetectStationRepository;
+import com.huihuan.eme.repository.RiskBasicInfoRepository;
 import com.huihuan.eme.service.CompanyService;
 
 /**
@@ -22,10 +23,11 @@ public class MapController {
 	private static final Log logger = LogFactory.getLog(MapController.class);
 	@Autowired private CompanyService companyService;
 	@Autowired private DetectStationRepository detectStationRepository;
+	@Autowired private RiskBasicInfoRepository riskBasicInfoRepository;
 	
 	@RequestMapping("/mapRiskSource")
 	public String mapRiskSource(Map<String, Object> model) {
-		model.put("riskSources", companyService.getRiskSources());
+		model.put("riskSources", riskBasicInfoRepository.findAll());
 		return "mapRiskSource";
 	}
 	

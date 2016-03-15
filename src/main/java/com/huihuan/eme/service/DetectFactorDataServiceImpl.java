@@ -40,10 +40,10 @@ public class DetectFactorDataServiceImpl {
 	
 	
 	@Autowired private DetectCategoryRepository detectCategoryRepository;
-	private String[] detectCategories = new String[] { "废水", "废气", "重金属","空气质量"};
+	private String[] detectCategories = new String[] { "废水", "废气", "重金属","大气", "地表水", "土壤","噪声", "固体废物", "辐射"};
 	
 	@Autowired private DetectContentDicRepository detectContentDicRepository;
-	private String[] detectContentDics = new String[] { "空气质量", "地表水", "在线检测"};
+	private String[] detectContentDics = new String[] { "空气质量", "在线实时监测", "超标报警", "挥发性有机物", "污染源分布", "河流断面", "饮用水源地"};
 	
 	@Autowired private AdministrativeDivisionRepository administrativeDivisionRepository;
 	@Autowired private EpbRepository epbRepository;
@@ -138,22 +138,31 @@ public class DetectFactorDataServiceImpl {
 	    
 		
 		/**检测因子 二氧化硫,0,2620,20,2000,ug/m3*/
+		
+		/*专题ID,小类ID,监测因子名称,化学名称,单位,最小值,最大值,最小超标值,最大超标值*/
 		Resource factorRes = ctx.getResource("classpath:data/factors.csv");
 		CsvReader factorReader = new CsvReader(factorRes.getInputStream(), Charset.forName("UTF-8"));
+		factorReader.readRecord(); //过滤一行
 		while(factorReader.readRecord())
 		{
 			DetectFactor df = new DetectFactor();
-			df.setFactorName(factorReader.get(0).trim());
-			df.setNadir(Float.parseFloat(factorReader.get(1).trim()));
-			df.setUtopia(Float.parseFloat(factorReader.get(2).trim()));
-			df.setReservation(Float.parseFloat(factorReader.get(3).trim()));
-			df.setAspiration(Float.parseFloat(factorReader.get(4).trim()));
-			df.setUnit(factorReader.get(5).trim());
+			df.setDetectContentDic(detectContentDicRepository.findOne(Long.parseLong(factorReader.get(0).trim())));
+			if(!factorReader.get(1).trim().isEmpty())
+			df.setDetectCategory(detectCategoryRepository.findOne(Long.parseLong(factorReader.get(1).trim())));
+			df.setFactorName(factorReader.get(2).trim());
+			if(!factorReader.get(3).trim().isEmpty())
+			df.setChemicalName(factorReader.get(3).trim());
+			if(!factorReader.get(4).trim().isEmpty())
+			df.setUnit(factorReader.get(4).trim());
+			if(!factorReader.get(5).trim().isEmpty())
+			df.setMinVal(Float.parseFloat(factorReader.get(5).trim()));
+			if(!factorReader.get(6).trim().isEmpty())
+			df.setMaxVal(Float.parseFloat(factorReader.get(6).trim()));
+			if(!factorReader.get(7).trim().isEmpty())
+			df.setMinXVal(Float.parseFloat(factorReader.get(7).trim()));
+			if(!factorReader.get(8).trim().isEmpty())
+			df.setMaxXVal(Float.parseFloat(factorReader.get(8).trim()));
 			df.setFrequency(60l);
-			String content =factorReader.get(6).trim();
-			String category =factorReader.get(7).trim();
-			df.setDetectCategory(detectCategoryRepository.getByDetectCategory(category));
-			df.setDetectContentDic(detectContentDicRepository.getByDetectContent(content));
 			detectFactorRepository.save(df);
 		}
 	 

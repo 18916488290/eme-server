@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-3-15 21:08:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-15 21:34:42 by Hibernate Tools 3.2.2.GA
 
 
 import javax.persistence.AttributeOverride;

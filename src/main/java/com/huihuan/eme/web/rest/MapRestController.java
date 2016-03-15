@@ -74,15 +74,15 @@ public class MapRestController {
 			riskMarker.setTitle("风险源");
 			riskMarker.setContent("风险源");
 			riskMarker.setImageOffset(new ImageOffset());
-			Company company = riskInfo.getCompanies().iterator().next();
-			riskMarker.setPoint(new Point(Double.parseDouble(company.getLng()),Double.parseDouble(company.getLat())));
+	
+			riskMarker.setPoint(new Point(Double.parseDouble(riskInfo.getLng()),Double.parseDouble(riskInfo.getLat())));
 			RiskSourceInfo info = new RiskSourceInfo();
-			info.setCompanyId(company.getId());
-			info.setCompanyName(company.getCompanyName());
-			info.setDivsion(company.getAdministrativeDivision().getDivision());
+			info.setCompanyId(riskInfo.getCompany().getId());
+			info.setCompanyName(riskInfo.getCompany().getCompanyName());
+			info.setDivsion(riskInfo.getCompany().getAdministrativeDivision().getDivision());
 			info.setEmePersion(riskInfo.getEmePerson());
 			info.setEmeTel(riskInfo.getEmeMobile());
-			info.setLvl(company.getLvl());
+			info.setLvl(riskInfo.getLvl());
 			info.setRiskAversion("有");
 			riskMarker.setRiskSourceInfo(info);
 			riskMarkers.add(riskMarker);

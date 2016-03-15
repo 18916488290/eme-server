@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-3-15 21:08:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-15 21:34:42 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -46,7 +46,6 @@ public class Company  implements java.io.Serializable {
      private Date auditDate;
      private String comment;
      private Long status;
-     private String lvl;
      private String registrationCode;
      private String licenseCode;
      private String corporation;
@@ -73,7 +72,7 @@ public class Company  implements java.io.Serializable {
         this.companyName = companyName;
         this.status = status;
     }
-    public Company(AdministrativeDic administrativeDic, AdministrativeDivision administrativeDivision, HousePlan housePlan, OperationMaintanceCompany operationMaintanceCompany, Users usersByCreator, Users usersByAuditor, ConcernDegreeDic concernDegreeDic, IndustrySectorDic industrySectorDic, Date creationDate, String companyName, String lat, String lng, String address, Date auditDate, String comment, Long status, String lvl, String registrationCode, String licenseCode, String corporation, String corporationFax, Set<ChemicalMaterial> chemicalMaterials, Set<WarehouseRisk> warehouseRisks, Set<RiskBasicInfo> riskBasicInfos, Set<CompanyAirEnv> companyAirEnvs, Set<PullantSource> pullantSources, Set<EnvProtPerson> envProtPersons, Set<EquipmentRisk> equipmentRisks, Set<CompanyWaterEnv> companyWaterEnvs, Set<EmergencyMaterial> emergencyMaterials, Set<RiskAversion> riskAversions, Set<EmergencyResponsePlan> emergencyResponsePlans, Set<Workmanship> workmanships) {
+    public Company(AdministrativeDic administrativeDic, AdministrativeDivision administrativeDivision, HousePlan housePlan, OperationMaintanceCompany operationMaintanceCompany, Users usersByCreator, Users usersByAuditor, ConcernDegreeDic concernDegreeDic, IndustrySectorDic industrySectorDic, Date creationDate, String companyName, String lat, String lng, String address, Date auditDate, String comment, Long status, String registrationCode, String licenseCode, String corporation, String corporationFax, Set<ChemicalMaterial> chemicalMaterials, Set<WarehouseRisk> warehouseRisks, Set<RiskBasicInfo> riskBasicInfos, Set<CompanyAirEnv> companyAirEnvs, Set<PullantSource> pullantSources, Set<EnvProtPerson> envProtPersons, Set<EquipmentRisk> equipmentRisks, Set<CompanyWaterEnv> companyWaterEnvs, Set<EmergencyMaterial> emergencyMaterials, Set<RiskAversion> riskAversions, Set<EmergencyResponsePlan> emergencyResponsePlans, Set<Workmanship> workmanships) {
        this.administrativeDic = administrativeDic;
        this.administrativeDivision = administrativeDivision;
        this.housePlan = housePlan;
@@ -90,7 +89,6 @@ public class Company  implements java.io.Serializable {
        this.auditDate = auditDate;
        this.comment = comment;
        this.status = status;
-       this.lvl = lvl;
        this.registrationCode = registrationCode;
        this.licenseCode = licenseCode;
        this.corporation = corporation;
@@ -262,15 +260,6 @@ public class Company  implements java.io.Serializable {
     
     public void setStatus(Long status) {
         this.status = status;
-    }
-    
-    @Column(name="lvl", length=20)
-    public String getLvl() {
-        return this.lvl;
-    }
-    
-    public void setLvl(String lvl) {
-        this.lvl = lvl;
     }
     
     @Column(name="registration_code", length=64)

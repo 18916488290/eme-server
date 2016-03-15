@@ -1,5 +1,7 @@
 package com.huihuan.eme.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.huihuan.eme.domain.db.RiskBasicInfo;
 
@@ -11,6 +13,8 @@ import com.huihuan.eme.domain.db.RiskBasicInfo;
  *
  */
 public interface RiskBasicInfoRepository  extends JpaRepository<RiskBasicInfo, Long> {
+	
+	public List<RiskBasicInfo> getByStatus(long status);
 	
 
 }

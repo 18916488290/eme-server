@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-3-15 21:08:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-15 21:34:42 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -32,17 +32,17 @@ public class RiverCross  implements java.io.Serializable {
      private String lat;
      private String crossName;
      private Date creationTime;
-     private Set<DetectRiveRcross> detectRiveRcrosses = new HashSet<DetectRiveRcross>(0);
+     private Set<DetectRiverCross> detectRiverCrosses = new HashSet<DetectRiverCross>(0);
 
     public RiverCross() {
     }
 
-    public RiverCross(String lng, String lat, String crossName, Date creationTime, Set<DetectRiveRcross> detectRiveRcrosses) {
+    public RiverCross(String lng, String lat, String crossName, Date creationTime, Set<DetectRiverCross> detectRiverCrosses) {
        this.lng = lng;
        this.lat = lat;
        this.crossName = crossName;
        this.creationTime = creationTime;
-       this.detectRiveRcrosses = detectRiveRcrosses;
+       this.detectRiverCrosses = detectRiverCrosses;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -92,12 +92,12 @@ public class RiverCross  implements java.io.Serializable {
         this.creationTime = creationTime;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="riverCross")
-    public Set<DetectRiveRcross> getDetectRiveRcrosses() {
-        return this.detectRiveRcrosses;
+    public Set<DetectRiverCross> getDetectRiverCrosses() {
+        return this.detectRiverCrosses;
     }
     
-    public void setDetectRiveRcrosses(Set<DetectRiveRcross> detectRiveRcrosses) {
-        this.detectRiveRcrosses = detectRiveRcrosses;
+    public void setDetectRiverCrosses(Set<DetectRiverCross> detectRiverCrosses) {
+        this.detectRiverCrosses = detectRiverCrosses;
     }
 
 

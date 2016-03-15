@@ -20,12 +20,6 @@ import com.huihuan.eme.domain.db.Company;
 public interface CompanyRepository  extends JpaRepository<Company, Long> {
 	
 	public List<Company> getByStatus(Long status);
-
-	@Query("select c from Company c where c.riskStatus=?1 and c.riskBasicInfo is not null")
-	public List<Company> getByRiskStatus(Long riskStatus);
-	
-	@Query("select c from Company c where c.riskBasicInfo is not null")
-	public List<Company> getAllRiskSources();
 	
 	public Company getByCompanyName(String companyName);
 	

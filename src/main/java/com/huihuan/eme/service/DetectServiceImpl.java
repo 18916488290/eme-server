@@ -23,6 +23,7 @@ import com.huihuan.eme.domain.page.FactorValue;
 import com.huihuan.eme.repository.DataCollectionDeviceRepository;
 import com.huihuan.eme.repository.DetectAirRepository;
 import com.huihuan.eme.repository.DetectCategoryRepository;
+import com.huihuan.eme.repository.DetectContentDicRepository;
 import com.huihuan.eme.repository.DetectFactorRepository;
 import com.huihuan.eme.repository.DetectHistoryRepository;
 import com.huihuan.eme.repository.DetectRepository;
@@ -48,6 +49,8 @@ public class DetectServiceImpl implements DetectService {
 	@Autowired private DataCollectionDeviceRepository dataCollectionDeviceRepository; 
 	@Autowired private DetectFactorRepository detectFactorRepository; 
 	@Autowired private DetectCategoryRepository detectCategoryRepository;
+	
+	@Autowired private DetectContentDicRepository detectContentDicRepository;
 	
 	private static final Log logger = LogFactory.getLog(DetectServiceImpl.class);
 

@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-3-15 21:08:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-15 21:34:42 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.Date;
@@ -39,11 +39,12 @@ public class RiskBasicInfo  implements java.io.Serializable {
      private String lat;
      private String lng;
      private String description;
+     private String lvl;
 
     public RiskBasicInfo() {
     }
 
-    public RiskBasicInfo(ProductStatus productStatus, Company company, IndustrialPark industrialPark, String riskName, Date creationDate, Float area, String emePerson, String emeMobile, Long status, String comment, String lat, String lng, String description) {
+    public RiskBasicInfo(ProductStatus productStatus, Company company, IndustrialPark industrialPark, String riskName, Date creationDate, Float area, String emePerson, String emeMobile, Long status, String comment, String lat, String lng, String description, String lvl) {
        this.productStatus = productStatus;
        this.company = company;
        this.industrialPark = industrialPark;
@@ -57,6 +58,7 @@ public class RiskBasicInfo  implements java.io.Serializable {
        this.lat = lat;
        this.lng = lng;
        this.description = description;
+       this.lvl = lvl;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -185,6 +187,15 @@ public class RiskBasicInfo  implements java.io.Serializable {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    @Column(name="lvl", length=20)
+    public String getLvl() {
+        return this.lvl;
+    }
+    
+    public void setLvl(String lvl) {
+        this.lvl = lvl;
     }
 
 

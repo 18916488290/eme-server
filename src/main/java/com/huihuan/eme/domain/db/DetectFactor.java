@@ -1,5 +1,5 @@
 package com.huihuan.eme.domain.db;
-// Generated 2016-3-15 21:08:08 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-15 21:34:42 by Hibernate Tools 3.2.2.GA
 
 
 import java.util.HashSet;
@@ -40,7 +40,7 @@ public class DetectFactor  implements java.io.Serializable {
      private Set<DetectWater> detectWaters = new HashSet<DetectWater>(0);
      private Set<DetectHistory> detectHistories = new HashSet<DetectHistory>(0);
      private Set<DetectPullant> detectPullants = new HashSet<DetectPullant>(0);
-     private Set<DetectRiveRcross> detectRiveRcrosses = new HashSet<DetectRiveRcross>(0);
+     private Set<DetectRiverCross> detectRiverCrosses = new HashSet<DetectRiverCross>(0);
      private Set<IaqiInfo> iaqiInfos = new HashSet<IaqiInfo>(0);
      private Set<DetectAir> detectAirs = new HashSet<DetectAir>(0);
      private Set<Detect> detects = new HashSet<Detect>(0);
@@ -52,7 +52,7 @@ public class DetectFactor  implements java.io.Serializable {
     public DetectFactor(float minVal) {
         this.minVal = minVal;
     }
-    public DetectFactor(DetectCategory detectCategory, DetectContentDic detectContentDic, String factorName, String chemicalName, float minVal, Float maxVal, Float minXVal, Float maxXVal, String unit, Long frequency, Set<DetectWater> detectWaters, Set<DetectHistory> detectHistories, Set<DetectPullant> detectPullants, Set<DetectRiveRcross> detectRiveRcrosses, Set<IaqiInfo> iaqiInfos, Set<DetectAir> detectAirs, Set<Detect> detects) {
+    public DetectFactor(DetectCategory detectCategory, DetectContentDic detectContentDic, String factorName, String chemicalName, float minVal, Float maxVal, Float minXVal, Float maxXVal, String unit, Long frequency, Set<DetectWater> detectWaters, Set<DetectHistory> detectHistories, Set<DetectPullant> detectPullants, Set<DetectRiverCross> detectRiverCrosses, Set<IaqiInfo> iaqiInfos, Set<DetectAir> detectAirs, Set<Detect> detects) {
        this.detectCategory = detectCategory;
        this.detectContentDic = detectContentDic;
        this.factorName = factorName;
@@ -66,7 +66,7 @@ public class DetectFactor  implements java.io.Serializable {
        this.detectWaters = detectWaters;
        this.detectHistories = detectHistories;
        this.detectPullants = detectPullants;
-       this.detectRiveRcrosses = detectRiveRcrosses;
+       this.detectRiverCrosses = detectRiverCrosses;
        this.iaqiInfos = iaqiInfos;
        this.detectAirs = detectAirs;
        this.detects = detects;
@@ -197,12 +197,12 @@ public class DetectFactor  implements java.io.Serializable {
         this.detectPullants = detectPullants;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectFactor")
-    public Set<DetectRiveRcross> getDetectRiveRcrosses() {
-        return this.detectRiveRcrosses;
+    public Set<DetectRiverCross> getDetectRiverCrosses() {
+        return this.detectRiverCrosses;
     }
     
-    public void setDetectRiveRcrosses(Set<DetectRiveRcross> detectRiveRcrosses) {
-        this.detectRiveRcrosses = detectRiveRcrosses;
+    public void setDetectRiverCrosses(Set<DetectRiverCross> detectRiverCrosses) {
+        this.detectRiverCrosses = detectRiverCrosses;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="detectFactor")
     public Set<IaqiInfo> getIaqiInfos() {

@@ -32,17 +32,17 @@
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
-													<th>企业名称</th>
+													<th>风险源</th>
 													<th>行政区域</th>
 													<th>操作</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr  th:each="nc : ${riskSources}">
-													<td th:text="${nc.companyName}">企业名称</td>
-													<td th:text="${nc.administrativeDivision.division}">行政区域</td>								
+													<td th:text="${nc.riskName}">企业名称</td>
+													<td th:text="${nc.company.administrativeDivision.division}">行政区域</td>								
 													<td>
-													<a href="#" th:href="@{/riskSourceInfo(companyId=${nc.id})}" target="_blank"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
+													<a href="#" th:href="@{/riskSourceInfo(riskSourceId=${nc.id})}" target="_blank"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
 													<a th:href="'javascript:theLocation('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ');'"><i class="fa  fa-map-marker"></i><span>定位</span></a>
 													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'学校\');'"><i class="fa"></i><span>🏫学校</span></a>
 													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'医院\');'"><i class="fa"></i><span>🏥医院</span></a>

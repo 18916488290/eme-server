@@ -179,12 +179,6 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyRepository.getByStatus(auditSatusEnum.getIndex());
 	}
 
-	@Override
-	public List<Company> getCompaniesByRiskStatus(AuditSatusEnum auditSatusEnum) {
-	
-		return companyRepository.getByRiskStatus(auditSatusEnum.getIndex());
-	}
-
 	
 	
 	@Override
@@ -199,17 +193,6 @@ public class CompanyServiceImpl implements CompanyService {
 		
 	}
 
-	@Override
-	@Transactional(readOnly=false)
-	public void addRiskBasicInfo(Long companyId, RiskBasicInfo riskBasicInfo) {
-		
-		Company c = companyRepository.findOne(companyId);
-		riskBasicInfo.setCompany(c);
-		riskBasicInfoRepository.save(riskBasicInfo);
-		c.setLvl("较大环境风险源");
-		//c.setRiskStatus(AuditSatusEnum.NotAudit.getIndex());
-		companyRepository.save(c);
-	}
 
 	@Override
 	@Transactional(readOnly=false)
@@ -225,12 +208,21 @@ public class CompanyServiceImpl implements CompanyService {
         c.setCorporation("张文泉");
         c.setCorporationFax("0243-46129001");
         r.setArea(1028.8f);
+        
         r.setIndustrialPark(industrialParkRepository.findOne(2l));
         r.setProductStatus(productStatusRepository.findOne(1l));
         r.setEmePerson("李军");
         r.setEmeMobile("13934692234");
         r.setStatus(AuditSatusEnum.Yes.getIndex());
-        addRiskBasicInfo(1l,r);
+        r.setLvl("较大环境风险源");
+       
+        r.setCompany(c);
+        r.setLat(c.getLat());
+        r.setLng(c.getLng());
+        r.setRiskName(c.getCompanyName());
+        companyRepository.save(c);
+        riskBasicInfoRepository.save(r);
+
    
 		
 		/*添加单位明面图*/
@@ -418,11 +410,6 @@ public class CompanyServiceImpl implements CompanyService {
 		
 	}
 
-	@Override
-	public List<Company> getRiskSources() {
-		return companyRepository.getAllRiskSources();
-	}
 
-	
 
 }

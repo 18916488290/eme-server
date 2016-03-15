@@ -42,11 +42,21 @@ modify `id` int(11) not null auto_increment;
 alter table `detect_factor` 
 modify `id` int(11) not null auto_increment;
 
+alter table `detect_pullant` 
+modify `id` int(11) not null auto_increment;
+
 alter table `detect_history` 
+modify `id` int(11) not null auto_increment;
+
+alter table `detect_river_rcross` 
 modify `id` int(11) not null auto_increment;
 
 alter table `detect_station` 
 modify `id` int(11) not null auto_increment;
+
+alter table `detect_water` 
+modify `id` int(11) not null auto_increment;
+
 
 alter table `emergency_material` 
 modify `id` int(11) not null auto_increment;
@@ -108,6 +118,10 @@ modify `id` int(11) not null auto_increment;
 alter table `product_status` 
 modify `id` int(11) not null auto_increment;
 
+alter table `pullant_source` 
+modify `id` int(11) not null auto_increment;
+
+
 alter table `production_mode` 
 modify `id` int(11) not null auto_increment;
 
@@ -123,6 +137,10 @@ modify `id` int(11) not null auto_increment;
 alter table `risk_basic_info` 
 modify `id` int(11) not null auto_increment;
 
+alter table `river_cross` 
+modify `id` int(11) not null auto_increment;
+
+
 alter table `storage_method` 
 modify `id` int(11) not null auto_increment;
 
@@ -136,6 +154,9 @@ alter table `water_env`
 modify `id` int(11) not null auto_increment;
 
 alter table `water_env_type` 
+modify `id` int(11) not null auto_increment;
+
+alter table `water_source` 
 modify `id` int(11) not null auto_increment;
 
 alter table `workmanship` 

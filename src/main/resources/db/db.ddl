@@ -46,6 +46,8 @@ CONSTRAINT fk_acl_entry_acl FOREIGN KEY (sid) REFERENCES acl_sid (id)
 
 
 
+
+
 CREATE TABLE administrative_dic
 (
 	id                    INTEGER NOT NULL,
@@ -180,11 +182,12 @@ CREATE TABLE company
 	audit_date            DATE NULL,
 	comment               VARCHAR(128) NULL,
 	status                INTEGER NOT NULL,
-	id_risk_basic_info    INTEGER NULL,
 	id_house_plan         INTEGER NULL,
 	lvl                   VARCHAR(20) NULL,
-	risk_status           INTEGER NULL,
-	risk_comment          VARCHAR(256) NULL
+	registration_code     VARCHAR(64) NULL,
+	license_code          VARCHAR(64) NULL,
+	corporation           VARCHAR(20) NULL,
+	corporation_fax       VARCHAR(20) NULL
 )
 ;
 
@@ -359,14 +362,15 @@ CREATE TABLE detect_factor
 (
 	id                    INTEGER NOT NULL,
 	factor_name           VARCHAR(64) NULL,
-	nadir                 FLOAT NOT NULL,
-	utopia                FLOAT NULL,
-	reservation           FLOAT NULL,
-	aspiration            FLOAT NULL,
+	chemical_name         VARCHAR(64) NULL,
+	min_val               FLOAT NOT NULL,
+	max_val               FLOAT NULL,
+	min_x_val             FLOAT NULL,
+	max_x_val             FLOAT NULL,
+	id_detect_content     INTEGER NULL,
 	id_detect_category    INTEGER NULL,
 	unit                  VARCHAR(20) NULL,
-	frequency             INTEGER NULL,
-	id_detect_content     INTEGER NULL
+	frequency             INTEGER NULL
 )
 ;
 
@@ -392,6 +396,46 @@ CREATE TABLE detect_history
 
 
 ALTER TABLE detect_history
+	ADD  PRIMARY KEY (id)
+;
+
+
+
+CREATE TABLE detect_pullant
+(
+	id                    INTEGER NOT NULL,
+	id_pullant_source     INTEGER NULL,
+	id_factor             INTEGER NULL,
+	report_time           DATE NULL,
+	val                   FLOAT NULL,
+	avg_val               INTEGER NULL,
+	id_daily              boolean NULL
+)
+;
+
+
+
+ALTER TABLE detect_pullant
+	ADD  PRIMARY KEY (id)
+;
+
+
+
+CREATE TABLE detect_rive_rcross
+(
+	id                    INTEGER NOT NULL,
+	id_factor             INTEGER NULL,
+	id_river_cross        INTEGER NULL,
+	val                   FLOAT NULL,
+	avg_val               INTEGER NULL,
+	report_time           DATE NULL,
+	is_daily              boolean NULL
+)
+;
+
+
+
+ALTER TABLE detect_rive_rcross
 	ADD  PRIMARY KEY (id)
 ;
 
@@ -428,6 +472,26 @@ CREATE TABLE detect_station_content
 
 ALTER TABLE detect_station_content
 	ADD  PRIMARY KEY (id_dectect_station,id_detect_content)
+;
+
+
+
+CREATE TABLE detect_water
+(
+	id                    INTEGER NOT NULL,
+	id_factor             INTEGER NULL,
+	id_water_source       INTEGER NULL,
+	val                   FLOAT NULL,
+	avg_val               FLOAT NULL,
+	report_time           DATE NULL,
+	is_daily              boolean NULL
+)
+;
+
+
+
+ALTER TABLE detect_water
+	ADD  PRIMARY KEY (id)
 ;
 
 
@@ -847,6 +911,26 @@ ALTER TABLE production_mode
 
 
 
+CREATE TABLE pullant_source
+(
+	id                    INTEGER NOT NULL,
+	id_company            INTEGER NULL,
+	pullant_name          VARCHAR(32) NULL,
+	description           VARCHAR(256) NULL,
+	lng                   VARCHAR(20) NULL,
+	lat                   VARCHAR(20) NULL,
+	creation_time         DATE NULL
+)
+;
+
+
+
+ALTER TABLE pullant_source
+	ADD  PRIMARY KEY (id)
+;
+
+
+
 CREATE TABLE risk_aversion
 (
 	id                    INTEGER NOT NULL,
@@ -916,22 +1000,43 @@ ALTER TABLE risk_aversion_type
 CREATE TABLE risk_basic_info
 (
 	id                    INTEGER NULL,
+	id_company            INTEGER NULL,
+	risk_name             VARCHAR(32) NULL,
 	creation_date         DATE NULL,
-	registration_code     VARCHAR(64) NULL,
-	license_code          VARCHAR(64) NULL,
-	corporation           VARCHAR(20) NULL,
-	corporation_fax       VARCHAR(20) NULL,
 	area                  FLOAT NULL,
 	id_industrial_park    INTEGER NULL,
 	id_product_status     INTEGER NULL,
 	eme_person            VARCHAR(20) NULL,
-	eme_mobile            VARCHAR(20) NULL
+	eme_mobile            VARCHAR(20) NULL,
+	status                INTEGER NULL,
+	comment               VARCHAR(256) NULL,
+	lat                   VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL,
+	description           VARCHAR(256) NULL
 )
 ;
 
 
 
 ALTER TABLE risk_basic_info
+	ADD  PRIMARY KEY (id)
+;
+
+
+
+CREATE TABLE river_cross
+(
+	id                    INTEGER NOT NULL,
+	lng                   VARCHAR(20) NULL,
+	lat                   VARCHAR(20) NULL,
+	cross_name            VARCHAR(20) NULL,
+	creation_time         DATE NULL
+)
+;
+
+
+
+ALTER TABLE river_cross
 	ADD  PRIMARY KEY (id)
 ;
 
@@ -1049,6 +1154,24 @@ ALTER TABLE water_env_type
 
 
 
+CREATE TABLE water_source
+(
+	id                    INTEGER NOT NULL,
+	water_name            VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL,
+	lat                   VARCHAR(20) NULL,
+	creation_time         DATE NULL
+)
+;
+
+
+
+ALTER TABLE water_source
+	ADD  PRIMARY KEY (id)
+;
+
+
+
 CREATE TABLE workmanship
 (
 	id                    INTEGER NOT NULL,
@@ -1146,11 +1269,6 @@ ALTER TABLE company
 
 ALTER TABLE company
 	ADD FOREIGN KEY R_15 (auditor) REFERENCES users(username)
-;
-
-
-ALTER TABLE company
-	ADD FOREIGN KEY R_23 (id_risk_basic_info) REFERENCES risk_basic_info(id)
 ;
 
 
@@ -1263,6 +1381,28 @@ ALTER TABLE detect_history
 
 
 
+ALTER TABLE detect_pullant
+	ADD FOREIGN KEY R_84 (id_pullant_source) REFERENCES pullant_source(id)
+;
+
+
+ALTER TABLE detect_pullant
+	ADD FOREIGN KEY R_85 (id_factor) REFERENCES detect_factor(id)
+;
+
+
+
+ALTER TABLE detect_rive_rcross
+	ADD FOREIGN KEY R_86 (id_factor) REFERENCES detect_factor(id)
+;
+
+
+ALTER TABLE detect_rive_rcross
+	ADD FOREIGN KEY R_87 (id_river_cross) REFERENCES river_cross(id)
+;
+
+
+
 ALTER TABLE detect_station
 	ADD FOREIGN KEY R_59 (id_epb) REFERENCES epb(id)
 ;
@@ -1281,6 +1421,17 @@ ALTER TABLE detect_station_content
 
 ALTER TABLE detect_station_content
 	ADD FOREIGN KEY R_74 (id_detect_content) REFERENCES detect_content_dic(id)
+;
+
+
+
+ALTER TABLE detect_water
+	ADD FOREIGN KEY R_88 (id_factor) REFERENCES detect_factor(id)
+;
+
+
+ALTER TABLE detect_water
+	ADD FOREIGN KEY R_89 (id_water_source) REFERENCES water_source(id)
 ;
 
 
@@ -1384,6 +1535,12 @@ ALTER TABLE persistent_logins
 
 
 
+ALTER TABLE pullant_source
+	ADD FOREIGN KEY R_83 (id_company) REFERENCES company(id)
+;
+
+
+
 ALTER TABLE risk_aversion
 	ADD FOREIGN KEY R_37 (id_company) REFERENCES company(id)
 ;
@@ -1413,6 +1570,11 @@ ALTER TABLE risk_basic_info
 
 ALTER TABLE risk_basic_info
 	ADD FOREIGN KEY R_25 (id_product_status) REFERENCES product_status(id)
+;
+
+
+ALTER TABLE risk_basic_info
+	ADD FOREIGN KEY R_82 (id_company) REFERENCES company(id)
 ;
 
 
@@ -1499,11 +1661,21 @@ modify `id` int(11) not null auto_increment;
 alter table `detect_factor` 
 modify `id` int(11) not null auto_increment;
 
+alter table `detect_pullant` 
+modify `id` int(11) not null auto_increment;
+
 alter table `detect_history` 
+modify `id` int(11) not null auto_increment;
+
+alter table `detect_river_rcross` 
 modify `id` int(11) not null auto_increment;
 
 alter table `detect_station` 
 modify `id` int(11) not null auto_increment;
+
+alter table `detect_water` 
+modify `id` int(11) not null auto_increment;
+
 
 alter table `emergency_material` 
 modify `id` int(11) not null auto_increment;
@@ -1565,6 +1737,10 @@ modify `id` int(11) not null auto_increment;
 alter table `product_status` 
 modify `id` int(11) not null auto_increment;
 
+alter table `pullant_source` 
+modify `id` int(11) not null auto_increment;
+
+
 alter table `production_mode` 
 modify `id` int(11) not null auto_increment;
 
@@ -1580,6 +1756,10 @@ modify `id` int(11) not null auto_increment;
 alter table `risk_basic_info` 
 modify `id` int(11) not null auto_increment;
 
+alter table `river_cross` 
+modify `id` int(11) not null auto_increment;
+
+
 alter table `storage_method` 
 modify `id` int(11) not null auto_increment;
 
@@ -1593,6 +1773,9 @@ alter table `water_env`
 modify `id` int(11) not null auto_increment;
 
 alter table `water_env_type` 
+modify `id` int(11) not null auto_increment;
+
+alter table `water_source` 
 modify `id` int(11) not null auto_increment;
 
 alter table `workmanship` 

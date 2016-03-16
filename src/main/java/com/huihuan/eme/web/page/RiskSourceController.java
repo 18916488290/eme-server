@@ -75,8 +75,8 @@ public class RiskSourceController {
 	
 	
 	@RequestMapping(value="/auditSource",method=RequestMethod.GET)
-	public String populateCompany(@RequestParam(required=true) long companyId,@RequestParam(required=false) String view,  Map<String, Object> model) {
-		model.put("riskSource",companyRepository.findOne(companyId));
+	public String populateCompany(@RequestParam(required=true) long riskSourceId,@RequestParam(required=false) String view,  Map<String, Object> model) {
+		model.put("riskSource",riskBasicInfoRepository.findOne(riskSourceId));
 		if(view!=null)
 		{
 			model.put("view", "yes");
@@ -85,8 +85,8 @@ public class RiskSourceController {
 	}
 	
 	@RequestMapping(value="/riskSourceInfo",method=RequestMethod.GET)
-	public String populateRiskSourceInfo(@RequestParam(required=true) long companyId, Map<String, Object> model) {
-		model.put("riskSource",companyRepository.findOne(companyId));
+	public String populateRiskSourceInfo(@RequestParam(required=true) long riskSourceId, Map<String, Object> model) {
+		model.put("riskSource",riskBasicInfoRepository.findOne(riskSourceId));
 		return "riskSourceInfo";
 	}
 	

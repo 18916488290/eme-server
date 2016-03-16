@@ -22,7 +22,7 @@
 				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
 			    <li><a href="#"  th:href="@{/allRiskSourceList}">风险源管理</a></li>
 			    <li>风险源详情</li>
-				<li th:text="${riskSource.companyName}"></li>
+				<li th:text="${riskSource.riskName}"></li>
 			</ul>
 			<!-- /BREADCRUMBS -->
 
@@ -60,17 +60,17 @@
 													<th style="width: 40%"></th>
 												</tr>
 							</thead> 
-				            <tr><td>创建时间:</td><td  th:text="${riskSource.creationDate}">2009</td><td>单位名称:</td><td th:text="${riskSource.companyName}">单位名称</td></tr>
-				            <tr><td>机构代码:</td><td th:text="${riskSource.riskBasicInfo.registrationCode}"></td><td>营业执照:</td><td th:text="${riskSource.riskBasicInfo.licenseCode}"></td></tr>
-				             <tr><td>法人代表:</td><td th:text="${riskSource.riskBasicInfo.corporation}"></td><td>法人传真:</td><td th:text="${riskSource.riskBasicInfo.corporationFax}"></td></tr>
-				             <tr><td>行政区域:</td><td th:text="${riskSource.administrativeDivision.division}"></td><td>单位地址:</td><td th:text="${riskSource.address}"></td></tr>
+				            <tr><td>创建时间:</td><td  th:text="${riskSource.creationDate}">2009</td><td>风险源名称:</td><td th:text="${riskSource.riskName}">单位名称</td></tr>
+				            <tr><td>机构代码:</td><td th:text="${riskSource.company.registrationCode}"></td><td>营业执照:</td><td th:text="${riskSource.company.licenseCode}"></td></tr>
+				             <tr><td>法人代表:</td><td th:text="${riskSource.company.corporation}"></td><td>法人传真:</td><td th:text="${riskSource.company.corporationFax}"></td></tr>
+				             <tr><td>行政区域:</td><td th:text="${riskSource.company.administrativeDivision.division}"></td><td>单位地址:</td><td th:text="${riskSource.company.address}"></td></tr>
 				             <tr><td>经度:</td><td th:text="${riskSource.lng}">></td><td>纬度:</td><td th:text="${riskSource.lat}">></td></tr>
 				            </table>
 					   </div>
 					   
 					   <div class="tab-pane fade" id="box_tab2">
-					   	   <div th:if="${riskSource.housePlan!=null}">
-				           <img th:src="@{/img/proj/}+${riskSource.housePlan.fileName}" width="100%" height="300px"/>
+					   	   <div th:if="${riskSource.company.housePlan!=null}">
+				           <img th:src="@{/img/proj/}+${riskSource.company.housePlan.fileName}" width="100%" height="300px"/>
 				          </div>
 					   </div>
 					   
@@ -79,7 +79,7 @@
 					     <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加产品或原料</span></a>
 					    </h5>
-					      <div th:if="!${#lists.isEmpty(riskSource.chemicalMaterials)}">
+					      <div th:if="!${#lists.isEmpty(riskSource.company.chemicalMaterials)}">
 			               <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
@@ -97,7 +97,7 @@
 											</thead>               
 										    
 											<tbody>
-												<tr  th:each="cm : ${riskSource.chemicalMaterials}">
+												<tr  th:each="cm : ${riskSource.company.chemicalMaterials}">
 													<td th:text="${cm.materialName}"></td>
 													<td th:text="${cm.chemicalName}"></td>
 													<td th:text="${cm.cas}"></td>
@@ -120,7 +120,7 @@
 					   
 					   
 					   <div class="tab-pane fade" id="box_tab4">
-					     <div th:if="!${#lists.isEmpty(riskSource.workmanships)}">
+					     <div th:if="!${#lists.isEmpty(riskSource.company.workmanships)}">
 				        <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加生产工艺</span></a>
 					    </h5>
@@ -135,7 +135,7 @@
 											</thead>               
 										    
 											<tbody>
-												<tr  th:each="wm : ${riskSource.workmanships}">
+												<tr  th:each="wm : ${riskSource.company.workmanships}">
 													<td th:text="${wm.title}"></td>
 													<td th:text="${wm.description}"></td>
 													<td>
@@ -155,7 +155,7 @@
 					   
 					   
 					    <div class="tab-pane fade" id="box_tab5">
-					     <div th:if="!${#lists.isEmpty(riskSource.riskAversions)}">
+					     <div th:if="!${#lists.isEmpty(riskSource.company.riskAversions)}">
 				        <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加风险防范措施</span></a>
 					    </h5>
@@ -172,7 +172,7 @@
 											</thead>               
 										    
 											<tbody>
-												<tr  th:each="ra : ${riskSource.riskAversions}">
+												<tr  th:each="ra : ${riskSource.company.riskAversions}">
 													<td th:text="${ra.riskAversionType.riskAversionType}"></td>
 													<td th:text="${ra.remark}"></td>
 													<td th:text="${ra.auditOrg}"></td>
@@ -197,7 +197,7 @@
 					   
 					    <div class="tab-pane fade" id="box_tab6">
 					    
-					      <div th:if="!${#lists.isEmpty(riskSource.emergencyMaterials)}">
+					      <div th:if="!${#lists.isEmpty(riskSource.company.emergencyMaterials)}">
 				                     <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加应急物资</span></a>
 					       </h5>
@@ -215,7 +215,7 @@
 										   
 										
 											<tbody>
-												<tr  th:each="nce : ${riskSource.emergencyMaterials}">
+												<tr  th:each="nce : ${riskSource.company.emergencyMaterials}">
 													<td th:text="${nce.materialName}">物资名称</td>
 													<td th:text="${nce.quantity}">数量</td>
 													<td th:text="${nce.equipmentType.equipmentType}">设备类型</td>
@@ -238,7 +238,7 @@
 					   
 					   
 					    <div class="tab-pane fade" id="box_tab7">
-					     <div th:if="!${#lists.isEmpty(riskSource.companyWaterEnvs)}">
+					     <div th:if="!${#lists.isEmpty(riskSource.company.companyWaterEnvs)}">
 				       <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加周边水环境</span></a>
 					    </h5>
@@ -258,7 +258,7 @@
 										   
 										
 											<tbody>
-												<tr  th:each="cw : ${riskSource.companyWaterEnvs}">
+												<tr  th:each="cw : ${riskSource.company.companyWaterEnvs}">
 													<td th:text="${cw.waterEnv.waterEnvName}"></td>
 													<td th:text="${cw.location}"></td>
 													<td th:text="${cw.distance}"></td>
@@ -279,7 +279,7 @@
 										</table>
 				        </div>
 				   
-				       <div th:if="!${#lists.isEmpty(riskSource.companyAirEnvs)}">
+				       <div th:if="!${#lists.isEmpty(riskSource.company.companyAirEnvs)}">
 				          <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加周边气环境</span></a>
 					    </h5>
@@ -299,7 +299,7 @@
 										   
 										
 											<tbody>
-												<tr  th:each="ca : ${riskSource.companyAirEnvs}">
+												<tr  th:each="ca : ${riskSource.company.companyAirEnvs}">
 													<td th:text="${ca.airEnv.airEnvName}"></td>
 													<td th:text="${ca.locationDic.location}"></td>
 													<td th:text="${ca.distance}"></td>
@@ -323,7 +323,7 @@
 					   
 					   
 					    <div class="tab-pane fade" id="box_tab8">
-					     <div th:if="!${#lists.isEmpty(riskSource.emergencyResponsePlans)}">
+					     <div th:if="!${#lists.isEmpty(riskSource.company.emergencyResponsePlans)}">
 				                  <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加企业预案</span></a>
 					    </h5>
@@ -342,7 +342,7 @@
 										   
 										
 											<tbody>
-												<tr  th:each="er : ${riskSource.emergencyResponsePlans}">
+												<tr  th:each="er : ${riskSource.company.emergencyResponsePlans}">
 													<td th:text="${er.title}"></td>
 													<td th:text="${er.emergencyReponsePlanType.emergencyResponsePlanType}"></td>
 													<td th:text="${er.registCode}"></td>
@@ -367,7 +367,7 @@
 					   
 					    <div class="tab-pane fade" id="box_tab9">
 					    
-				   	<div th:if="!${#lists.isEmpty(riskSource.warehouseRisks)}">
+				   	<div th:if="!${#lists.isEmpty(riskSource.company.warehouseRisks)}">
 				                  <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加仓库风险</span></a>
 					    </h5>
@@ -386,7 +386,7 @@
 										   
 										
 											<tbody>
-												<tr  th:each="wr : ${riskSource.warehouseRisks}">
+												<tr  th:each="wr : ${riskSource.company.warehouseRisks}">
 													<td th:text="${wr.warehouseName}"></td>
 													<td th:text="${wr.area}"></td>
 													<td th:text="${wr.storageMethod.storageMethod}"></td>
@@ -411,7 +411,7 @@
 					   
 					   
 					   <div class="tab-pane fade" id="box_tab10">   	
-					       <div th:if="!${#lists.isEmpty(riskSource.equipmentRisks)}">
+					       <div th:if="!${#lists.isEmpty(riskSource.company.equipmentRisks)}">
 				                         <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加设备风险</span></a>
 					        </h5>
@@ -430,7 +430,7 @@
 										   
 										
 											<tbody>
-												<tr  th:each="wr : ${riskSource.equipmentRisks}">
+												<tr  th:each="wr : ${riskSource.company.equipmentRisks}">
 													<td th:text="${wr.equipmentName}"></td>
 													<td th:text="${wr.brand}"></td>
 													<td th:text="${wr.installDate}"></td>
@@ -456,7 +456,7 @@
 					   
 					   
 					    <div class="tab-pane fade" id="box_tab11">
-					     	<div th:if="!${#lists.isEmpty(riskSource.envProtPersons)}">
+					     	<div th:if="!${#lists.isEmpty(riskSource.company.envProtPersons)}">
 				        <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加环保人员</span></a>
 					    </h5>
@@ -477,7 +477,7 @@
 										   
 										
 											<tbody>
-												<tr  th:each="wr : ${riskSource.envProtPersons}">
+												<tr  th:each="wr : ${riskSource.company.envProtPersons}">
 													<td th:text="${wr.realName}"></td>
 													<td th:text="${wr.gender}"></td>
 													<td th:text="${wr.position}"></td>

@@ -20,7 +20,7 @@
 			<!-- BREADCRUMBS -->
 			<ul class="breadcrumb" id="BREADCRUMBS">
 				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
-				<li><a href="#"  th:href="@{/companyList}">企业注册审核</a></li>
+				<li><a href="#"  th:href="@{/companyList}">企业注册管理</a></li>
 				<li>企业列表</li>
 			</ul>
 			<!-- /BREADCRUMBS -->
@@ -33,7 +33,7 @@
 						<div class="box border">
 									
 									  <div class="box-title">
-										<h4><i class="fa fa-columns"></i><span class="hidden-inline-mobile">企业注册审核</span></h4>
+										<h4><i class="fa fa-columns"></i>企业注册状态</h4>
 									</div>
 									
 									<div class="box-body">
@@ -86,7 +86,7 @@
 													<td th:text="${nc.address}">地址</td>
 													<td th:text="${nc.industrySectorDic.industrySector}">行业类别</td>
 													<td th:text="${nc.operationMaintanceCompany.companyName}">关联运维公司</td>
-													<td><a href="#" th:href="@{/auditCompany(companyId=${nc.id},view=yes)}"><i class="fa fa-check"></i><span>查看</span></a></td>
+													<td><a href="#" th:href="@{/auditCompany(companyId=${nc.id},view=auditView)}"><i class="fa fa-check"></i><span>查看</span></a></td>
 												</tr>
 									
 											</tbody>
@@ -141,7 +141,7 @@
 	<div th:include="fragments/m-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {		
-			
+			App.setPage("companyList");
 			App.init(); //Initialise plugins and elements
 			App.handleTables();
 

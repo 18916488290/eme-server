@@ -8,17 +8,25 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huihuan.eme.domain.db.Company;
+import com.huihuan.eme.domain.db.IndustrySectorDic;
 import com.huihuan.eme.domain.db.Users;
 import com.huihuan.eme.domain.page.AuditSatusEnum;
+import com.huihuan.eme.repository.AdministrativeDicRepository;
+import com.huihuan.eme.repository.AdministrativeDivisionRepository;
 import com.huihuan.eme.repository.CompanyRepository;
+import com.huihuan.eme.repository.ConcernDegreeDicRepository;
+import com.huihuan.eme.repository.IndustrySectorDicRepository;
+import com.huihuan.eme.repository.OperationMaintanceCompanyRepository;
 import com.huihuan.eme.repository.UsersRepository;
 import com.huihuan.eme.service.CompanyService;
+import com.huihuan.eme.service.UserService;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn
@@ -28,13 +36,81 @@ import com.huihuan.eme.service.CompanyService;
  */
 /**环保局审核企业**/
 @Controller
-public class CompanyAuditController {
+public class CompanyController {
 	
 	@Autowired private CompanyService companyService;
 	@Autowired private CompanyRepository companyRepository;
 	@Autowired private UsersRepository usersRepository;
+	@Autowired private UserService userService;
+	@Autowired private IndustrySectorDicRepository industrySectorDicRepository;
+	@Autowired private ConcernDegreeDicRepository concernDegreeDicRepository;
+	@Autowired private AdministrativeDicRepository administrativeDicRepository;
+	@Autowired private OperationMaintanceCompanyRepository operationMaintanceCompanyRepository;
+	@Autowired private AdministrativeDivisionRepository administrativeDivisionRepository;
 	
-	private static final Log logger = LogFactory.getLog(CompanyAuditController.class);
+	private static final Log logger = LogFactory.getLog(CompanyController.class);
+	
+	
+	@RequestMapping("/companyForm")
+	public String populateCompanyForm(@RequestParam(required=false) Long companyId, Map<String, Object> model) {
+		
+		if(companyId!=null)
+		{
+			model.put("view", "modify");
+			model.put("company",companyRepository.findOne(companyId));
+		}
+		else
+		{
+			model.put("view", "new");
+			Company company = new Company();
+			model.put("company",company);
+		}
+		model.put("industries", industrySectorDicRepository.findAll());
+		model.put("administratives", administrativeDicRepository.findAll());
+		model.put("concernDegrees", concernDegreeDicRepository.findAll());
+		model.put("oms", operationMaintanceCompanyRepository.findAll());
+		model.put("administrativeDivisions", administrativeDivisionRepository.findAll());
+
+		return "companyForm";
+	}
+	@Transactional(readOnly=false)
+	@RequestMapping(value="/saveCompany",method=RequestMethod.POST)
+	public String saveCompany(@ModelAttribute("company") Company company,Principal principal) {
+		logger.debug("company:" + company.getId() );
+		company.setAuditDate(new Date());
+		company.setUsersByAuditor(usersRepository.findOne(principal.getName()));
+		
+		if(company.getId() ==null)
+		{
+			
+			Users u = new Users();
+			u.setMobile(company.getUsersByCreator().getMobile());
+			u.setUsername(company.getUsersByCreator().getMobile());
+			u.setPassword(company.getUsersByCreator().getMobile());
+			u.setEnabled(true);
+			u.setRealName(company.getUsersByCreator().getRealName());
+			//u.setEpb(epbRepository.findOne(1l));
+			userService.register(u, true);
+			company.setUsersByCreator(u);
+			company.setCreationDate(new Date());
+		}
+		else
+		{
+			Users u = 	usersRepository.findByUsername(company.getUsersByCreator().getMobile());
+			u.setRealName(company.getUsersByCreator().getRealName());
+			company.setUsersByCreator(u);
+		}
+		company.setStatus(AuditSatusEnum.Yes.getIndex());
+		companyRepository.save(company);
+		return "redirect:/companyList";
+	}
+	
+	
+	@RequestMapping("/allCompanyList")
+	public String populateAllCompanies(Map<String, Object> model) {
+		model.put("yesAuditCompanies", companyService.getCompaniesByStatus(AuditSatusEnum.Yes));
+		return "allCompanyList";
+	}
 	
 	@RequestMapping("/companyList")
 	public String populateCompanies(Map<String, Object> model) {
@@ -50,7 +126,7 @@ public class CompanyAuditController {
 		model.put("company",companyRepository.findOne(companyId));
 		if(view!=null)
 		{
-			model.put("view", "yes");
+			model.put("view", view);
 		}
 		return "auditCompany";
 	}
@@ -70,10 +146,16 @@ public class CompanyAuditController {
 			usersRepository.save(u);
 		}
 		else if(action.equals("no"))
+		{
 			dbCompany.setStatus(AuditSatusEnum.No.getIndex());
-		else
+		}
+		else if(action.equals("auditView"))
 		{
 			return "redirect:/companyList";
+		}
+		else
+		{
+			return "redirect:/allCompanyList";
 		}
 		companyRepository.save(dbCompany);
 		return "redirect:/companyList";

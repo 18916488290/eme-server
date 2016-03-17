@@ -115,10 +115,12 @@
 										   <div class="form-group">
 										     <div class="col-md-2"></div>
 										     <div class="col-md-3">
-										      <button class="btn btn-default" name="action" value="back"><i class="fa fa-arrow-left"></i>返回</button>
+										      <button class="btn btn-default" name="action" th:value="${view}"><i class="fa fa-arrow-left"></i>返回</button>
 										     </div>
 										   </div>
 										  </div>
+										  
+										
 										  
 										  <input type="hidden" th:field="*{id}" /> 
 										 
@@ -140,6 +142,7 @@
 	<div th:include="fragments/m-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {		
+			App.setPage("companyList");
 			App.init(); //Initialise plugins and elements
 			App.handleTables();
 

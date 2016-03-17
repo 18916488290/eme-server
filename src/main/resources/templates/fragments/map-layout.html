@@ -85,16 +85,16 @@
 							系统管理</span>
 						</a>
 						<ul class="dropdown-menu notification">
-						
+						<!--  
 							<li>
 								<a href="/companyList" th:href="@{/companyList}">
 									<span class="label label-success"><i class="fa fa-user"></i></span>
 									<span class="body">
-										<span class="message">企业注册审核</span>
+										<span class="message">企业注册管理</span>
 									</span>
 								</a>
 							</li>
-							
+					    -->
 							<li>
 								<a href="#" th:href="@{/notImpl}">
 									<span class="label label-warning"><i class="fa fa-users"></i></span>
@@ -158,6 +158,13 @@
 								<span class="arrow"></span>
 								</a>
 								<ul class="sub">
+								
+								  <li id="companyList">
+										<a  href="#" th:href="@{/companyList}" class=""><span class="sub-menu-text">企业注册审核</span></a>
+										</li>
+									<li id="allCompanyList">
+										<a  href="#" th:href="@{/allCompanyList}" class=""><span class="sub-menu-text">企业注册管理</span></a>
+									</li>
 								   
 									<li id="emergencyMaterialList">
 										<a  href="#" th:href="@{/emergencyMaterialList}" class=""><span class="sub-menu-text">企业应急物资审核</span></a>

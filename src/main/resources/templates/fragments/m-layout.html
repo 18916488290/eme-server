@@ -18,7 +18,7 @@
 	
 	<!-- DATA TABLES -->
 	<link rel="stylesheet" type="text/css" th:href="@{/js/datatables/media/css/jquery.dataTables.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/js/datatables/media/css/dataTables.bootstrap.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/js/datatables/media/css/dataTables.bootstrap.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/js/datatables/extensions/Buttons/css/buttons.dataTables.css}"/>
 	 
 	<!-- FONTS -->
@@ -79,15 +79,16 @@
 							系统管理</span>
 						</a>
 						<ul class="dropdown-menu notification">
-						
+						<!--  
 							<li>
 								<a href="/companyList" th:href="@{/companyList}">
 									<span class="label label-success"><i class="fa fa-user"></i></span>
 									<span class="body">
-										<span class="message">企业注册审核</span>
+										<span class="message">企业注册管理</span>
 									</span>
 								</a>
 							</li>
+							-->
 							
 							<li>
 								<a href="#" th:href="@{/notImpl}">
@@ -152,6 +153,14 @@
 								<span class="arrow"></span>
 								</a>
 								<ul class="sub">
+								   
+								   	<li id="companyList">
+										<a  href="#" th:href="@{/companyList}" class=""><span class="sub-menu-text">企业注册审核</span></a>
+										</li>
+									<li id="allCompanyList">
+										<a  href="#" th:href="@{/allCompanyList}" class=""><span class="sub-menu-text">企业注册管理</span></a>
+									</li>
+								   
 								   
 									<li id="emergencyMaterialList">
 										<a  href="#" th:href="@{/emergencyMaterialList}" class=""><span class="sub-menu-text">企业应急物资审核</span></a>
@@ -290,14 +299,17 @@
 	<!-- DATE RANGE PICKER -->
 	<script src="../../static/js/bootstrap-daterangepicker/moment.min.js" th:src="@{/js/bootstrap-daterangepicker/moment.min.js}"></script>
 	<script src="../../static/js/bootstrap-daterangepicker/daterangepicker.min.js" th:src="@{/js/bootstrap-daterangepicker/daterangepicker.min.js}"></script>
-	<!-- SLIMSCROLL -->
-	<script type="text/javascript" src="../../static/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js" th:src="@{/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js}"></script>
-	<script type="text/javascript" src="../../static/js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js" th:src="@{/js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js}"></script>
+
+	<!--validator-->
+	
+	<script language="javascript"   src="js/jquery-validate/jquery.validate.min.js" th:src="@{/js/jquery-validate/jquery.validate.min.js}"></script>
+	<script language="javascript"  src="js/jquery-validate/additional-methods.min.js" th:src="@{/js/jquery-validate/additional-methods.min.js}"></script>
+	<script language="javascript" th:src="@{/js/emeForms.js}"></script>
+	
 	
 	
 	<!-- DATA TABLES -->
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js" ></script>
-	
 	<script type="text/javascript" language="javascript" th:src="@{js/datatables/media/js/dataTables.bootstrap.min.js}" ></script>
 	<script type="text/javascript" language="javascript"  src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>
 	<script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.1.2/js/buttons.flash.min.js"></script>

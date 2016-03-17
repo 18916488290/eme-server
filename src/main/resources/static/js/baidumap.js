@@ -1,87 +1,78 @@
 var baiduMaps = function () {
 	
-	var map;
-
     var mapBasic = function () {
-    	map = new BMap.Map("baidumap");
-    	map.centerAndZoom(new BMap.Point(120.94959,31.90506),13);
+        $.getCenter(function(data){
+            map.centerAndZoom(new BMap.Point(data.lng,data.lat),12);
+         });
 	
     }
-    
-	var markers = [
-	     			{content:"南通市开发区春天花园",title:"南通市开发区春天花园",status:"4",imageOffset: {width:0,height:3},position:{lat:31.915359,lng:120.933574}},
-	     			{content:"南通市开发区江山股份",title:"南通市开发区江山股份",status:"1",imageOffset: {width:0,height:3},position:{lat:32.064665,lng:120.523479}},
-	     			{content:"南通市开发区宝灵化工",title:"南通市开发区宝灵化工",status:"4",imageOffset: {width:0,height:3},position:{lat:32.094665,lng:120.742954}},
-	     			{content:"南通市开发区清华同方",title:"南通市开发区清华同方",status:"3",imageOffset: {width:0,height:3},position:{lat:32.039974,lng:120.868495}},
-	     			{content:"南通市开发区东丽公司",title:"南通市开发区东丽公司",status:"1",imageOffset: {width:0,height:3},position:{lat:31.908287,lng:120.779054}},
-	     			{content:"南通市开发区通协纺织",title:"南通市开发区通协纺织",status:"4",imageOffset: {width:0,height:3},position:{lat:32.046917,lng:120.909535}},
-	     			{content:"南通市开发区东星皮革",title:"南通市开发区东星皮革",status:"4",imageOffset: {width:0,height:3},position:{lat:32.024461,lng:120.810403}}
-	     		  ];
-	  
-	//创建richMarker地图标注
-	 function addMapOverlay(){
-		 
-			for (var i = 0; i < markers.length; i++) {
-				createMarker(i);
-			}
-	 }
-	 function createMarker(i){
-		 var color;
-		 var marker;
-		 var status_=markers[i].status;
-		 if(status_=="1"){//正常
-			 marker="level.png";
-			 color="green";
-		 }else if(status_=="2"){//离线
-			 marker="level.png";
-			 color="#7D7D7D";
-		 }else if(status_=="3"){//故障
-			 marker="level.png";
-			 color="#FF8000";
-		 }else if(status_=="4"){//超标
-			 marker="level.png";
-			 color="#FF0000";
-		 }
-	
-		 var markerHtml = '<div style="position: absolute; margin: 0pt; padding: 0pt; width: 120px; height: 25px; left: -10px; top: -35px; overflow: hidden;">'
-				+ '<img style="border:none;left:0px; top:0px; position:absolute;" src="img/mapimg/'+marker+'">';
 
-		var pot = new BMap.Point(markers[i].position.lng,
-				markers[i].position.lat);
-		var richMarker = new BMapLib.RichMarker(markerHtml, pot, {
-			"enableDragging" : false
-		});	
-		map.addOverlay(richMarker);//添加企业Marker标注
+	var add_control=function (){
 		
-		richMarker.addEventListener("onclick",function(e) {
-						var title = markers[i].title;
-						var  infoWin= createInfoWindow(title);
-						var position_=this.getPosition();
-						infoWin.open(position_);
-								
-		});
-	 }
-	 function createInfoWindow(title){
-		 var content = 'hello';
-			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
-				title: title, //标题
-				offset: new BMap.Size(0,30),
-				width: 200,//宽度
-				height: 200, //高度
-				panel : "panel", //检索结果面板
-				enableAutoPan : true, //自动平移
-				searchTypes :[
-				]
-			});
-		return infoWindow;
-	 }
+		var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+		var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+		var mapType = new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP,BMAP_HYBRID_MAP]});
+		var overView = new BMap.OverviewMapControl();
+		var overViewOpen = new BMap.OverviewMapControl({isOpen:true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT});
+		map.addControl(top_left_control);        
+		map.addControl(top_left_navigation);  
+		map.addControl(mapType);    
+		map.addControl(overView);          //添加默认缩略地图控件
+		map.addControl(overViewOpen);      //右下角，打开
+	}
+
+    var setMapEvent=function(){
+        map.enableDragging();
+   
+      }
+    
+    
+    
+    // 用经纬度设置地图中心点
+     var theLocation=function (map,sourceId,lng,lat){
+		var new_point = new BMap.Point(lng,lat);
+		map.panTo(new_point);   
+		map.setZoom(13);
+		map.clearOverlays(); 
+		addMapOverlay(sourceId);
+    }
+
+   // Local search
+    var localSearch = function(map,sourceId,lng,lat,s){
+		var new_point = new BMap.Point(lng,lat);
+		map.panTo(new_point);
+		map.setZoom(13);
+		map.clearOverlays(); 
+		addMapOverlay(-1000);
+		var circle = new BMap.Circle(new_point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
+	    map.addOverlay(circle);
+	    var local =  new BMap.LocalSearch(map, {renderOptions: {map: map, autoViewport: false}});  
+	    local.searchNearby(s,new_point,5000);
+    }
+       
+   var addClickHandler=function(target,window){
+       target.addEventListener("click",function(){
+          window.open(target.getPosition());
+       });
+     }
    
     return {
-        //main function to initiate map samples
-        riskSourceMap: function () {
-            mapBasic();
-            addMapOverlay();
-
+        init: function (map) {
+            mapBasic(map);
+            add_control(map);
+            setMapEvent(map);
+        },
+       theLocation:function(map,sourceId,lng,lat)
+       {
+    	   theLocation(map,sourceId,lng,lat);
+       },
+        localSearch:function(map,sourceId,lng,lat,s)
+        {
+        	localSearch(map,sourceId,lng,lat,s);
+        },
+        addClickHandler:function(target,window)
+        {
+        	addClickHandler(target,window);
         }
 
     };

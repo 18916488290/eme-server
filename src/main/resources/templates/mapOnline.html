@@ -80,66 +80,17 @@
 	<script th:inline="javascript">
     /*<![CDATA[*/
                 
-    // 用经纬度设置地图中心点
+    var map = new BMap.Map("baidumap");
+    baiduMaps.init(map);
+    addMapOverlay(-1000);//向地图添加覆盖物
+    //定位
 	function theLocation(sourceId,lng,lat){
-			var new_point = new BMap.Point(lng,lat);
-			map.panTo(new_point);  
-			map.setZoom(13);
-			map.clearOverlays(); 
-			addMapOverlay(sourceId);
-			
+		baiduMaps.theLocation(map,sourceId,lng,lat);
 	}
-
-	// Local search
+    //本地查找
 	function localSearch(sourceId,lng,lat,s){
-			var new_point = new BMap.Point(lng,lat);
-			map.panTo(new_point); 
-			map.setZoom(13);
-			map.clearOverlays(); 
-			addMapOverlay(-1000);
-			var circle = new BMap.Circle(new_point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
-		    map.addOverlay(circle);
-		    var local =  new BMap.LocalSearch(map, {renderOptions: {map: map, autoViewport: false}});  
-		    local.searchNearby(s,new_point,5000);
+		baiduMaps.localSearch(map,sourceId,lng,lat,s);
 	}
-
-	var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
-	var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
-	var mapType = new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP,BMAP_HYBRID_MAP]});
-	var overView = new BMap.OverviewMapControl();
-	var overViewOpen = new BMap.OverviewMapControl({isOpen:true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT});
-
-	function add_control(){
-		map.addControl(top_left_control);        
-		map.addControl(top_left_navigation);  
-		map.addControl(mapType);    
-		map.addControl(overView);          //添加默认缩略地图控件
-		map.addControl(overViewOpen);      //右下角，打开
-	}
-                   
-    //创建和初始化地图函数：
-    function initMap(){
-      createMap();//创建地图
-      add_control();
-      setMapEvent();//设置地图事件
-      addMapOverlay(-1000);//向地图添加覆盖物
-    }
-    function createMap(){ 
-      map = new BMap.Map("baidumap"); 
-      $.getCenter(function(data){
-         map.centerAndZoom(new BMap.Point(data.lng,data.lat),12);
-      });
-      
-    }
-    function setMapEvent(){
-      map.enableDragging();
-    }
- 
-    function addClickHandler(target,window){
-        target.addEventListener("click",function(){
-        window.open(target.getPosition());
-      });
-    }
 	
 	
 	 function createInfoWindow(marker){
@@ -242,7 +193,7 @@
                            
              
                    		  var searchInfoWindow=createInfoWindow(markers[index]);
-                           addClickHandler(marker,searchInfoWindow);
+                           baiduMaps.addClickHandler(marker,searchInfoWindow);
                            map.addOverlay(marker);
                          };
          });
@@ -250,8 +201,7 @@
     	
 
     }
-    var map;
-    initMap();
+  
    /*]]>*/
   </script>
 	

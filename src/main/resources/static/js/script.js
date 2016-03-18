@@ -664,7 +664,6 @@ var App = function () {
 	
 		$('.exportdatatable').dataTable({
 			dom: 'Bftip',
-         
             buttons: [
                       'csv', 'excel', 'print'
                   ],

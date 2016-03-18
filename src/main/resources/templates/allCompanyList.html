@@ -35,6 +35,13 @@
 					</h4>
 				</div>
 				<div class="box-body"> 
+			  <div th:if="${errorMsg!=null}">
+				<div class="alert alert-block alert-danger fade in">
+					<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>
+					<h4>删除错误，该企业已经申报了风险源，不能删除此企业。</h4>						
+				</div>
+			   </div>
+				
 				   <div class="tabbable header-tabs">
 									<table cellpadding="0" cellspacing="0" border="0" class="exportdatatable datatable table table-striped table-bordered table-hover" width="100%">
 											<thead>
@@ -55,7 +62,7 @@
 													<td>
 													<a href="#" th:href="@{/auditCompany(companyId=${nc.id},view=,view=view)}"><i class="fa  fa-file-text-o"></i><span>查看</span></a>
 													<a href="#" th:href="@{/companyForm(companyId=${nc.id})}"><i class="fa fa-pencil-square-o"></i><span>修改</span></a>
-													<a href="#" th:href="@{/notImpl}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
+													<a href="#" th:href="@{/deleteCompany(companyId=${nc.id})}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
 													</td>
 												</tr>
 									
@@ -81,7 +88,7 @@
 	<div th:include="fragments/m-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {	
-			App.setPage("allEmergencyMaterialList");
+			App.setPage("allCompanyList");
 			App.init(); //Initialise plugins and elements
 			App.handleTables();
 

@@ -122,13 +122,15 @@
 												<input type="text" id="f10" class="form-control col-md-12" th:field="*{usersByCreator.realName}" /> 										
 											 </div>
 										  </div>
-										  
+										   
+										 <div >
 										  <div class="form-group">
 											 <label class="col-md-2 control-label" for="f11">联系手机<span class="required">*</span></label> 
 											 <div class="col-md-10">		
-												<input type="text" id="f11" class="form-control col-md-12" th:field="*{usersByCreator.mobile}"/> 										
+												<input type="text" id="f11" class="form-control col-md-12" th:field="*{usersByCreator.mobile}" th:readonly="${company.id}" /> 										
 											     <span class="error-span"></span>	
 											 </div>
+										  </div>
 										  </div>
 										
 

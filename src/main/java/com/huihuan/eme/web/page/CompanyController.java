@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.huihuan.eme.domain.db.Company;
 import com.huihuan.eme.domain.db.IndustrySectorDic;
@@ -73,6 +74,27 @@ public class CompanyController {
 
 		return "companyForm";
 	}
+	
+	
+	
+	@Transactional(readOnly=false)
+	@RequestMapping("/deleteCompany")
+	public String deleteCompany(@RequestParam Long companyId, RedirectAttributes attr) {
+		Company dbCompany = companyRepository.findOne(companyId);
+		if(dbCompany.getRiskBasicInfos().isEmpty())
+		{
+			companyRepository.delete(companyId);
+			return "redirect:/allCompanyList";
+		}
+		else
+		{
+			attr.addFlashAttribute("errorMsg", "该企业已经申报了风险源，不能删除此企业");
+			return "redirect:/allCompanyList";
+		}
+	
+	}
+	
+	
 	@Transactional(readOnly=false)
 	@RequestMapping(value="/saveCompany",method=RequestMethod.POST)
 	public String saveCompany(@ModelAttribute("company") Company company,Principal principal) {
@@ -96,13 +118,14 @@ public class CompanyController {
 		}
 		else
 		{
+			logger.warn("mobile: " + company.getUsersByCreator().getMobile() +", realname: " + company.getUsersByCreator().getRealName());
 			Users u = 	usersRepository.findByUsername(company.getUsersByCreator().getMobile());
 			u.setRealName(company.getUsersByCreator().getRealName());
 			company.setUsersByCreator(u);
 		}
 		company.setStatus(AuditSatusEnum.Yes.getIndex());
 		companyRepository.save(company);
-		return "redirect:/companyList";
+		return "redirect:/allCompanyList";
 	}
 	
 	
@@ -132,7 +155,7 @@ public class CompanyController {
 	}
 	
 	@RequestMapping(value="/auditCompany",method=RequestMethod.POST)
-	public String postCompany(@ModelAttribute("company") Company company,@RequestParam String action,Principal principal) {
+	public String auditCompany(@ModelAttribute("company") Company company,@RequestParam String action,Principal principal) {
 		logger.debug("company:" + company.getId() +", comment: " + company.getComment() +", action: " + action);
 		Company dbCompany = companyRepository.findOne(company.getId());
 		dbCompany.setComment(company.getComment());

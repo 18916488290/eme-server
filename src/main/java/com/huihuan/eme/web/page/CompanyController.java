@@ -115,16 +115,29 @@ public class CompanyController {
 			userService.register(u, true);
 			company.setUsersByCreator(u);
 			company.setCreationDate(new Date());
+			company.setStatus(AuditSatusEnum.Yes.getIndex());
+			companyRepository.save(company);
 		}
 		else
 		{
+			Company dbCompany = companyRepository.findOne(company.getId());
 			//logger.warn("mobile: " + company.getUsersByCreator().getMobile() +", realname: " + company.getUsersByCreator().getRealName());
 			Users u = 	usersRepository.findByUsername(company.getUsersByCreator().getMobile());
 			u.setRealName(company.getUsersByCreator().getRealName());
-			company.setUsersByCreator(u);
+			usersRepository.save(u);
+			dbCompany.setUsersByCreator(u);
+			dbCompany.setCompanyName(company.getCompanyName());
+			dbCompany.setAdministrativeDivision(administrativeDivisionRepository.findOne(company.getAdministrativeDivision().getId()));
+			dbCompany.setAddress(company.getAddress());
+			dbCompany.setLat(company.getLat());
+			dbCompany.setLng(company.getLng());
+			dbCompany.setAdministrativeDic(administrativeDicRepository.findOne(company.getAdministrativeDic().getId()));
+			dbCompany.setConcernDegreeDic(concernDegreeDicRepository.findOne(company.getConcernDegreeDic().getId()));
+			dbCompany.setIndustrySectorDic(industrySectorDicRepository.findOne(company.getIndustrySectorDic().getId()));
+			dbCompany.setOperationMaintanceCompany(operationMaintanceCompanyRepository.findOne(company.getOperationMaintanceCompany().getId()));
+			companyRepository.save(dbCompany);
 		}
-		company.setStatus(AuditSatusEnum.Yes.getIndex());
-		companyRepository.save(company);
+		
 		return "redirect:/allCompanyList";
 	}
 	

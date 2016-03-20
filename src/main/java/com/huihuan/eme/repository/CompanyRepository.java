@@ -23,4 +23,7 @@ public interface CompanyRepository  extends JpaRepository<Company, Long> {
 	
 	public Company getByCompanyName(String companyName);
 	
+	@Query("select c from Company c where c.riskBasicInfos.size=0")
+	public List<Company> getCompaniesWithNoRiskSource();
+	
 }

@@ -32,9 +32,10 @@
 
 
 			     <div class="tabbable header-tabs">
-					<ul class="nav nav-tabs">
-						 <li class="active"><a href="#box_tab1" data-toggle="tab"><span class="hidden-inline-mobile">基本信息</span></a></li>
-						 <li><a href="#box_tab2" data-toggle="tab"> <span class="hidden-inline-mobile">平面图</span></a></li>
+					<ul id="myTab" class="nav nav-tabs">
+						 <li class="active">
+						     <a href="#box_tab1" data-toggle="tab"><span class="hidden-inline-mobile">基本信息</span></a></li>
+						 <li><a href="#box_tab2" data-toggle="tab"><span class="hidden-inline-mobile">平面图</span></a></li>
 						 <li><a href="#box_tab3" data-toggle="tab"><span class="hidden-inline-mobile">产品原料</span></a></li>
 						 <li><a href="#box_tab4" data-toggle="tab"><span class="hidden-inline-mobile">生产工艺</span></a></li>
 						 <li><a href="#box_tab5" data-toggle="tab"><span class="hidden-inline-mobile">风险防控</span></a></li>			             
@@ -49,7 +50,7 @@
 					   <div class="tab-pane fade in active" id="box_tab1">
 					    
 					    <h5>
-					    <a href="#" th:href="@{/notImpl}"><i class="fa  fa-pencil-square-o"></i><span>修改风险源基本信息</span></a>
+					    <a href="#" th:href="@{/riskSourceBasicInfoForm(riskSourceId=${riskSource.id})}"><i class="fa  fa-pencil-square-o"></i><span>修改风险源基本信息</span></a>
 					    </h5>
 					     <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped  table-hover">
 				    		<thead style="height: 1px;">
@@ -68,11 +69,26 @@
 				            </table>
 					   </div>
 					   
+					
 					   <div class="tab-pane fade" id="box_tab2">
 					   	   <div th:if="${riskSource.company.housePlan!=null}">
-				           <img th:src="@{/img/proj/}+${riskSource.company.housePlan.fileName}" width="100%" height="300px"/>
+				               <img th:src="@{getimage/}+${riskSource.company.housePlan.fileName}" width="100%" height="300px"/>
+				          </div>
+				          <div th:if="${riskSource.company.housePlan==null}">
+				                 <div id="dropzone">
+				               		<form th:action="@{/uploadFile}" 
+										  class="dropzone"
+										  id="my-awesome-dropzone">
+											<div class="fallback">
+												<input name="file" type="file" multiple="" />
+											</div>
+											    <input name="companyId" th:value="${riskSource.company.id}"  type="hidden"/>
+									</form>
+						</div>	
 				          </div>
 					   </div>
+					   
+					   
 					   
 					   <div class="tab-pane fade" id="box_tab3">
 					   
@@ -526,6 +542,13 @@
 			App.setPage("allRiskSourceList");
 			App.init(); //Initialise plugins and elements
 			App.handleTables();
+			$('#myTab a[href="#box_tab9"]').tab('show');
+			
+			App.handleDropzone();
+			
+			
+			
+			
 		});
 	</script>
 	<!-- /JAVASCRIPTS -->

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -12,18 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.common.io.ByteStreams;
+import com.huihuan.eme.domain.db.Company;
+import com.huihuan.eme.domain.db.HousePlan;
 import com.huihuan.eme.domain.page.FileMeta;
+import com.huihuan.eme.repository.CompanyRepository;
+import com.huihuan.eme.repository.HousePlanRepository;
 
 
 /**
@@ -37,7 +45,10 @@ import com.huihuan.eme.domain.page.FileMeta;
 public class FilesController {
 	
 	private static final Log logger = LogFactory.getLog(FilesController.class);
-
+	
+	private String filePath ="/Users/renhongtao/eme_files/";
+	@Autowired private HousePlanRepository housePlanRepository;
+	@Autowired private CompanyRepository companyRepository;
 	LinkedList<FileMeta> files = new LinkedList<FileMeta>();
     FileMeta fileMeta = null;
  
@@ -50,18 +61,21 @@ public class FilesController {
      * @return LinkedList<FileMeta> as json format
      ****************************************************/
     @RequestMapping(value="/uploadFile", method = RequestMethod.POST)
-    public @ResponseBody LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response) {
+    @Transactional
+    public @ResponseBody LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response, @RequestParam("companyId") Long companyId) {
  
+    	
         //1. build an iterator
          Iterator<String> itr =  request.getFileNames();
          MultipartFile mpf = null;
  
+         
          //2. get each file
          while(itr.hasNext()){
  
              //2.1 get next MultipartFile
              mpf = request.getFile(itr.next()); 
-             System.out.println(mpf.getOriginalFilename() +" uploaded! "+files.size());
+             logger.warn(mpf.getOriginalFilename() +" uploaded! "+files.size());
  
              //2.2 if files > 10 remove the first from the list
              if(files.size() >= 10)
@@ -69,17 +83,28 @@ public class FilesController {
  
              //2.3 create new fileMeta
              fileMeta = new FileMeta();
-             fileMeta.setFileName(mpf.getOriginalFilename());
+             
+             String extension = mpf.getOriginalFilename().substring(mpf.getOriginalFilename().lastIndexOf("."));
+             fileMeta.setFileName(""+new Date().getTime() +extension);
              fileMeta.setFileSize(mpf.getSize()/1024+" Kb");
              fileMeta.setFileType(mpf.getContentType());
- 
+             
              try {
                 fileMeta.setBytes(mpf.getBytes());
- 
+  
                  // copy file to local disk (make sure the path "e.g. D:/temp/files" exists)            
-                 FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("D:/temp/files/"+mpf.getOriginalFilename()));
- 
-            } catch (IOException e) {
+                 FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(filePath+fileMeta.getFileName()));
+
+                 	HousePlan housePlan = new HousePlan();
+                 	housePlan.setFileName(fileMeta.getFileName());
+                 	housePlanRepository.save(housePlan);
+                 	
+                 	Company company =companyRepository.findOne(companyId);
+                 	company.setHousePlan(housePlan);
+                 	companyRepository.save(company);
+
+  
+             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -117,8 +142,7 @@ public class FilesController {
 	@RequestMapping(value = "/getimage/{img}", method = RequestMethod.GET)
 	public void getImage(@PathVariable("img") String img,HttpServletResponse response ) throws IOException
 	{
-		//FileInputStream fs = new FileInputStream(new File("/Users/renhongtao/eme_files/"+img));
-		FileInputStream fs = new FileInputStream(new File("c:/eme_files/"+img));
+		FileInputStream fs = new FileInputStream(new File(filePath+img));
 	    ByteStreams.copy(fs,response.getOutputStream() );
 	}
 

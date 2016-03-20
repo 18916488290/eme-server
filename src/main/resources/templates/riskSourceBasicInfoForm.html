@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/m-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/m-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+
+	<!-- PAGE -->
+	<section id="page">
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/m-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/m-layout :: main-contentFragment">
+			<!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
+				<li><a href="#"  th:href="@{/allRiskSourceList}">风险源管理</a></li>
+				<li>新建风险源</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+
+								<form id="riskSourceBasicForm" class="form-horizontal" method="post" action="#" th:action="@{/saveRiskSourceBasicInfo}" th:object="${riskSourceBasicInfo}">
+											
+											 <div class="form-group">
+											 <label class="col-md-2 control-label" for="f1">所属企业</label> 
+											 <div class="col-md-10">		
+												<select id="f1" data-placeholder="选择企业..." class="form-control company-select" th:field="*{company.id}">
+       
+                                                  <option th:each="company : ${companies}" 
+                                                     th:value="${company.id}" 
+                                                     th:text="${company.companyName}">企业</option>
+                                                </select>	
+                                        							
+											 </div>
+										  </div>
+											
+											
+										 <div class="form-group">
+											 <label class="col-md-2 control-label" for="f3">组织机构代码</label> 
+											 <div class="col-md-10">		
+											  <input type="text" id="f3" class="form-control col-md-12" th:field="*{company.registrationCode}"/> 
+											 </div>
+										  </div>
+											
+										 <div class="form-group">
+											 <label class="col-md-2 control-label" for="f3">营业执照代码</label> 
+											 <div class="col-md-10">		
+											  <input type="text" id="f3" class="form-control col-md-12" th:field="*{company.licenseCode}"/> 
+											 </div>
+										  </div>
+												
+										 <div class="form-group">
+											 <label class="col-md-2 control-label" for="f3">法人代表</label> 
+											 <div class="col-md-10">		
+											  <input type="text" id="f3" class="form-control col-md-12" th:field="*{company.corporation}"/> 
+											 </div>
+										  </div>
+											
+										 <div class="form-group">
+											 <label class="col-md-2 control-label" for="f3">法人传真</label> 
+											 <div class="col-md-10">		
+											  <input type="text" id="f3" class="form-control col-md-12" th:field="*{company.corporationFax}"/> 
+											 </div>
+										  </div>		
+											
+										<div class="form-group">
+											 <label class="col-md-2 control-label" for="f3">厂区面积</label> 
+											 <div class="col-md-10">		
+											  <input type="text" id="f3" class="form-control col-md-12" th:field="*{area}"/> 
+											 </div>
+										  </div>	
+											
+											
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f3">经度<span class="required">*</span></label> 
+											 <div class="col-md-10">		
+											  <input type="text" id="f3" class="form-control col-md-12" th:field="*{lng}"/> 
+											   <span class="error-span"></span>	
+											 </div>
+										  </div>
+										  	  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f5">纬度<span class="required">*</span></label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f5" class="form-control col-md-12" th:field="*{lat}"/> 											
+											     <span class="error-span"></span>	
+											 </div>
+										  </div>
+		
+	
+								
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f10">环保人员</label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f10" class="form-control col-md-12" th:field="*{emePerson}" /> 										
+											 </div>
+										  </div>
+										   
+										 <div >
+										  <div class="form-group">
+											 <label class="col-md-2 control-label" for="f11">环保人员手机<span class="required">*</span></label> 
+											 <div class="col-md-10">		
+												<input type="text" id="f11" class="form-control col-md-12" th:field="*{emeMobile}"  /> 										
+											 	
+											 </div>
+										  </div>
+										  </div>
+										
+										
+									  <div class="form-group">
+											 <label class="col-md-2 control-label">工业园区</label> 
+											 <div class="col-md-10">		
+												
+												<select class="form-control" th:field="*{industrialPark.id}">
+                                                  <option th:each="industrialPark : ${industrialParks}" 
+                                                     th:value="${industrialPark.id}" 
+                                                     th:text="${industrialPark.industrialParkName}">mmm</option>
+                                                </select>									
+											 </div>
+										  </div>
+										
+	                                 <div class="form-group">
+											 <label class="col-md-2 control-label">生产状态</label> 
+											 <div class="col-md-10">		
+												
+												<select class="form-control" th:field="*{productStatus.id}">
+                                                  <option th:each="productStatus : ${productStatuses}" 
+                                                     th:value="${productStatus.id}" 
+                                                     th:text="${productStatus.productStatus}">mmm</option>
+                                                </select>									
+											 </div>
+										  </div>
+										
+								 <div class="form-group">
+										
+										<div class="col-md-2">
+										</div>
+										     <div class="col-md-3">
+										      
+										      <button class="btn btn-default" name="action" value="yes"><i class="fa fa-check"></i>保存</button>
+										    
+							                  <button id="_cancel" class="btn btn-default pull-right" name="action" value="no"><i class="fa fa-times"></i>取消</button>
+
+										  </div>
+										  </div>
+										 
+									
+										  <input id="companyId" type="hidden" th:field="*{id}" /> 
+										 
+									   </form>
+						
+	
+			</div>
+			<!-- /mainContentBox -->
+		
+		</div>
+		<!-- /maincontent -->
+	</section>
+
+    <div th:include="fragments/m-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/m-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("allRiskSourceList");
+			App.init(); //Initialise plugins and elements
+		    var config = {
+		    	      '.company-select': {no_results_text:'没有检索结果!',search_contains:true}
+		    	    }
+		    for (var selector in config) {
+		        $(selector).chosen(config[selector]);
+		      }
+		    
+
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

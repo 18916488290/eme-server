@@ -31,6 +31,18 @@
 		
 		   <!-- BOX -->
 						<div class="box border">
+				<div class="box-title">
+					<h4>
+						<i class="fa fa-plus"></i><a href="#"  th:href="@{/riskSourceBasicInfoForm}">添加风险源</a>
+					</h4>
+				</div>
+				<div class="box-body"> 
+			  <div th:if="${errorMsg!=null}">
+				<div class="alert alert-block alert-danger fade in">
+					<a class="close" data-dismiss="alert" href="#" aria-hidden="true">×</a>
+					<h4>删除错误，不能删除风险源。</h4>						
+				</div>
+			   </div>
 
 										<table  cellpadding="0" cellspacing="0" border="0" class="exportdatatable datatable table table-striped table-bordered table-hover">
 											<thead>
@@ -59,7 +71,7 @@
 								</div>
 								<!-- /BOX -->
 		
-		
+		      </div>
 		
 		
 			</div>

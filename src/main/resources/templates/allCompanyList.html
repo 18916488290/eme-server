@@ -60,7 +60,7 @@
 													<td th:text="${nc.industrySectorDic.industrySector}">行业类别</td>
 													<td th:text="${nc.operationMaintanceCompany.companyName}">关联运维公司</td>
 													<td>
-													<a href="#" th:href="@{/auditCompany(companyId=${nc.id},view=,view=view)}"><i class="fa  fa-file-text-o"></i><span>查看</span></a>
+													<a href="#" th:href="@{/auditCompany(companyId=${nc.id},view=view)}"><i class="fa  fa-file-text-o"></i><span>查看</span></a>
 													<a href="#" th:href="@{/companyForm(companyId=${nc.id})}"><i class="fa fa-pencil-square-o"></i><span>修改</span></a>
 													<a href="#" th:href="@{/deleteCompany(companyId=${nc.id})}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
 													</td>

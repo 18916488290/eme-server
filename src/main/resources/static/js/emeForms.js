@@ -22,7 +22,7 @@ var CompanyForm = function () {
     return {
         init: function () {
    
-            var wizform = $('#myForm');
+            var wizform = $('#companyForm');
 			/*-----------------------------------------------------------------------------------*/
 			/*	Validate the form elements
 			/*-----------------------------------------------------------------------------------*/

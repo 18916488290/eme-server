@@ -259,7 +259,7 @@ public class DatabaseInit {
 		for (String airEnvType : airEnvTypes) {
 			AirEnvType envType = new AirEnvType(airEnvType);
 			airEnvTypeRepository.save(envType);
-			logger.debug("导入气环境类型： " + envType.getAirEnvType());
+		//	logger.debug("导入气环境类型： " + envType.getAirEnvType());
 		}
 	}
 

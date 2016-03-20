@@ -27,8 +27,9 @@
 
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
+										
 		
-								<form id="myForm" class="form-horizontal" method="post" action="#" th:action="@{/saveCompany}" th:object="${company}">
+								<form id="companyForm" class="form-horizontal" method="post" action="#" th:action="@{/saveCompany}" th:object="${company}">
 										  <div class="form-group">
 											 <label class="col-md-2 control-label" for="companyName">企业名称<span class="required">*</span></label> 
 											 <div class="col-md-10">		
@@ -134,10 +135,15 @@
 										  </div>
 										
 
-										   <div class="form-group">
-										     <div class="col-md-2"></div>
+								 <div class="form-group">
+										
+										<div class="col-md-2">
+										</div>
 										     <div class="col-md-3">
+										      
 										      <button class="btn btn-default" name="action" value="yes"><i class="fa fa-check"></i>保存</button>
+										    
+							                  <button id="_cancel" class="btn btn-default pull-right" name="action" value="no"><i class="fa fa-times"></i>取消</button>
 
 										  </div>
 										  </div>
@@ -166,6 +172,12 @@
 			App.setPage("allCompanyList");
 			App.init(); //Initialise plugins and elements
 			CompanyForm.init();
+			$("#_cancel").click(function(){
+				//$(window.location).attr('href', 'allCompanyList');
+				window.location = "www.baidu.com";
+				alert("wtf");
+				return false;
+				});
 
 		});
 	</script>

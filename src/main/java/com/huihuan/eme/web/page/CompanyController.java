@@ -97,7 +97,7 @@ public class CompanyController {
 	
 	@Transactional(readOnly=false)
 	@RequestMapping(value="/saveCompany",method=RequestMethod.POST)
-	public String saveCompany(@ModelAttribute("company") Company company,Principal principal) {
+	public String saveCompany(@ModelAttribute("company") Company company, Principal principal) {
 		logger.debug("company:" + company.getId() );
 		company.setAuditDate(new Date());
 		company.setUsersByAuditor(usersRepository.findOne(principal.getName()));
@@ -118,7 +118,7 @@ public class CompanyController {
 		}
 		else
 		{
-			logger.warn("mobile: " + company.getUsersByCreator().getMobile() +", realname: " + company.getUsersByCreator().getRealName());
+			//logger.warn("mobile: " + company.getUsersByCreator().getMobile() +", realname: " + company.getUsersByCreator().getRealName());
 			Users u = 	usersRepository.findByUsername(company.getUsersByCreator().getMobile());
 			u.setRealName(company.getUsersByCreator().getRealName());
 			company.setUsersByCreator(u);

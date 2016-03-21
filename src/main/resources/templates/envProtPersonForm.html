@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/m-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/m-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+
+	<!-- PAGE -->
+	<section id="page">
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/m-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/m-layout :: main-contentFragment">
+			<!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
+				<li><a href="#"  th:href="@{/allRiskSourceList}">风险源管理</a></li>
+				<li>添加修改环保人员</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+										
+								<form id="envProtPersonForm" class="form-horizontal" method="post" action="#" th:action="@{/saveEnvProtPerson}" th:object="${envProtPerson}">
+										  <div class="form-group">
+											 <label class="col-md-2 control-label">企业名称<span class="required">*</span></label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{company.companyName}" readonly="readonly"/> 		
+												<input type="hidden" th:field="*{company.id}" /> 																		
+											 </div>
+										  </div>
+											<div class="form-group">
+											 <label class="col-md-2 control-label">真实姓名</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{realName}" /> 								
+											 </div>
+										  </div>
+										  
+										  	<div class="form-group">
+											 <label class="col-md-2 control-label">性别</label> 
+											 <div class="col-md-10">		
+												<select class="form-control" th:field="*{gender}">
+                                                  <option value="男">男</option>
+                                                  <option value="女">女</option>   
+                                                </select>	
+											 </div>
+										  </div>
+										  
+										   	<div class="form-group">
+											 <label class="col-md-2 control-label">出生年月</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{birth}" /> 								
+											 </div>
+										  </div>
+										  
+										  	<div class="form-group">
+											 <label class="col-md-2 control-label">职称</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{title}" /> 								
+											 </div>
+										  </div>
+										  
+										  	<div class="form-group">
+											 <label class="col-md-2 control-label">职位</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{position}" /> 								
+											 </div>
+										  </div>
+										  
+										  	<div class="form-group">
+											 <label class="col-md-2 control-label">专业</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{major}" /> 								
+											 </div>
+										  </div>
+										  
+										  	<div class="form-group">
+											 <label class="col-md-2 control-label">电话</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{tel}" /> 								
+											 </div>
+										  </div>
+										  
+										  	<div class="form-group">
+											 <label class="col-md-2 control-label">手机</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{mobile}" /> 								
+											 </div>
+										  </div>
+										 
+																
+
+								 <div class="form-group">
+										
+										<div class="col-md-2">
+										</div>
+										     <div class="col-md-3">
+										      
+										      <button class="btn btn-default" name="action" value="yes"><i class="fa fa-check"></i>保存</button>
+										    
+							                  <button id="_cancel" class="btn btn-default pull-right" name="action" value="no"><i class="fa fa-times"></i>取消</button>
+
+										  </div>
+										  </div>
+										 
+									
+										  <input  type="hidden" th:field="*{id}" /> 
+										  <input  type="hidden" name="riskSourceId" th:value="${riskSourceId}" /> 
+										 
+									   </form>
+						
+	
+			</div>
+			<!-- /mainContentBox -->
+		
+		</div>
+		<!-- /maincontent -->
+	</section>
+
+    <div th:include="fragments/m-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/m-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("allRiskSourceList");
+			App.init(); //Initialise plugins and elements
+			
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

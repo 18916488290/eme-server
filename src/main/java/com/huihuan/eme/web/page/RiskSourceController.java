@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.huihuan.eme.domain.db.Company;
+import com.huihuan.eme.domain.db.EnvProtPerson;
 import com.huihuan.eme.domain.db.RiskBasicInfo;
 import com.huihuan.eme.domain.db.Users;
 import com.huihuan.eme.domain.page.AuditSatusEnum;
 import com.huihuan.eme.domain.page.RiskSourceInfo;
 import com.huihuan.eme.repository.CompanyRepository;
+import com.huihuan.eme.repository.EnvProtPersonRepository;
 import com.huihuan.eme.repository.IndustrialParkRepository;
 import com.huihuan.eme.repository.ProductStatusRepository;
 import com.huihuan.eme.repository.RiskBasicInfoRepository;
@@ -45,6 +47,7 @@ public class RiskSourceController {
 	@Autowired private RiskSourceService riskSourceService;
 	@Autowired private IndustrialParkRepository industrialParkRepository;
 	@Autowired private ProductStatusRepository productStatusRepository;
+	@Autowired private EnvProtPersonRepository envProtPersonRepository;
 	
 	private static final Log logger = LogFactory.getLog(RiskSourceController.class);
 	
@@ -69,12 +72,22 @@ public class RiskSourceController {
 	
 	
 	@RequestMapping(value="/auditSourceTab",method=RequestMethod.GET)
-	public String populateSourceTab(@RequestParam(required=true) long riskSourceId,@RequestParam(required=false) String view,  Map<String, Object> model) {
+	public String populateSourceTab(@RequestParam(required=true) Long riskSourceId,@RequestParam(required=false) String tab,@RequestParam(required=false) String view, Map<String, Object> model) {
 		model.put("riskSource",riskBasicInfoRepository.findOne(riskSourceId));
 		if(view!=null)
 		{
 			model.put("view", "yes");
 		}
+		
+		if(tab==null)
+		{
+			 model.put("tab", "box_tab1");
+		}
+		else
+		{
+			 model.put("tab", tab);
+		}
+		 
 		return "auditSourceTab";
 	}
 	
@@ -120,6 +133,57 @@ public class RiskSourceController {
 	}
 	
 
+	@RequestMapping(value="/envProtPersonForm",method=RequestMethod.GET)
+	public String populateEnvProtPersonForm(@RequestParam(required=true) Long riskSourceId, @RequestParam(required=false) Long companyId, @RequestParam(required=false) Long personId,Map<String, Object> model) {
+		 EnvProtPerson envProtPerson;
+		if(personId==null) //新建，新建company有数值
+	     {
+			 envProtPerson = new EnvProtPerson();
+	    	 Company company = companyRepository.findOne(companyId);
+	    	 envProtPerson.setCompany(company);
+	     }
+		else
+		{
+			envProtPerson = envProtPersonRepository.findOne(personId);
+		}
+		
+		model.put("envProtPerson",envProtPerson);
+		model.put("riskSourceId",riskSourceId);
+		return "envProtPersonForm";
+	}
+	
+	@RequestMapping(value="/saveEnvProtPerson",method=RequestMethod.POST)
+	public String saveEnvProtPerson(@ModelAttribute("envProtPerson") EnvProtPerson envProtPerson,@RequestParam Long riskSourceId, @RequestParam String action,Principal principal,RedirectAttributes attr) {
+
+		if(action.equals("no"))
+		{
+				attr.addAttribute("riskSourceId", riskSourceId);
+				attr.addAttribute("tab","box_tab11");
+				return "redirect:/auditSourceTab";
+	
+		}
+		else 
+		{
+			//if(envProtPerson.getId()==null)
+			//{
+				envProtPersonRepository.save(envProtPerson);
+			//}
+			//else
+			//{
+			//	EnvProtPerson dbPersion = envProtPersonRepository.findOne(envProtPerson.getId());
+				
+			//}
+				
+				
+		}
+			
+			attr.addAttribute("riskSourceId", riskSourceId);
+			attr.addAttribute("tab", "box_tab11");
+			return "redirect:/auditSourceTab";
+
+
+	}
+	
 	
 	@RequestMapping(value="/saveRiskSourceBasicInfo",method=RequestMethod.POST)
 	public String saveRiskSourceBasicInfo(@ModelAttribute("riskSourceBasicInfo") RiskBasicInfo riskSourceBasicInfo,@RequestParam String action,Principal principal,RedirectAttributes attr) {
@@ -127,7 +191,17 @@ public class RiskSourceController {
 		
 		if(action.equals("no"))
 		{
-			return "redirect:/allRiskSourceList";
+			if(riskSourceBasicInfo.getId()==null)
+			{
+				return "redirect:/allRiskSourceList";
+			}
+			else
+			{
+				attr.addAttribute("riskSourceId", riskSourceBasicInfo.getId());
+				attr.addAttribute("tab", "box_tab1");
+				return "redirect:/auditSourceTab";
+			}
+		
 
 		}
 		else 
@@ -176,6 +250,7 @@ public class RiskSourceController {
 			}
 			Long riskSourceId = riskSourceBasicInfo.getId();
 			attr.addAttribute("riskSourceId", riskSourceId);
+			attr.addAttribute("tab", "box_tab1");
 			return "redirect:/auditSourceTab";
 
 		}

@@ -33,8 +33,7 @@
 
 			     <div class="tabbable header-tabs">
 					<ul id="myTab" class="nav nav-tabs">
-						 <li class="active">
-						     <a href="#box_tab1" data-toggle="tab"><span class="hidden-inline-mobile">基本信息</span></a></li>
+						 <li><a href="#box_tab1" data-toggle="tab"><span class="hidden-inline-mobile">基本信息</span></a></li>
 						 <li><a href="#box_tab2" data-toggle="tab"><span class="hidden-inline-mobile">平面图</span></a></li>
 						 <li><a href="#box_tab3" data-toggle="tab"><span class="hidden-inline-mobile">产品原料</span></a></li>
 						 <li><a href="#box_tab4" data-toggle="tab"><span class="hidden-inline-mobile">生产工艺</span></a></li>
@@ -136,10 +135,11 @@
 					   
 					   
 					   <div class="tab-pane fade" id="box_tab4">
-					     <div th:if="!${#lists.isEmpty(riskSource.company.workmanships)}">
-				        <h5>
+					    <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加生产工艺</span></a>
 					    </h5>
+					     <div th:if="!${#lists.isEmpty(riskSource.company.workmanships)}">
+				 
 			             <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
@@ -171,10 +171,12 @@
 					   
 					   
 					    <div class="tab-pane fade" id="box_tab5">
-					     <div th:if="!${#lists.isEmpty(riskSource.company.riskAversions)}">
-				        <h5>
+					    
+					       <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加风险防范措施</span></a>
 					    </h5>
+					     <div th:if="!${#lists.isEmpty(riskSource.company.riskAversions)}">
+				     
 			         <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
@@ -212,11 +214,11 @@
 					   
 					   
 					    <div class="tab-pane fade" id="box_tab6">
-					    
-					      <div th:if="!${#lists.isEmpty(riskSource.company.emergencyMaterials)}">
-				                     <h5>
+					              <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加应急物资</span></a>
 					       </h5>
+					      <div th:if="!${#lists.isEmpty(riskSource.company.emergencyMaterials)}">
+				           
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>	
@@ -254,10 +256,11 @@
 					   
 					   
 					    <div class="tab-pane fade" id="box_tab7">
-					     <div th:if="!${#lists.isEmpty(riskSource.company.companyWaterEnvs)}">
-				       <h5>
+					      <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加周边水环境</span></a>
 					    </h5>
+					     <div th:if="!${#lists.isEmpty(riskSource.company.companyWaterEnvs)}">
+				     
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>	
@@ -294,11 +297,11 @@
 											
 										</table>
 				        </div>
-				   
-				       <div th:if="!${#lists.isEmpty(riskSource.company.companyAirEnvs)}">
-				          <h5>
+				     <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加周边气环境</span></a>
 					    </h5>
+				       <div th:if="!${#lists.isEmpty(riskSource.company.companyAirEnvs)}">
+				        
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>	
@@ -339,10 +342,11 @@
 					   
 					   
 					    <div class="tab-pane fade" id="box_tab8">
-					     <div th:if="!${#lists.isEmpty(riskSource.company.emergencyResponsePlans)}">
-				                  <h5>
+					             <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加企业预案</span></a>
 					    </h5>
+					     <div th:if="!${#lists.isEmpty(riskSource.company.emergencyResponsePlans)}">
+				         
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>	
@@ -382,11 +386,11 @@
 					    </div>
 					   
 					    <div class="tab-pane fade" id="box_tab9">
-					    
-				   	<div th:if="!${#lists.isEmpty(riskSource.company.warehouseRisks)}">
-				                  <h5>
+					           <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加仓库风险</span></a>
 					    </h5>
+				   	<div th:if="!${#lists.isEmpty(riskSource.company.warehouseRisks)}">
+				           
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>	
@@ -426,11 +430,12 @@
 					    </div>
 					   
 					   
-					   <div class="tab-pane fade" id="box_tab10">   	
-					       <div th:if="!${#lists.isEmpty(riskSource.company.equipmentRisks)}">
-				                         <h5>
+					   <div class="tab-pane fade" id="box_tab10"> 
+					               <h5>
 					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加设备风险</span></a>
-					        </h5>
+					        </h5>  	
+					       <div th:if="!${#lists.isEmpty(riskSource.company.equipmentRisks)}">
+				             
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>	
@@ -472,10 +477,11 @@
 					   
 					   
 					    <div class="tab-pane fade" id="box_tab11">
-					     	<div th:if="!${#lists.isEmpty(riskSource.company.envProtPersons)}">
-				        <h5>
-					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加环保人员</span></a>
+					      <h5>
+					       <a href="#" th:href="@{/envProtPersonForm(riskSourceId=${riskSource.id},companyId=${riskSource.company.id})}"><i class="fa fa-plus"></i><span>添加环保人员</span></a>
 					    </h5>
+					     	<div th:if="!${#lists.isEmpty(riskSource.company.envProtPersons)}">
+				      
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>	
@@ -505,7 +511,7 @@
 													<td th:text="${wr.title}"></td>
 													<td>
 													<a href="#" th:href="@{/notImpl}"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
-													<a href="#" th:href="@{/notImpl}"><i class="fa fa-pencil-square-o"></i><span>修改</span></a>
+													<a href="#" th:href="@{/envProtPersonForm(riskSourceId=${riskSource.id},personId=${wr.id})}"><i class="fa fa-pencil-square-o"></i><span>修改</span></a>
 													<a href="#" th:href="@{/notImpl}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
 													</td>
 												</tr>
@@ -537,12 +543,15 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<!-- JQUERY -->
 	<div th:include="fragments/m-layout :: jsFragment"></div>
-	<script>
-		jQuery(document).ready(function() {		
+	<script th:inline="javascript">
+    /*<![CDATA[*/
+		jQuery(document).ready(function() {	
+			//var openid = /*[[${tab}]]*/  
+			//alert(openid);
 			App.setPage("allRiskSourceList");
 			App.init(); //Initialise plugins and elements
 			App.handleTables();
-			$('#myTab a[href="#box_tab9"]').tab('show');
+			$("#myTab a[href=[['#'+${tab}]]]").tab('show');
 			
 			App.handleDropzone();
 			
@@ -550,6 +559,7 @@
 			
 			
 		});
+ /*]]>*/
 	</script>
 	<!-- /JAVASCRIPTS -->
 </body>

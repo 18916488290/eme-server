@@ -694,7 +694,6 @@ var App = function () {
 				dictResponseError: "上传文件出现错误!",
 				dictDefaultMessage: "拖拽文件上传，或者点击选择文件上传",
 				uploadMultiple:false,
-				
 				//change the previewTemplate to use Bootstrap progress bars
 				previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-sm progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>"
 			  });

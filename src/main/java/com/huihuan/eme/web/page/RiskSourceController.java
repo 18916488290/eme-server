@@ -134,7 +134,7 @@ public class RiskSourceController {
 	
 
 	@RequestMapping(value="/envProtPersonForm",method=RequestMethod.GET)
-	public String populateEnvProtPersonForm(@RequestParam(required=true) Long riskSourceId, @RequestParam(required=false) Long companyId, @RequestParam(required=false) Long personId,Map<String, Object> model) {
+	public String populateEnvProtPersonForm(@RequestParam(required=true) Long riskSourceId, @RequestParam(required=false) Long companyId, @RequestParam(required=false) Long personId,@RequestParam(required=true) String view,Map<String, Object> model) {
 		 EnvProtPerson envProtPerson;
 		if(personId==null) //新建，新建company有数值
 	     {
@@ -146,7 +146,7 @@ public class RiskSourceController {
 		{
 			envProtPerson = envProtPersonRepository.findOne(personId);
 		}
-		
+		model.put("view", view);
 		model.put("envProtPerson",envProtPerson);
 		model.put("riskSourceId",riskSourceId);
 		return "envProtPersonForm";

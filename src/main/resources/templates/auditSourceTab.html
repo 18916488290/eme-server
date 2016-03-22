@@ -478,7 +478,7 @@
 					   
 					    <div class="tab-pane fade" id="box_tab11">
 					      <h5>
-					       <a href="#" th:href="@{/envProtPersonForm(riskSourceId=${riskSource.id},companyId=${riskSource.company.id})}"><i class="fa fa-plus"></i><span>添加环保人员</span></a>
+					       <a href="#" th:href="@{/envProtPersonForm(riskSourceId=${riskSource.id},companyId=${riskSource.company.id},view='new')}"><i class="fa fa-plus"></i><span>添加环保人员</span></a>
 					    </h5>
 					     	<div th:if="!${#lists.isEmpty(riskSource.company.envProtPersons)}">
 				      
@@ -510,8 +510,8 @@
 													<td th:text="${wr.major}"></td>
 													<td th:text="${wr.title}"></td>
 													<td>
-													<a href="#" th:href="@{/notImpl}"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
-													<a href="#" th:href="@{/envProtPersonForm(riskSourceId=${riskSource.id},personId=${wr.id})}"><i class="fa fa-pencil-square-o"></i><span>修改</span></a>
+													<a href="#" th:href="@{/envProtPersonForm(riskSourceId=${riskSource.id},personId=${wr.id},view='view')}"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
+													<a href="#" th:href="@{/envProtPersonForm(riskSourceId=${riskSource.id},personId=${wr.id},view='modify')}"><i class="fa fa-pencil-square-o"></i><span>修改</span></a>
 													<a href="#" th:href="@{/notImpl}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
 													</td>
 												</tr>

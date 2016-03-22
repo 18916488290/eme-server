@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/m-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/m-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+
+	<!-- PAGE -->
+	<section id="page">
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/m-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/m-layout :: main-contentFragment">
+			<!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+			<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
+				<li><a href="#"  th:href="@{/allRiskSourceList}">风险源管理</a></li>
+				<li>填写应急物资表单</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+		           <form id="materialForm" class="form-horizontal" method="post" action="#" th:action="@{/saveCMaterial}" th:object="${emergencyMaterial}">
+									  <div class="form-group">
+											 <label class="col-md-2 control-label">企业名称<span class="required">*</span></label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{company.companyName}" readonly="readonly"/> 		
+												<input type="hidden" th:field="*{company.id}" /> 																		
+											 </div>
+										  </div>
+										  
+										  
+											 <div class="form-group">
+											 <label class="col-md-2 control-label">物资名称<span class="required">*</span></label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{materialName}"/> 										
+											      <span class="error-span"></span>						
+											 </div>
+										    </div>  
+										 
+										    <div class="form-group">
+											 <label class="col-md-2 control-label">数量</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{quantity}"/> 										
+															
+											 </div>
+										    </div>  
+										 
+										    									  
+											 <div class="form-group">
+											 <label class="col-md-2 control-label">设备编码</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{materialCode}"/> 													
+											 </div>
+										    </div>  
+										    
+										    
+									<div class="form-group">
+											 <label class="col-md-2 control-label">设备类型</label> 
+											 <div class="col-md-10">		
+												<select class="form-control" th:field="*{equipmentType.id}">
+                                                  <option th:each="equipmentType : ${equipmentTypes}" 
+                                                     th:value="${equipmentType.id}" 
+                                                     th:text="${equipmentType.equipmentType}">设备类型</option>
+                                                </select>	
+                                        							
+											 </div>
+										  </div>
+										    
+										    
+										 <div class="form-group">
+											 <label class="col-md-2 control-label">经度<span class="required">*</span></label> 
+											 <div class="col-md-10">		
+											  <input type="text" class="form-control col-md-12" th:field="*{lng}"/> 
+											   <span class="error-span"></span>	
+											 </div>
+										  </div>
+										  	  <div class="form-group">
+											 <label class="col-md-2 control-label">纬度<span class="required">*</span></label> 
+											 <div class="col-md-10">		
+												<input type="text" class="form-control col-md-12" th:field="*{lat}"/> 											
+											     <span class="error-span"></span>	
+											 </div>
+										  </div>
+										  
+										  
+										 <div class="form-group">
+											 <label class="col-md-2 control-label">手机号</label> 
+											 <div class="col-md-10">		
+												<input type="text" class="form-control col-md-12" th:field="*{mobile}"/> 											
+											 </div>
+										  </div>
+										  
+										  <div class="form-group">
+											 <label class="col-md-2 control-label">功能</label> 
+											 <div class="col-md-10">		
+												<input type="text" class="form-control col-md-12" th:field="*{func}"/> 											
+											 </div>
+										  </div>
+										  
+										  		 <div class="form-group">
+											 <label class="col-md-2 control-label">用途</label> 
+											 <div class="col-md-10">		
+												<input type="text" class="form-control col-md-12" th:field="*{purpose}"/> 											
+											 </div>
+										  </div>
+										  		 <div class="form-group">
+											 <label class="col-md-2 control-label">场合</label> 
+											 <div class="col-md-10">		
+												<input type="text" class="form-control col-md-12" th:field="*{occasion}"/> 											
+											 </div>
+										  </div>
+										  
+										  
+								<div th:if="${view=='modify'||view=='new'}">  
+								 <div class="form-group">
+										
+										<div class="col-md-2">
+										</div>
+										     <div class="col-md-3">
+										      <button class="btn btn-default" name="action" value="yes"><i class="fa fa-check"></i>保存</button>
+							                  <button id="_cancel" class="btn btn-default pull-right" name="action" value="no"><i class="fa fa-times"></i>返回</button>
+										  </div>
+										  </div>
+								</div>
+								
+							<div th:if="${view=='view'}">  
+								 <div class="form-group">
+										
+										<div class="col-md-2">
+										</div>
+										     <div class="col-md-3">
+							                  <button id="_cancel" class="btn btn-default" name="action" value="no"><i class="fa fa-times"></i>返回</button>
+
+										  </div>
+										  </div>
+								</div>
+										 
+									
+										<input id="materialId" type="hidden" th:field="*{id}" /> 
+										<input name="riskSourceId" type="hidden" th:value="${riskSourceId}" /> 
+										 
+									
+					 </form>
+						
+	
+			</div>
+			<!-- /mainContentBox -->
+		
+		</div>
+		<!-- /maincontent -->
+	</section>
+
+    <div th:include="fragments/m-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/m-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("allRiskSourceList");
+			App.init(); //Initialise plugins and elements
+			App.handleTables();
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

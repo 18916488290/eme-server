@@ -126,11 +126,19 @@ public class RiskSourceController {
 		return "auditSource";
 	}
 	
+	@RequestMapping(value="/deleteProtPerson",method=RequestMethod.GET)
+	public String deleteProtPerson(@RequestParam(required=true) Long personId,@RequestParam(required=true) Long riskSourceId, Map<String, Object> model,RedirectAttributes attr) {
+		envProtPersonRepository.delete(personId);
+		attr.addAttribute("riskSourceId", riskSourceId);
+		attr.addAttribute("tab","box_tab11");
+		return "redirect:/auditSourceTab";
+	}
 	@RequestMapping(value="/riskSourceInfo",method=RequestMethod.GET)
 	public String populateRiskSourceInfo(@RequestParam(required=true) long riskSourceId, Map<String, Object> model) {
 		model.put("riskSource",riskBasicInfoRepository.findOne(riskSourceId));
 		return "riskSourceInfo";
 	}
+	
 	
 
 	@RequestMapping(value="/envProtPersonForm",method=RequestMethod.GET)

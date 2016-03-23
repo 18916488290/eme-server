@@ -92,7 +92,8 @@
 					   <div class="tab-pane fade" id="box_tab3">
 					   
 					     <h5>
-					       <a href="#" th:href="@{/notImpl}"><i class="fa fa-plus"></i><span>添加产品或原料</span></a>
+					      
+					       <a href="#" th:href="@{/chemicalMaterialForm(riskSourceId=${riskSource.id},view=new)}"><i class="fa fa-plus"></i><span>添加产品或原料</span></a>
 					    </h5>
 					      <div th:if="!${#lists.isEmpty(riskSource.company.chemicalMaterials)}">
 			               <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
@@ -117,15 +118,17 @@
 													<td th:text="${cm.chemicalName}"></td>
 													<td th:text="${cm.cas}"></td>
 													<td th:text="${cm.physicalState.physicalState}"></td>
-													<td th:text="${cm.isHazardous}"></td>
+													<td th:text="${cm.isHazardous}?是:否"></td>
 													<td th:text="${cm.materialCategory.materialCategory}"></td>
 													<td th:text="${cm.quantity}+(吨)"></td>
 													<td th:text="${cm.equipmentState.equipmentState}"></td>
 													<td th:text="${cm.productionMode.productionMode}"></td>
 													<td>
-													<a href="#" th:href="@{/notImpl}"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
-													<a href="#" th:href="@{/notImpl}"><i class="fa fa-pencil-square-o"></i><span>修改</span></a>
-													<a href="#" th:href="@{/notImpl}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
+													
+													<a href="#" th:href="@{/chemicalMaterialForm(riskSourceId=${riskSource.id},view=view,materialId=${cm.id})}"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
+													<a href="#" th:href="@{/chemicalMaterialForm(riskSourceId=${riskSource.id},view=modify,materialId=${cm.id})}"><i class="fa fa-pencil-square-o"></i><span>修改</span></a>
+													<a href="#" th:href="@{/deleteChemicalMaterial(riskSourceId=${riskSource.id},materialId=${cm.id})}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
+												   
 													</td>
 												</tr>
 											</tbody>

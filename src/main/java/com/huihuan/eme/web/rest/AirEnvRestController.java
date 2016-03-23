@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.huihuan.eme.domain.db.AirEnv;
 import com.huihuan.eme.domain.db.Company;
 import com.huihuan.eme.domain.db.DetectStation;
 import com.huihuan.eme.domain.db.RiskBasicInfo;
@@ -26,6 +27,7 @@ import com.huihuan.eme.domain.page.Point;
 import com.huihuan.eme.domain.page.RiskSourceInfo;
 import com.huihuan.eme.domain.page.RiskSourceMarker;
 import com.huihuan.eme.domain.page.WSWaterEnv;
+import com.huihuan.eme.repository.AirEnvRepository;
 import com.huihuan.eme.repository.DetectStationRepository;
 import com.huihuan.eme.repository.RiskBasicInfoRepository;
 import com.huihuan.eme.repository.WaterEnvRepository;
@@ -41,31 +43,31 @@ import com.huihuan.eme.service.DetectService;
  */
 @RestController
 @RequestMapping("/api")
-public class WaterEnvRestController {
+public class AirEnvRestController {
 	
-	private static final Log logger = LogFactory.getLog(WaterEnvRestController.class);
+	private static final Log logger = LogFactory.getLog(AirEnvRestController.class);
 
-	@Autowired private WaterEnvRepository waterEnvRepository;
+	@Autowired private AirEnvRepository airEnvRepository;
 	
 
 	
 	@Transactional(readOnly = true)
-	@RequestMapping(value="/getWaterEnv", method=RequestMethod.GET)
-	public WSWaterEnv getWaterEnv(@RequestParam("waterEnvId") Long waterEnvId)
+	@RequestMapping(value="/getAirEnv", method=RequestMethod.GET)
+	public WSWaterEnv getAirEnv(@RequestParam("airEnvId") Long airEnvId)
 	{
-		logger.warn("waterEnvId: " + waterEnvId);
-		WaterEnv waterEnv = waterEnvRepository.findOne(waterEnvId);
+		
+		AirEnv airEnv = airEnvRepository.findOne(airEnvId);
 		WSWaterEnv we = new WSWaterEnv();
-		we.setEmeMobile(waterEnv.getEmeMobile());
-		we.setEmePerson(waterEnv.getEmePerson());
-		we.setEnvFunc(waterEnv.getEnvFunc().getEnvFunc());
-		we.setEnvFuncId(waterEnv.getEnvFunc().getId());
-		we.setId(waterEnv.getId());
-		we.setLat(waterEnv.getLat());
-		we.setLng(waterEnv.getLng());
-		we.setWaterEnvName(waterEnv.getWaterEnvName());
-		we.setWaterEnvType(waterEnv.getWaterEnvType().getWaterEnvType());
-		we.setWaterEnvTypeId(waterEnv.getWaterEnvType().getId());
+		we.setEmeMobile(airEnv.getEmeMobile());
+		we.setEmePerson(airEnv.getEmePerson());
+		we.setEnvFunc(airEnv.getEnvFunc().getEnvFunc());
+		we.setEnvFuncId(airEnv.getEnvFunc().getId());
+		we.setId(airEnv.getId());
+		we.setLat(airEnv.getLat());
+		we.setLng(airEnv.getLng());
+		we.setWaterEnvName(airEnv.getAirEnvName());
+		we.setWaterEnvType(airEnv.getAirEnvType().getAirEnvType());
+		we.setWaterEnvTypeId(airEnv.getAirEnvType().getId());
 		return we;
 	}
 	

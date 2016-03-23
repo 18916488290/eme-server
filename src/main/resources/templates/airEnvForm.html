@@ -21,14 +21,14 @@
 			<ul class="breadcrumb" id="BREADCRUMBS">
 				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
 				<li><a href="#"  th:href="@{/allRiskSourceList}">风险源管理</a></li>
-				<li>水环境</li>
+				<li>气环境</li>
 			</ul>
 			<!-- /BREADCRUMBS -->
 
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 										
-								<form class="form-horizontal" method="post" action="#" th:action="@{/saveCompanyWaterEnv}" th:object="${companyWaterEnv}">
+								<form class="form-horizontal" method="post" action="#" th:action="@{/saveCompanyAirEnv}" th:object="${companyAirEnv}">
 										  <div class="form-group">
 											 <label class="col-md-2 control-label">企业名称<span class="required">*</span></label> 
 											 <div class="col-md-10">		
@@ -40,11 +40,11 @@
 										 	<div class="form-group">
 											 <label class="col-md-2 control-label">保护目标名称(*)</label> 
 											 <div class="col-md-10">		
-												<select  id="waterEnv-select" data-placeholder="选择保护目标名称" class="form-control" th:field="*{waterEnv.id}">
+												<select  id="airEnv-select" data-placeholder="选择保护目标名称" class="form-control" th:field="*{airEnv.id}">
                                                   <option value="-1"></option>
-                                                  <option th:each="waterEnv : ${waterEnvs}" 
-                                                     th:value="${waterEnv.id}" 
-                                                     th:text="${waterEnv.waterEnvName}">保护目标</option>
+                                                  <option th:each="airEnv : ${airEnvs}" 
+                                                     th:value="${airEnv.id}" 
+                                                     th:text="${airEnv.airEnvName}">保护目标</option>
                                                 </select>								
 											 </div>
 										  </div>
@@ -52,7 +52,7 @@
 										  	 <div class="form-group">
 											 <label class="col-md-2 control-label">类型</label> 
 											 <div class="col-md-10">			
-                                                <input type="text"  id="waterType"  class="form-control col-md-12" th:field="*{waterEnv.waterEnvType.waterEnvType}" readonly="readonly"/> 		
+                                                <input type="text"  id="airType"  class="form-control col-md-12" th:field="*{airEnv.airEnvType.airEnvType}" readonly="readonly"/> 		
 											 </div>
 										  </div>
 										  
@@ -60,7 +60,7 @@
 										  <div class="form-group">
 											 <label class="col-md-2 control-label">所属环境功能</label> 
 											 <div class="col-md-10">		
-                                                 <input type="text"  id="envFunc" class="form-control col-md-12" th:field="*{waterEnv.envFunc.envFunc}" readonly="readonly"/> 		
+                                                 <input type="text"  id="envFunc" class="form-control col-md-12" th:field="*{airEnv.envFunc.envFunc}" readonly="readonly"/> 		
 											 </div>
 										  </div>
 										  
@@ -68,28 +68,28 @@
 											<div class="form-group">
 											 <label class="col-md-2 control-label">联系人</label> 
 											 <div class="col-md-10">		
-												<input type="text"  id="emePerson" class="form-control col-md-12" th:field="*{waterEnv.emePerson}" readonly="readonly"/> 								
+												<input type="text"  id="emePerson" class="form-control col-md-12" th:field="*{airEnv.emePerson}" readonly="readonly"/> 								
 											 </div>
 										  </div>
 										  
 										  	<div class="form-group">
 											 <label class="col-md-2 control-label">联系电话</label> 
 											 <div class="col-md-10">		
-                                                <input type="text" id="emeMobile"  class="form-control col-md-12" th:field="*{waterEnv.emeMobile}" readonly="readonly"/> 
+                                                <input type="text" id="emeMobile"  class="form-control col-md-12" th:field="*{airEnv.emeMobile}" readonly="readonly"/> 
 											 </div>
 										  </div>
 										  
 										  		<div class="form-group">
 											 <label class="col-md-2 control-label">中心经度</label> 
 											 <div class="col-md-10">		
-												<input type="text" id="lng" class="form-control col-md-12" th:field="*{waterEnv.lng}" readonly="readonly"/> 								
+												<input type="text" id="lng" class="form-control col-md-12" th:field="*{airEnv.lng}" readonly="readonly"/> 								
 											 </div>
 										  </div>
 										  
 										  	<div class="form-group">
 											 <label class="col-md-2 control-label">中心纬度</label> 
 											 <div class="col-md-10">		
-                                                <input type="text"  id="lat" class="form-control col-md-12" th:field="*{waterEnv.lat}" readonly="readonly"/> 
+                                                <input type="text"  id="lat" class="form-control col-md-12" th:field="*{airEnv.lat}" readonly="readonly"/> 
 											 </div>
 										  </div>
 										  
@@ -98,9 +98,11 @@
 										 <div class="form-group">
 											 <label class="col-md-2 control-label">相对企业方位</label> 
 											 <div class="col-md-10">		
-                                               <select class="form-control" th:field="*{location}">
-                                                  <option value="上游">上游</option>
-                                                  <option value="下游">下游</option>
+                                              <select  th:field="*{locationDic.id}">
+                                              
+                                                  <option th:each="locationDic : ${locationDics}" 
+                                                     th:value="${locationDic.id}" 
+                                                     th:text="${locationDic.location}">方位</option>
                                                 </select>	
 											 </div>
 										  </div>
@@ -135,7 +137,7 @@
 										   </div>
 										  </div>
 										 
-										  <input  type="hidden" th:field="*{id.idWaterEnv}" /> 
+										  
 										  <input  type="hidden" name="riskSourceId" th:value="${riskSourceId}" /> 
 										 
 									   </form>
@@ -161,17 +163,17 @@
 			App.init(); //Initialise plugins and elements
 			
 		    var config = {
-		    	      '#waterEnv-select': {no_results_text:'没有检索结果!',search_contains:true}
+		    	      '#airEnv-select': {no_results_text:'没有检索结果!',search_contains:true}
 		    	    }
 		    for (var selector in config) {
 		        $(selector).chosen(config[selector]);
 		      }
 			
-		    $('#waterEnv-select').change(function(){ 
+		    $('#airEnv-select').change(function(){ 
 		    	
-		    	var waterEnvId=$(this).children('option:selected').val();//这就是selected的值 
-		    	   $.getWaterEnv(1,function(data){
-			           $('#waterType').val(data.waterEnvType);
+		    	var airEnvId=$(this).children('option:selected').val();//这就是selected的值 
+		    	   $.getAirEnv(1,function(data){
+			           $('#airType').val(data.waterEnvType);
 			           $('#envFunc').val(data.envFunc);
 			           $('#emePerson').val(data.emePerson);
 			           $('#emeMobile').val(data.emeMobile);

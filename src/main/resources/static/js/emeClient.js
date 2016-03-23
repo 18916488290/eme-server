@@ -61,4 +61,11 @@
      };
      
      
+     //1.得到气环境
+     $.getAirEnv = function(airEnvId, callback){
+             $.EMEClient('getAirEnv',{data:{"airEnvId":airEnvId}},callback);
+ 
+     };
+     
+     
 })(jQuery, window, document);

@@ -54,5 +54,11 @@
  
      };
      
+     //1.得到水环境
+     $.getWaterEnv = function(waterEnvId, callback){
+             $.EMEClient('getWaterEnv',{data:{"waterEnvId":waterEnvId}},callback);
+ 
+     };
+     
      
 })(jQuery, window, document);

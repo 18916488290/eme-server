@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.huihuan.eme.domain.db.Company;
 import com.huihuan.eme.domain.db.DetectStation;
 import com.huihuan.eme.domain.db.RiskBasicInfo;
+import com.huihuan.eme.domain.db.WaterEnv;
 import com.huihuan.eme.domain.page.AirReport;
 import com.huihuan.eme.domain.page.DetectStationMarker;
 import com.huihuan.eme.domain.page.FactorValue;
@@ -24,9 +25,9 @@ import com.huihuan.eme.domain.page.ImageOffset;
 import com.huihuan.eme.domain.page.Point;
 import com.huihuan.eme.domain.page.RiskSourceInfo;
 import com.huihuan.eme.domain.page.RiskSourceMarker;
-import com.huihuan.eme.repository.CompanyRepository;
 import com.huihuan.eme.repository.DetectStationRepository;
 import com.huihuan.eme.repository.RiskBasicInfoRepository;
+import com.huihuan.eme.repository.WaterEnvRepository;
 import com.huihuan.eme.service.DetectAirReportService;
 import com.huihuan.eme.service.DetectService;
 
@@ -39,47 +40,23 @@ import com.huihuan.eme.service.DetectService;
  */
 @RestController
 @RequestMapping("/api")
-public class CompanyRestController {
+public class WaterEnvRestController {
 	
-	private static final Log logger = LogFactory.getLog(CompanyRestController.class);
-	
-	@Autowired private CompanyRepository companyRepository;
+	private static final Log logger = LogFactory.getLog(WaterEnvRestController.class);
 
-	@Transactional(readOnly = false)
-	@RequestMapping(value="/verifyCompanyName", method=RequestMethod.GET)
-	public Boolean verifyCompanyName(@RequestParam("companyName") String companyName,@RequestParam(name="id",required=false) String id)
+	@Autowired private WaterEnvRepository waterEnvRepository;
+	
+
+	
+	@Transactional(readOnly = true)
+	@RequestMapping(value="/getWaterEnv", method=RequestMethod.GET)
+	public WaterEnv getWaterEnv(@RequestParam("waterEnvId") Long waterEnvId)
 	{
-	//	logger.warn("name:" + companyName+", id: " + id);
-		Company company = companyRepository.getByCompanyName(companyName);
-		if(id==null||id.isEmpty())
-		{
-			
-			if(company==null)
-				return true;
-			else
-				return false;
-		}
-		else
-		{
-			
-			if(company==null)
-				return true;
-			else
-			{
-				
-				if(company.getId().equals(Long.parseLong(id)))
-				    return true;
-				else
-					return false;
-			}
-		
-			
-		}
-		
-		
+		logger.warn("waterEnvId: " + waterEnvId);
+		return waterEnvRepository.findOne(waterEnvId);
 	}
 	
-
+	
 	
 
 }

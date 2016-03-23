@@ -22,6 +22,7 @@ import com.huihuan.eme.domain.db.CompanyWaterEnv;
 import com.huihuan.eme.domain.db.CompanyWaterEnvId;
 import com.huihuan.eme.domain.db.EmergencyMaterial;
 import com.huihuan.eme.domain.db.Users;
+import com.huihuan.eme.domain.db.WaterEnv;
 import com.huihuan.eme.domain.page.AuditSatusEnum;
 import com.huihuan.eme.repository.ChemicalMaterialRepository;
 import com.huihuan.eme.repository.CompanyRepository;
@@ -37,6 +38,7 @@ import com.huihuan.eme.repository.ProductionModeRepository;
 import com.huihuan.eme.repository.RiskBasicInfoRepository;
 import com.huihuan.eme.repository.StorageModeRepository;
 import com.huihuan.eme.repository.UsersRepository;
+import com.huihuan.eme.repository.WaterEnvRepository;
 import com.huihuan.eme.repository.WaterEnvTypeRepository;
 import com.huihuan.eme.service.CompanyService;
 import com.huihuan.eme.service.EmergencyMaterialService;
@@ -58,6 +60,7 @@ public class WaterEnvController {
 	
 	@Autowired private EnvFuncRepository envFuncRepository;
 	@Autowired private WaterEnvTypeRepository waterEnvTypeRepository;
+	@Autowired private WaterEnvRepository waterEnvRepository;
 	
 
 	private static final Log logger = LogFactory.getLog(WaterEnvController.class);
@@ -101,6 +104,7 @@ public class WaterEnvController {
 		model.put("view", view);
 		model.put("riskSourceId", riskSourceId);
 		model.put("envFuncs", envFuncRepository.findAll());
+		model.put("waterEnvs", waterEnvRepository.findAll());
 		model.put("waterEnvTypes", waterEnvTypeRepository.findAll());
 		
 		return "waterEnvForm";
@@ -118,27 +122,36 @@ public class WaterEnvController {
 		if(action.equals("yes"))
 		{
 			CompanyWaterEnv dbCompanyWaterEnv;
-			if(companyWaterEnv.getId()==null) //新建
+			if(companyWaterEnv.getWaterEnv()!=null&&!companyWaterEnv.getWaterEnv().getId().equals(-1l))
 			{
-				dbCompanyWaterEnv =  new CompanyWaterEnv();
-				CompanyWaterEnvId id = new CompanyWaterEnvId();
-				//id.setIdCompany(idCompany);
-			}
-			else
-			{
+				WaterEnv we = waterEnvRepository.findOne(companyWaterEnv.getWaterEnv().getId());
 				 CompanyWaterEnvId id = new CompanyWaterEnvId();
 				 id.setIdCompany(riskBasicInfoRepository.findOne(riskSourceId).getCompany().getId());
-				 id.setIdWaterEnv(companyWaterEnv.getId().getIdWaterEnv());
+				 id.setIdWaterEnv(companyWaterEnv.getWaterEnv().getId());
 				 dbCompanyWaterEnv = companyWaterEnvRepository.findOne(id);
+				 if(dbCompanyWaterEnv==null)
+				 {
+					 dbCompanyWaterEnv = new CompanyWaterEnv();
+					 dbCompanyWaterEnv.setId(id);
+					 
+				 }
+				 dbCompanyWaterEnv.setCompany(companyRepository.findOne(companyWaterEnv.getCompany().getId()));
+				 dbCompanyWaterEnv.setDistance(companyWaterEnv.getDistance());
+				 dbCompanyWaterEnv.setWaterEnv(we);
+				 dbCompanyWaterEnv.setLocation(companyWaterEnv.getLocation());
+			     companyWaterEnvRepository.save(dbCompanyWaterEnv);
+
 			}
-			dbCompanyWaterEnv.setCompany(companyRepository.findOne(companyWaterEnv.getCompany().getId()));
 			
-			companyWaterEnvRepository.save(dbCompanyWaterEnv);
 		}
 		attr.addAttribute("riskSourceId", riskSourceId);
 		attr.addAttribute("tab","box_tab7");
 		return "redirect:/auditSourceTab";
 	}
+	
+	
+	
+	
 	
 	
 	

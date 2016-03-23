@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/m-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/m-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+
+	<!-- PAGE -->
+	<section id="page">
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/m-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/m-layout :: main-contentFragment">
+			<!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
+				<li><a href="#"  th:href="@{/allRiskSourceList}">风险源管理</a></li>
+				<li>防控措施</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+										
+								<form class="form-horizontal" method="post" enctype ="multipart/form-data" action="#" th:action="@{/saveRiskAversion}" th:object="${riskAversion}">
+										  <div class="form-group">
+											 <label class="col-md-2 control-label">企业名称<span class="required">*</span></label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{company.companyName}" readonly="readonly"/> 		
+												<input type="hidden" th:field="*{company.id}" /> 																		
+											 </div>
+										  </div>
+										  
+										 	<div class="form-group">
+											 <label class="col-md-2 control-label">防控措施描述</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{remark}" /> 								
+											 </div>
+										  </div>
+											<div class="form-group">
+											 <label class="col-md-2 control-label">环评单位</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{auditOrg}" /> 								
+											 </div>
+										  </div>
+										  
+										  	<div class="form-group">
+											 <label class="col-md-2 control-label">环评人</label> 
+											 <div class="col-md-10">		
+                                                <input type="text"  class="form-control col-md-12" th:field="*{auditor}" /> 
+											 </div>
+										  </div>
+										  
+										 <div class="form-group">
+											 <label class="col-md-2 control-label">防控类型</label> 
+											 <div class="col-md-10">		
+                                               <select class="form-control" th:field="*{riskAversionType.id}">
+                                                  <option th:each="riskAversionType : ${riskAversionTypes}" 
+                                                     th:value="${riskAversionType.id}" 
+                                                     th:text="${riskAversionType.riskAversionType}">mmm</option>
+                                                </select>	
+											 </div>
+										  </div>
+										  
+										   <div class="form-group">
+											 <label class="col-md-2 control-label">防控文件</label> 
+											 <div class="col-md-10">		
+                                                	<div th:if="${riskAversion.fileName!=null}">
+				                                      <a href="#" th:href="@{getimage/}+${riskAversion.fileName}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载防控措施文件</span></a>
+				                                    </div>
+				                                    <div th:if="${riskAversion.fileName==null}">
+				                                      <div id="dropzone">
+												             <input name="file" type="file" />
+											          </div>
+											         </div>
+											   </div>
+				
+											 </div>
+						
+								 <div class="form-group">
+										
+										<div class="col-md-2">
+										</div>
+										   <div th:if="${view=='modify'||view=='new'}">  
+										     <div class="col-md-3">
+										      
+										      <button class="btn btn-default" name="action" value="yes"><i class="fa fa-check"></i>保存</button>
+										    
+							                  <button id="_cancel" class="btn btn-default pull-right" name="action" value="no"><i class="fa fa-times"></i>取消</button>
+
+										  </div>
+										   </div>
+										   
+										     <div th:if="${view=='view'}">  
+										     <div class="col-md-3">
+							                  <button id="_cancel" class="btn btn-default" name="action" value="no"><i class="fa fa-times"></i>返回</button>
+
+										  </div>
+										   </div>
+										  </div>
+										 
+									      <input  type="hidden" th:field="*{fileName}" /> 
+										  <input  type="hidden" th:field="*{id}" /> 
+										  <input  type="hidden" name="riskSourceId" th:value="${riskSourceId}" /> 
+										 
+									   </form>
+			
+						
+	
+			</div>
+			<!-- /mainContentBox -->
+		
+		</div>
+		<!-- /maincontent -->
+	</section>
+
+    <div th:include="fragments/m-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/m-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("allRiskSourceList");
+			App.init(); //Initialise plugins and elements
+			
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

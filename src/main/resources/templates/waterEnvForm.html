@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/m-layout :: headFragment">
+</head>
+<body>
+	<!-- HEADER -->
+	<header class="navbar clearfix navbar-fixed-top" id="header"
+		th:include="fragments/m-layout :: headerFragment"> </header>
+	<!--/HEADER -->
+
+	<!-- PAGE -->
+	<section id="page">
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="sidebar"
+			th:include="fragments/m-layout :: sidebarFragment"></div>
+		<!-- /SIDEBAR -->
+		<!-- maincontent -->
+		<div id="main-content"
+			th:include="fragments/m-layout :: main-contentFragment">
+			<!-- BREADCRUMBS -->
+			<ul class="breadcrumb" id="BREADCRUMBS">
+				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
+				<li><a href="#"  th:href="@{/allRiskSourceList}">风险源管理</a></li>
+				<li>水环境</li>
+			</ul>
+			<!-- /BREADCRUMBS -->
+
+			<!-- mainContentBox -->
+			<div id="mainContentBox">
+										
+								<form class="form-horizontal" method="post" action="#" th:action="@{/saveCompanyWaterEnv}" th:object="${companyWaterEnv}">
+										  <div class="form-group">
+											 <label class="col-md-2 control-label">企业名称<span class="required">*</span></label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{company.companyName}" readonly="readonly"/> 		
+												<input type="hidden" th:field="*{company.id}" /> 																		
+											 </div>
+										  </div>
+										  
+										 	<div class="form-group">
+											 <label class="col-md-2 control-label">保护目标名称</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{waterEnv.waterEnvName}" /> 								
+											 </div>
+										  </div>
+										  
+										  	 <div class="form-group">
+											 <label class="col-md-2 control-label">类型</label> 
+											 <div class="col-md-10">		
+                                               <select class="form-control" th:field="*{waterEnv.waterEnvType.id}">
+                                                  <option th:each="waterEnvType : ${waterEnvTypes}" 
+                                                     th:value="${waterEnvType.id}" 
+                                                     th:text="${waterEnvType.waterEnvType}">mmm</option>
+                                                </select>	
+											 </div>
+										  </div>
+										  
+										  
+										  <div class="form-group">
+											 <label class="col-md-2 control-label">所属环境功能</label> 
+											 <div class="col-md-10">		
+                                               <select class="form-control" th:field="*{waterEnv.envFunc.id}">
+                                                  <option th:each="envFunc : ${envFuncs}" 
+                                                     th:value="${envFunc.id}" 
+                                                     th:text="${envFunc.envFunc}">mmm</option>
+                                                </select>	
+											 </div>
+										  </div>
+										  
+										  
+											<div class="form-group">
+											 <label class="col-md-2 control-label">联系人</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{waterEnv.emePerson}" /> 								
+											 </div>
+										  </div>
+										  
+										  	<div class="form-group">
+											 <label class="col-md-2 control-label">联系电话</label> 
+											 <div class="col-md-10">		
+                                                <input type="text"  class="form-control col-md-12" th:field="*{waterEnv.emeMobile}" /> 
+											 </div>
+										  </div>
+										  
+										  		<div class="form-group">
+											 <label class="col-md-2 control-label">中心经度</label> 
+											 <div class="col-md-10">		
+												<input type="text"  class="form-control col-md-12" th:field="*{waterEnv.lng}" /> 								
+											 </div>
+										  </div>
+										  
+										  	<div class="form-group">
+											 <label class="col-md-2 control-label">中心纬度</label> 
+											 <div class="col-md-10">		
+                                                <input type="text"  class="form-control col-md-12" th:field="*{waterEnv.lat}" /> 
+											 </div>
+										  </div>
+										  
+										  
+										  
+										 <div class="form-group">
+											 <label class="col-md-2 control-label">相对企业方位</label> 
+											 <div class="col-md-10">		
+                                               <select class="form-control" th:field="*{location}">
+                                                  <option value="上游">上游</option>
+                                                  <option value="下游">下游</option>
+                                                </select>	
+											 </div>
+										  </div>
+										  
+										   <div class="form-group">
+											 <label class="col-md-2 control-label">相对企业距离(米)</label> 
+											 <div class="col-md-10">		
+                                               <input type="text"  class="form-control col-md-12" th:field="*{distance}" /> 
+											 </div>
+										  </div>
+								
+						
+								 <div class="form-group">
+										
+										<div class="col-md-2">
+										</div>
+										   <div th:if="${view=='modify'||view=='new'}">  
+										     <div class="col-md-3">
+										      
+										      <button class="btn btn-default" name="action" value="yes"><i class="fa fa-check"></i>保存</button>
+										    
+							                  <button id="_cancel" class="btn btn-default pull-right" name="action" value="no"><i class="fa fa-times"></i>取消</button>
+
+										  </div>
+										   </div>
+										   
+										     <div th:if="${view=='view'}">  
+										     <div class="col-md-3">
+							                  <button id="_cancel" class="btn btn-default" name="action" value="no"><i class="fa fa-times"></i>返回</button>
+
+										  </div>
+										   </div>
+										  </div>
+										 
+										  <input  type="hidden" th:field="*{id.idWaterEnv}" /> 
+										  <input  type="hidden" name="riskSourceId" th:value="${riskSourceId}" /> 
+										 
+									   </form>
+			
+						
+	
+			</div>
+			<!-- /mainContentBox -->
+		
+		</div>
+		<!-- /maincontent -->
+	</section>
+
+    <div th:include="fragments/m-layout :: footerFragment"></div>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<div th:include="fragments/m-layout :: jsFragment"></div>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("allRiskSourceList");
+			App.init(); //Initialise plugins and elements
+			
+		});
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

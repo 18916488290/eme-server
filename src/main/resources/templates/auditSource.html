@@ -54,7 +54,8 @@
 				   
 				   <div th:if="${riskSource.company.housePlan!=null}">
 				     <h4>单位平面图:</h4>
-				     <img th:src="@{/img/proj/}+${riskSource.company.housePlan.fileName}" width="100%" height="300px"/>
+	
+				     <img th:src="@{getimage/}+${riskSource.company.housePlan.fileName}" width="100%" height="300px"/>
 				   </div>
 				  
 				    <div th:if="!${#lists.isEmpty(riskSource.company.chemicalMaterials)}">

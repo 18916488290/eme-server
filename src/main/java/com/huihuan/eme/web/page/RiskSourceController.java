@@ -126,6 +126,14 @@ public class RiskSourceController {
 		return "auditSource";
 	}
 	
+	
+	@RequestMapping(value="/deleteSource",method=RequestMethod.GET)
+	public String deleteSource(@RequestParam(required=true) Long riskSourceId, Map<String, Object> model) {
+		riskBasicInfoRepository.delete(riskSourceId);
+		return "redirect:/allRiskSourceList";
+	}
+	
+	
 	@RequestMapping(value="/deleteProtPerson",method=RequestMethod.GET)
 	public String deleteProtPerson(@RequestParam(required=true) Long personId,@RequestParam(required=true) Long riskSourceId, Map<String, Object> model,RedirectAttributes attr) {
 		envProtPersonRepository.delete(personId);

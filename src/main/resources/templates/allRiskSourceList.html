@@ -60,7 +60,11 @@
 													<td th:text="${nc.company.administrativeDivision.division}">行政区域</td>
 													<td th:text="${nc.company.industrySectorDic.industrySector}">行业类别</td>
 													<td th:text="${nc.company.registrationCode}">组织机构代码</td>
-													<td><a href="#" th:href="@{/auditSourceTab(riskSourceId=${nc.id})}"><i class="fa fa-pencil-square-o"></i><span>编辑</span></a></td>
+													<td>
+													<a href="#" th:href="@{/auditSourceTab(riskSourceId=${nc.id})}"><i class="fa fa-pencil-square-o"></i><span>编辑</span></a>
+													
+													<a href="#" th:href="@{/deleteSource(riskSourceId=${nc.id})}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
+													</td>
 												</tr>
 									
 											</tbody>

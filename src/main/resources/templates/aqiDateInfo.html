@@ -185,34 +185,7 @@
 				           <td>103</td>
 				           
 				           </tr>
-				          <tr>
-				           <td>22:00</td>
-				           <td>88</td>
-				           <td style="background-color: #FFFF00;">2级</td>
-				           <td>良</td>
-				           <td>二氧化碳</td>
-				           <td>73</td>
-				           <td>12</td>
-				           <td>66</td>
-				           <td>88</td>
-				           <td>49</td>
-				           <td>66</td>
-				           
-				           </tr>
-				          <tr>
-				           <td>23:00</td>
-				           <td>101</td>
-				           <td style="background-color: #FFA500;">3级</td>
-				           <td>轻度污染</td>
-				           <td>二氧化氮</td>
-				           <td>42</td>
-				           <td>101</td>
-				           <td>68</td>
-				           <td>88</td>
-				           <td>86</td>
-				           <td>48</td>
-				           
-				           </tr>
+				  
 				        </table>
 		      
 		    </div>					
@@ -228,13 +201,12 @@
 	<script>
 		jQuery(document).ready(function() {		
 			var d = new Date();
-			var c_date = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-			App.setPage("aqiInfo");
+			App.setPage("aqiDateInfo");
 			App.init(); //Initialise plugins and elements
 			//App.handleTables();	
 		       $("#aqitable tr").find("td:eq(0)").each(function(i) {
-		           var t = $(this).text();
-		           $(this).text(c_date+ ' ' +t);
+		    	   var n=new Date(d.getTime()-86400000*(9-i));
+		           $(this).text(n.getFullYear()+"-"+ (n.getMonth()+1)+"-"+ n.getDate());
 	              
 	            })
 		});
@@ -244,22 +216,23 @@
 	
 <script th:inline="javascript">
    /*<![CDATA[*/    
-         
+
  $(function () {
+ $.lastTenDaysCategories(function(data)
+ {
     $('#chartContainer').highcharts({
     	 credits: {
     	      enabled: false
     	  },
           tooltip: {
-                  shared: true
+              shared: true
           },
         title: {
-            text: '近12小时空气质量数据',
+            text: '近10天空气质量数据',
             x: -20 //center
         },
         xAxis: {
-            categories: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
-                '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+            categories:data.split(',')
         },
         yAxis: {
             title: {
@@ -280,28 +253,30 @@
         },
         series: [{
             name: 'AQI',
-            data: [103, 163, 182, 204, 301, 210, 108, 82, 143, 109, 86, 101]
+            data: [103, 163, 182, 204, 301, 210, 108, 82, 143, 109]
         }, {
             name: '二氧化硫',
-            data: [35, 48, 62, 53, 47, 69, 79, 44, 82, 69, 73, 26]
+            data: [35, 48, 62, 53, 47, 69, 79, 44, 82, 69]
         }, {
             name: '二氧化氮',
-            data: [103, 75, 32, 96, 74, 52, 108, 82, 64, 89, 12, 101]
+            data: [103, 75, 32, 96, 74, 52, 108, 82, 64, 89]
         }, {
             name: '臭氧',
-            data: [49, 40, 32, 81, 11, 15, 17, 16, 14, 32, 66, 88]
+            data: [49, 40, 32, 81, 11, 15, 17, 16, 14, 32]
         }, {
             name: '一氧化碳',
-            data: [100, 163, 167, 172, 98, 105, 85, 74, 32, 88, 86, 88]
+            data: [100, 163, 167, 172, 98, 105, 85, 74, 32, 88]
         }, {
             name: 'PM10',
-            data: [99, 106, 135, 84, 73, 86, 86, 79, 143, 109, 49, 86]
+            data: [99, 106, 135, 84, 73, 86, 86, 79, 143, 109]
         }, {
             name: 'PM2.5',
-            data: [42, 140, 182, 204, 301, 210, 72, 66, 74, 103, 66, 48]
+            data: [42, 140, 182, 204, 301, 210, 72, 66, 74, 103]
         }
         ]
     });
+
+ });
 });
    /*]]>*/
   </script>

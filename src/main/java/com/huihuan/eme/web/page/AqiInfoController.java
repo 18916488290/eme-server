@@ -42,6 +42,14 @@ public class AqiInfoController {
 		return "aqiInfo";
 	}
 	
+	@RequestMapping(value="/aqiDateInfo",method=RequestMethod.GET)
+	public String populateAqiDateInfo(@RequestParam(required=true) long stationId, Map<String, Object> model) {
+		model.put("station",detectStationRepository.findOne(stationId));
+		logger.warn("监测站id：" +stationId);
+		return "aqiDateInfo";
+	}
+	
+	
 	@RequestMapping(value="/aqiAnalysis",method=RequestMethod.GET)
 	public String populateAqiAnalysis(@RequestParam(required=true) long stationId, Map<String, Object> model) {
 		model.put("station",detectStationRepository.findOne(stationId));

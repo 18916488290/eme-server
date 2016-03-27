@@ -1,6 +1,8 @@
 package com.huihuan.eme.web.rest;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -67,6 +69,27 @@ public class AirFactorValController {
 	{
 		detectService.calcAir();
 		return "Done";
+	}
+	
+	
+	@RequestMapping(value="/lastTenDaysCategories")
+	public String lastTenDaysCategories()
+	{
+        String s = "";
+        
+        Date d = new Date();
+        for(int i=9; i>=0;i--)
+        {
+        	Date nd =new Date(d.getTime()-1000*60*60*24*i);
+        	if(i==0)
+        	    s = s+DateFormat.getDateInstance(DateFormat.MEDIUM).format(nd);
+        	else
+        	{
+        		s = s+DateFormat.getDateInstance(DateFormat.MEDIUM).format(nd)+",";
+        	}
+        }
+       
+        return s;
 	}
 	
 

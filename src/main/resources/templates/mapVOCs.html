@@ -33,7 +33,7 @@
 					<p><i class="fa fa-exclamation-circle"></i>南通励城生物工程有限公司： 氯化氢，苯，非甲烷总烃超标， 监测时间 2016-3-8 14:00， 系统已经通知相关责任人</p>
 				    <p><i class="fa fa-exclamation-circle"></i>南通星辰合成材料有限公司： 苯，非甲烷总烃超标， 监测时间 2016-3-8 14:00， 系统已经通知相关责任人</p>
 				  </div>
-	              <div id="w" class="easyui-window" title="厂区VOCs监测信息" data-options="left:800,top:254,minimizable:false">
+	              <div id="w" class="easyui-window" title="厂区VOCs监测信息" data-options="left:800,top:54,minimizable:false">
 				  <div class="easyui-panel" title="" style="width:440px;">
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
@@ -76,7 +76,7 @@
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {	
-		//	$('#w').window('collapse');
+			$('#w').window('collapse');
 			App.setPage("mapVOCs");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});

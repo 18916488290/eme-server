@@ -68,4 +68,11 @@
      };
      
      
+     //1.得到10天前的X轴
+     $.lastTenDaysCategories = function(callback){
+             $.EMEClient('lastTenDaysCategories',{dataType:'text'},callback);
+ 
+     };
+     
+     
 })(jQuery, window, document);

@@ -51,7 +51,8 @@
 	
 	
 <script th:inline="javascript">
-   /*<![CDATA[*/          
+   /*<![CDATA[*/     
+    var d = new Date();
  $(function () {
     $('#codContainer').highcharts({
     	 credits: {
@@ -118,7 +119,7 @@
                     enabled: false
                 },
                 pointInterval: 3600000, // one hour
-                pointStart: Date.UTC(2016, 2, 7) 
+                pointStart: Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) 
             }
         },
         series: [{
@@ -200,7 +201,7 @@
                 enabled: false
             },
             pointInterval: 3600000, // one hour
-            pointStart: Date.UTC(2016, 2, 7) 
+            pointStart: Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) 
         }
     },
     series: [{
@@ -283,7 +284,7 @@ $('#zonglinContainer').highcharts({
                enabled: false
            },
            pointInterval: 3600000, // one hour
-           pointStart: Date.UTC(2016, 2, 7) 
+           pointStart: Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) 
        }
    },
    series: [{
@@ -366,7 +367,7 @@ $('#phContainer').highcharts({
                enabled: false
            },
            pointInterval: 3600000, // one hour
-           pointStart: Date.UTC(2016, 2, 7) 
+           pointStart: Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) 
        }
    },
    series: [{

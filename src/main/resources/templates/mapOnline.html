@@ -28,7 +28,7 @@
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 				  <div class="gmaps" id="baidumap"></div>  
-	              <div id="w" class="easyui-window" title="在线检测信息" data-options="left:800,top:254,minimizable:false">
+	              <div id="w" class="easyui-window" title="在线检测信息" data-options="left:800,top:54,minimizable:false">
 				  <div class="easyui-panel" title="" style="width:440px;">
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
@@ -72,14 +72,15 @@
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {		
-			//$('#w').window('collapse');
+			$('#w').window('collapse');
 			App.setPage("mapOnline");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});
 	</script>
 	<script th:inline="javascript">
     /*<![CDATA[*/
-                
+    var d = new Date();
+	var c_date = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();         
     var map = new BMap.Map("baidumap");
     baiduMaps.init(map);
     addMapOverlay(-1000);//向地图添加覆盖物
@@ -94,10 +95,11 @@
 	
 	
 	 function createInfoWindow(marker){
+	
 		 var content = '<fieldset> <div  class="panel">'+
 							'<div title="" class="ddv panel-body panel-body-noheader panel-body-noborder" style="padding: 2px 0px; width: 100%;">'+
 								'<style type="text/css">  .dv-table td{border:1px;text-align:center;padding:2px}.dv-label{font-weight:solid;color:#15428B;}</style>'+
-								'废水: 最近监测时间:2016-3-8:13:00'+
+								'废水: 最近检测时间: '+ c_date +' 00:00'+
 								'<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">'+
 									'<tbody>'+
 									    '<tr>'+
@@ -116,7 +118,7 @@
 								'</table>'+
 								
 								
-								'废气: 最近监测时间:2016-3-8:13:00'+
+								'废气: 最近检测时间: '+ c_date +' 00:00'+
 								'<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">'+
 									'<tbody>'+
 									    '<tr>'+
@@ -134,7 +136,7 @@
 									'</tbody>'+
 								'</table>'+
 								
-								'重金属: 最近监测时间:2016-3-8:13:00'+
+								'重金属: 最近检测时间: '+ c_date +' 00:00'+
 								'<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">'+
 									'<tbody>'+
 									    '<tr>'+

@@ -28,6 +28,31 @@
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 				   <div class="gmaps" id="baidumap"></div>
+				    <div id="w" class="easyui-window" title="饮用水源地信息" data-options="left:800,top:54,minimizable:false">
+				      <div class="easyui-panel" title="" style="width:440px;">
+										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>饮用水源</th>
+													<th>建站时间</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr  th:each="nc : ${waterSources}">
+													<td th:text="${nc.waterName}"></td>
+													<td th:text="${nc.creationTime}"></td>								
+													<td>
+													<a th:href="'javascript:theLocation('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ');'"><i class="fa  fa-map-marker"></i><span>定位</span></a>
+													</td>
+												</tr>
+									
+											</tbody>
+											
+										</table>
+								
+								</div>
+						</div>
 				  
 			</div>
 			<!-- /mainContentBox -->
@@ -43,7 +68,8 @@
 	<!-- JQUERY -->
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
-		jQuery(document).ready(function() {		
+		jQuery(document).ready(function() {	
+			$('#w').window('collapse');
 			App.setPage("mapWater");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});
@@ -52,6 +78,87 @@
     /*<![CDATA[*/
     var map = new BMap.Map("baidumap");
     baiduMaps.init(map);
+    addMapOverlay(-1000);//向地图添加覆盖物
+    //定位
+	function theLocation(sourceId,lng,lat){
+		baiduMaps.theLocation(map,sourceId,lng,lat);
+	}
+    //本地查找
+	function localSearch(sourceId,lng,lat,s){
+		baiduMaps.localSearch(map,sourceId,lng,lat,s);
+	}
+    
+
+	 function createInfoWindow(marker){
+		 var content = '<div  class="panel">'+
+							'<div title="" class="ddv panel-body panel-body-noheader panel-body-noborder" style="padding: 2px 0px; width: 100%;">'+
+								'<style type="text/css">  .dv-table td{border:1px;text-align:center;padding:2px}.dv-label{font-weight:solid;color:#15428B;}</style>'+
+								'<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">'+
+									'<tbody>'+
+										'<tr>'+
+											'<td class="dv-label">饮用水源地:</td>'+
+											'<td>'+marker.waterName+'</td>'+
+											'<td class="dv-label">创建时间:</td>'+
+											'<td>'+marker.creationTime+'</td>'+
+										'</tr>'+
+										'<tr>'+
+											'<td class="dv-label">PH值:</td>'+
+											'<td>7.1</td>'+
+											'<td class="dv-label">当前温度</td>'+
+											'<td>12<sup>o</sup>C</td>'+
+										'</tr>'+
+								
+									'</tbody>'+
+								'</table><a href="http://qofo360.com/0web/qzxy/index.html" target="_blank">查看全景地图</a>'
+							'</div>'+
+						'</div>';
+			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
+				title: marker.title, //标题
+				offset: new BMap.Size(0,7),
+				width: 430,//宽度
+				//height: 150, //高度
+				panel : "panel", //检索结果面板
+				enableAutoPan : true, //自动平移
+				searchTypes :[
+				]
+			});
+		return infoWindow;
+	 }
+   function addMapOverlay(sourceId){
+       $.getWaterSourcesMarkers(function(data){
+                      var markers=data;
+                        for(var index = 0; index < markers.length; index++ ){
+                          var point = new BMap.Point(markers[index].point.lng,markers[index].point.lat);
+                        //  var selectedmarker;
+                          var marker;
+                          if(sourceId==markers[index].id)
+                       	 {
+                               marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation-active.png",new BMap.Size(21,35),{
+                                  imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+                                })});
+                               var selectedWin=createInfoWindow(markers[index]);
+                               selectedWin.open(point);
+                       	 }
+                          else
+                       	   { 
+                       	   marker  = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation.png",new BMap.Size(21,35),{
+                                  imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+                              })});
+                       	   
+                       	   }
+                          
+            
+                          
+                  		  var searchInfoWindow=createInfoWindow(markers[index]);
+                  	 	  baiduMaps.addClickHandler(marker,searchInfoWindow);
+                         map.addOverlay(marker);
+
+                        };
+        });
+        
+   	
+
+   }
    
    /*]]>*/
  </script>

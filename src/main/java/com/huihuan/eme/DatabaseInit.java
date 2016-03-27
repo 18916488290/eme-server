@@ -65,6 +65,7 @@ import com.huihuan.eme.service.GroupsService;
 import com.huihuan.eme.service.PullantSourceService;
 import com.huihuan.eme.service.UserService;
 import com.huihuan.eme.service.WaterEnvService;
+import com.huihuan.eme.service.WaterSourceService;
 
 @Service
 @Transactional
@@ -196,6 +197,7 @@ public class DatabaseInit {
 	@Autowired
 	private PullantSourceService pullantSourceService;
 	
+	@Autowired private WaterSourceService waterSourceService;
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
 		/*
@@ -236,7 +238,9 @@ public class DatabaseInit {
 		 loadWaterEnvs(ctx);
 		 loadAirEnvs(ctx); 
 		  loadPullantSources(ctx);
+		  loadWaterSources(ctx);
 	 */
+		
 		
 		  
 	}
@@ -427,4 +431,10 @@ public class DatabaseInit {
 		Resource res = ctx.getResource("classpath:data/pullantSource.csv");
 		pullantSourceService.loadPullantSources(res.getInputStream());
 	}
+	
+	private void loadWaterSources(ConfigurableApplicationContext ctx) throws IOException {
+		Resource res = ctx.getResource("classpath:data/waterSource.csv");
+		waterSourceService.loadWaterSources(res.getInputStream());
+	}
+	
 }

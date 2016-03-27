@@ -43,9 +43,16 @@
  
      };
      
-     //1. 风险源标注
+     //1. 污染源标注
      $.getPullantSourcesMarkers = function(callback){
              $.EMEClient('getPullantSourcesMarkers',{},callback);
+ 
+     };
+     
+     
+     //1. 饮用水源地标注
+     $.getWaterSourcesMarkers = function(callback){
+             $.EMEClient('getWaterSourcesMarkers',{},callback);
  
      };
      

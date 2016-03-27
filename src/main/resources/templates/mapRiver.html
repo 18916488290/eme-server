@@ -27,6 +27,27 @@
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 				   <div class="gmaps" id="baidumap"></div>
+				   
+				    <div id="w" class="easyui-window" title="河流断面信息" data-options="left:800,top:54,minimizable:false">
+				      <div class="easyui-panel" title="" style="width:440px;">
+										<table id="rivercross" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>河流断面</th>
+													<th>水质状况</th>
+													<th>主要污染物</th>
+													<th>污染指数</th>
+													
+												</tr>
+											</thead>
+											<tbody>
+					
+											</tbody>
+											
+										</table>
+								
+								</div>
+						</div>
 				  
 			</div>
 			<!-- /mainContentBox -->
@@ -42,7 +63,8 @@
 	<!-- JQUERY -->
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
-		jQuery(document).ready(function() {		
+		jQuery(document).ready(function() {	
+			$('#w').window('collapse');
 			App.setPage("mapRiver");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});
@@ -51,6 +73,56 @@
   /*<![CDATA[*/
    var map = new BMap.Map("baidumap");
     baiduMaps.init(map);
+
+	   function formatData(strVal) {
+	         if (strVal == '' || strVal == null || strVal == undefined) {
+	          return '';
+	          } else {
+	        return strVal;
+	       }
+	    }     
+    
+
+	  var url = "http://api.map.baidu.com/geosearch/v3/local?callback=?";
+      $.getJSON(url, {
+    	  'region':'南通',
+          'geotable_id': 136837,
+           'ak'         : 'ovW97sIaF51o5ADwMGOq4Oza'  //用户ak
+      },function(e) {
+          var content = e.contents;
+          if (content.length == 0) {
+                alert("没有河流横断面检测站");
+                 return;
+          }
+
+      	 $.each(content, function(i, item){
+               var point = new BMap.Point(item.location[0], item.location[1]),
+                   marker = new BMap.Marker(point);
+                   marker.addEventListener('click', showInfo);
+                   
+               var trHTML = "<tr><td>"+item.title+"</td><td>"+formatData(item.waterquality)+"</td><td>"+formatData(item.primarypullant)+"</td>"+
+                            "<td>"+formatData(item.pullantindex)+"</td></tr>";
+               $("#rivercross tbody").append(trHTML);
+               function showInfo() {
+                   var content = 
+                                 "<p>名称：" + item.title + "</p>" +
+                                 "<p>地址：" + formatData(item.address) + "</p>" +
+                                 "<p>水质状况：" + formatData(item.waterquality) + "</p>"+
+                                 "<p>主要污染物：" + formatData(item.primarypullant) + "</p>"+
+                                 "<p>污染指数：" + formatData(item.pullantindex) + "</p>";
+                   //创建检索信息窗口对象
+                   var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+                       title  : item.title,       //标题
+                       width  : 250,             //宽度
+                       panel  : "panel",         //检索结果面板
+                       enableAutoPan : true,     //自动平移
+                       searchTypes   :[]
+                   });
+                   searchInfoWindow.open(marker);
+               };
+               map.addOverlay(marker);
+           });
+      });
 
    /*]]>*/
  </script>

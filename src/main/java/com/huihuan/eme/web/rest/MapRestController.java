@@ -17,6 +17,7 @@ import com.huihuan.eme.domain.db.Company;
 import com.huihuan.eme.domain.db.DetectStation;
 import com.huihuan.eme.domain.db.PullantSource;
 import com.huihuan.eme.domain.db.RiskBasicInfo;
+import com.huihuan.eme.domain.db.WaterSource;
 import com.huihuan.eme.domain.page.AuditSatusEnum;
 import com.huihuan.eme.domain.page.DetectStationMarker;
 import com.huihuan.eme.domain.page.FactorValue;
@@ -26,9 +27,11 @@ import com.huihuan.eme.domain.page.PullantSourceInfo;
 import com.huihuan.eme.domain.page.PullantSourceMarker;
 import com.huihuan.eme.domain.page.RiskSourceInfo;
 import com.huihuan.eme.domain.page.RiskSourceMarker;
+import com.huihuan.eme.domain.page.WaterSourceMarker;
 import com.huihuan.eme.repository.DetectStationRepository;
 import com.huihuan.eme.repository.PullantSourceRepository;
 import com.huihuan.eme.repository.RiskBasicInfoRepository;
+import com.huihuan.eme.repository.WaterSourceRepository;
 import com.huihuan.eme.service.CompanyService;
 import com.huihuan.eme.service.DetectService;
 
@@ -49,7 +52,7 @@ public class MapRestController {
 	@Autowired private DetectStationRepository detectStationRepository;
 	@Autowired private CompanyService companyService;
 	@Autowired private PullantSourceRepository pullantSourceRepository;
-
+	@Autowired private WaterSourceRepository  waterSourceRepository;
 	
 	//获得地图中心点
 	@Transactional(readOnly = true)
@@ -129,6 +132,31 @@ public class MapRestController {
 	}
 	
 	
+
+	@Transactional(readOnly = true)
+	@RequestMapping(value="/getWaterSourcesMarkers", method=RequestMethod.GET,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public List<WaterSourceMarker> getWaterSourcesMarkers()
+	{
+		List<WaterSourceMarker> waterMarkers = new ArrayList<WaterSourceMarker>();
+		
+		List<WaterSource> waterSources = waterSourceRepository.findAll();
+		for(WaterSource ws:waterSources)
+		{
+		
+			WaterSourceMarker marker =new WaterSourceMarker();
+			marker.setTitle("饮用水源地");
+			marker.setContent("饮用水源地");
+			marker.setImageOffset(new ImageOffset());
+	
+			marker.setPoint(new Point(Double.parseDouble(ws.getLng()),Double.parseDouble(ws.getLat())));
+			marker.setId(ws.getId());
+			marker.setWaterName(ws.getWaterName());
+			marker.setCreationTime(ws.getCreationTime());
+			waterMarkers.add(marker);
+		}
+	
+		return waterMarkers;
+	}
 	
 	
 	@Transactional(readOnly = true)

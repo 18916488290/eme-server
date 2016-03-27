@@ -3,6 +3,7 @@ package com.huihuan.eme.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.huihuan.eme.domain.db.PullantSource;
+import com.huihuan.eme.domain.db.WaterSource;
 
 
 /**
@@ -11,6 +12,6 @@ import com.huihuan.eme.domain.db.PullantSource;
  * @created 2016年1月5日 下午10:04:09
  *
  */
-public interface PullantSourceRepository  extends JpaRepository<PullantSource, Long> {
+public interface WaterSourceRepository  extends JpaRepository<WaterSource, Long> {
 	
 }

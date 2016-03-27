@@ -11,6 +11,7 @@ import com.huihuan.eme.domain.page.AuditSatusEnum;
 import com.huihuan.eme.repository.DetectStationRepository;
 import com.huihuan.eme.repository.PullantSourceRepository;
 import com.huihuan.eme.repository.RiskBasicInfoRepository;
+import com.huihuan.eme.repository.WaterSourceRepository;
 import com.huihuan.eme.service.CompanyService;
 
 /**
@@ -26,6 +27,7 @@ public class MapController {
 	@Autowired private DetectStationRepository detectStationRepository;
 	@Autowired private RiskBasicInfoRepository riskBasicInfoRepository;
 	@Autowired private PullantSourceRepository pullantSourceRepository;
+	@Autowired private WaterSourceRepository waterSourceRepository;
 	
 	@RequestMapping("/mapRiskSource")
 	public String mapRiskSource(Map<String, Object> model) {
@@ -72,6 +74,7 @@ public class MapController {
 	}
 	@RequestMapping("/mapWater")
 	public String mapWater(Map<String, Object> model) {
+		model.put("waterSources", waterSourceRepository.findAll());
 		return "mapWater";
 	}
 	@RequestMapping("/mapRadio")

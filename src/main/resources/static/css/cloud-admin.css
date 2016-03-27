@@ -8056,9 +8056,10 @@ div[data-role="editor-toolbar"] {
 }
 /* Baidu Maps */
 .gmaps {
-  height:auto !important;
-  height:600px; 
-  min-height:700px; 
+  height:auto;
+ /* height:100%; 
+  min-height:400px; 
+  */
   width: 100%;
 }
 /* Full calendar */

@@ -120,6 +120,8 @@ public class EmergencyCMaterialController {
 	        dbMaterial.setMobile(emergencyMaterial.getMobile());
 	        dbMaterial.setQuantity(emergencyMaterial.getQuantity());
 		    emergencyMaterialRepository.save(dbMaterial);
+		    
+		    //add material to baidu LBS
 		}
 		attr.addAttribute("riskSourceId", riskSourceId);
 		attr.addAttribute("tab","box_tab6");

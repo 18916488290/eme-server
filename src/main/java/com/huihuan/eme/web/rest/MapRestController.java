@@ -85,6 +85,7 @@ public class MapRestController {
 			info.setEmeTel(riskInfo.getEmeMobile());
 			info.setLvl(riskInfo.getLvl());
 			info.setRiskAversion("有");
+			
 			riskMarker.setRiskSourceInfo(info);
 			riskMarkers.add(riskMarker);
 		}

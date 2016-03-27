@@ -78,15 +78,32 @@
 	</script>
 	<script th:inline="javascript">
     /*<![CDATA[*/
-               
+                        
+   function formatData(strVal) {
+         if (strVal == '' || strVal == null || strVal == undefined) {
+          return '';
+          } else {
+        return strVal;
+       }
+    }         
+    
+   function useDefaultUrl(strVal) {
+       if (strVal == '' || strVal == null || strVal == undefined) {
+        return 'img/emematerial.jpg';
+        } else {
+      return strVal;
+     }
+  } 
+    
+    
    var map = new BMap.Map("baidumap");
     baiduMaps.init(map);
     addMapOverlay(-1000);//向地图添加覆盖物
     
-    
 	var options = {
 			renderOptions: {
-				map: map
+				map: map,
+				autoViewport: false
 			},
 			onSearchComplete: function(results) {
 			//	alert('检索周边应急物资完毕');
@@ -97,8 +114,11 @@
 				    alert(list[i]);
 				}
 				*/
-		   alert(JSON.stringify(results));
+		   //alert(JSON.stringify(results));
 	
+			},
+			onInfoHtmlSet:function(localResultPoi){
+				//   alert(JSON.stringify(localResultPoi));
 			}
 		};
 	var local = new BMap.LocalSearch(map, options);
@@ -118,17 +138,62 @@
 
 	drawingManager.addEventListener('circlecomplete', function(e, overlay) {
 	    map.clearOverlays();
-		map.addOverlay(overlay);		
+		//map.addOverlay(overlay);		
 		var radius = parseInt(e.getRadius());
 		var center = e.getCenter();
 		drawingManager.close();
+		
+		
 		//alert('center: ' +center.lng+'  ,lat:' + center.lat +' , radius: ' + radius);
-		local.searchNearby('应急物资', center, radius, {
-			customData: {
-				geotableId:136668
-			}
-		});
+		//local.searchNearby('应急物资', center, radius, {
+		//	customData: {
+		//		geotableId:136668
+		//	}
+		//});
+		
 
+		  var url = "http://api.map.baidu.com/geosearch/v3/nearby?callback=?";
+	        $.getJSON(url, {
+	            'geotable_id': 136668,
+	            'radius':radius,
+	            'location':''+center.lng+','+center.lat+'',
+	             'ak'         : 'ovW97sIaF51o5ADwMGOq4Oza'  //用户ak
+	        },function(e) {
+	            var content = e.contents;
+	            map.addOverlay(overlay);	
+	            if (content.length == 0) {
+	             //   $('#mapList').append($('<p style="border-top:1px solid #DDDDDD;padding-top:10px;text-align:center;text-align:center;font-size:18px;" class="text-warning">抱歉，没有找到您想要的短租信息，请重新查询</p>'));
+	             alert("附件没有应急物资");
+	             return;
+	            }
+
+	        	 $.each(content, function(i, item){
+	                 var point = new BMap.Point(item.location[0], item.location[1]),
+	                     marker = new BMap.Marker(point);
+	                 marker.addEventListener('click', showInfo);
+	                 function showInfo() {
+	                     var content = "<img src='" + useDefaultUrl(item.mainimage) + "' style='width:111px;height:133px;float:left;margin-right:5px;'/>" +
+	                                   "<p>名称：" + item.title + "</p>" +
+	                                   "<p>地址：" + formatData(item.address) + "</p>" +
+	                                   "<p>物资：" + item.materialname + "</p>"+
+	                                   "<p>数量：" + formatData(item.qty) + "</p>"+
+	                                   "<p>类型：" + formatData(item.materialtype) + "</p>"+
+	                                   "<p>手机：" + formatData(item.materialmobile) + "</p>";
+	                     //创建检索信息窗口对象
+	                     var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+	                         title  : item.title,       //标题
+	                         width  : 390,             //宽度
+	                         panel  : "panel",         //检索结果面板
+	                         enableAutoPan : true,     //自动平移
+	                         searchTypes   :[]
+	                     });
+	                     searchInfoWindow.open(marker);
+	                 };
+	                 map.addOverlay(marker);
+	             });
+	            
+	        });
+       
 	});
     
     
@@ -208,9 +273,13 @@
                         	   }
                            
              
+                           
                    		  var searchInfoWindow=createInfoWindow(markers[index]);
                    	 	  baiduMaps.addClickHandler(marker,searchInfoWindow);
-                           map.addOverlay(marker);
+                          map.addOverlay(marker);
+
+                          //var label = new BMap.Label(markers[index].riskSourceInfo.companyName,{offset:new BMap.Size(20,-10)});
+                   	     // marker.setLabel(label);
                          };
          });
          

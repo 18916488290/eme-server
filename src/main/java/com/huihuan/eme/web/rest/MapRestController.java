@@ -15,15 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.huihuan.eme.domain.db.Company;
 import com.huihuan.eme.domain.db.DetectStation;
+import com.huihuan.eme.domain.db.PullantSource;
 import com.huihuan.eme.domain.db.RiskBasicInfo;
 import com.huihuan.eme.domain.page.AuditSatusEnum;
 import com.huihuan.eme.domain.page.DetectStationMarker;
 import com.huihuan.eme.domain.page.FactorValue;
 import com.huihuan.eme.domain.page.ImageOffset;
 import com.huihuan.eme.domain.page.Point;
+import com.huihuan.eme.domain.page.PullantSourceInfo;
+import com.huihuan.eme.domain.page.PullantSourceMarker;
 import com.huihuan.eme.domain.page.RiskSourceInfo;
 import com.huihuan.eme.domain.page.RiskSourceMarker;
 import com.huihuan.eme.repository.DetectStationRepository;
+import com.huihuan.eme.repository.PullantSourceRepository;
 import com.huihuan.eme.repository.RiskBasicInfoRepository;
 import com.huihuan.eme.service.CompanyService;
 import com.huihuan.eme.service.DetectService;
@@ -44,6 +48,7 @@ public class MapRestController {
 	@Autowired private RiskBasicInfoRepository riskBasicInfoRepository;
 	@Autowired private DetectStationRepository detectStationRepository;
 	@Autowired private CompanyService companyService;
+	@Autowired private PullantSourceRepository pullantSourceRepository;
 
 	
 	//获得地图中心点
@@ -92,6 +97,38 @@ public class MapRestController {
 	
 		return riskMarkers;
 	}
+	
+	
+	@Transactional(readOnly = true)
+	@RequestMapping(value="/getPullantSourcesMarkers", method=RequestMethod.GET,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public List<PullantSourceMarker> getPullantSourcesMarkers()
+	{
+		List<PullantSourceMarker> pullantMarkers = new ArrayList<PullantSourceMarker>();
+		
+		List<PullantSource> pullantSources = pullantSourceRepository.findAll();
+		for(PullantSource ps:pullantSources)
+		{
+		
+			PullantSourceMarker marker =new PullantSourceMarker();
+			marker.setTitle("污染源");
+			marker.setContent("污染源");
+			marker.setImageOffset(new ImageOffset());
+	
+			marker.setPoint(new Point(Double.parseDouble(ps.getLng()),Double.parseDouble(ps.getLat())));
+			PullantSourceInfo info = new PullantSourceInfo();
+			info.setId(ps.getId());
+			info.setCompanyId(ps.getCompany().getId());
+			info.setCompanyName(ps.getCompany().getCompanyName());
+			info.setDivsion(ps.getCompany().getAdministrativeDivision().getDivision());
+			info.setType("COD");
+			marker.setPullantSourceInfo(info);
+			pullantMarkers.add(marker);
+		}
+	
+		return pullantMarkers;
+	}
+	
+	
 	
 	
 	@Transactional(readOnly = true)

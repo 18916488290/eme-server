@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.huihuan.eme.domain.page.AuditSatusEnum;
 import com.huihuan.eme.repository.DetectStationRepository;
+import com.huihuan.eme.repository.PullantSourceRepository;
 import com.huihuan.eme.repository.RiskBasicInfoRepository;
 import com.huihuan.eme.service.CompanyService;
 
@@ -24,6 +25,7 @@ public class MapController {
 	@Autowired private CompanyService companyService;
 	@Autowired private DetectStationRepository detectStationRepository;
 	@Autowired private RiskBasicInfoRepository riskBasicInfoRepository;
+	@Autowired private PullantSourceRepository pullantSourceRepository;
 	
 	@RequestMapping("/mapRiskSource")
 	public String mapRiskSource(Map<String, Object> model) {
@@ -61,6 +63,7 @@ public class MapController {
 	
 	@RequestMapping("/mapPopu")
 	public String mapPopu(Map<String, Object> model) {
+		model.put("pullantSources", pullantSourceRepository.findAll());
 		return "mapPopu";
 	}
 	@RequestMapping("/mapRiver")

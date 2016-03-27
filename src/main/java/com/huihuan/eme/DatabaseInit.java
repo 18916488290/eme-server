@@ -62,6 +62,7 @@ import com.huihuan.eme.service.DetectFactorDataServiceImpl;
 import com.huihuan.eme.service.EmergencyMaterialService;
 import com.huihuan.eme.service.EpbServiceImpl;
 import com.huihuan.eme.service.GroupsService;
+import com.huihuan.eme.service.PullantSourceService;
 import com.huihuan.eme.service.UserService;
 import com.huihuan.eme.service.WaterEnvService;
 
@@ -192,6 +193,9 @@ public class DatabaseInit {
 	@Autowired
 	private WaterEnvService waterEnvService;
 	
+	@Autowired
+	private PullantSourceService pullantSourceService;
+	
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
 		/*
@@ -231,7 +235,9 @@ public class DatabaseInit {
 	
 		 loadWaterEnvs(ctx);
 		 loadAirEnvs(ctx); 
-		 	 */
+		  loadPullantSources(ctx);
+	 */
+		
 		  
 	}
 
@@ -416,4 +422,9 @@ public class DatabaseInit {
 		airEnvService.loadAirEnvFromCsv(res.getInputStream());
 	}
 	
+	
+	private void loadPullantSources(ConfigurableApplicationContext ctx) throws IOException {
+		Resource res = ctx.getResource("classpath:data/pullantSource.csv");
+		pullantSourceService.loadPullantSources(res.getInputStream());
+	}
 }

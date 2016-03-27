@@ -43,6 +43,13 @@
  
      };
      
+     //1. 风险源标注
+     $.getPullantSourcesMarkers = function(callback){
+             $.EMEClient('getPullantSourcesMarkers',{},callback);
+ 
+     };
+     
+     
      //1. 监测站标注
      $.getDetectStationMarkers = function(callback){
              $.EMEClient('getDetectStationMarkers',{},callback);

@@ -93,7 +93,7 @@
 	
 	
 	 function createInfoWindow(marker){
-		 var content = 
+		 var contentbak = 
 			'<div>'+
 				'<video controls="controls"  autoplay="autoplay" loop="loop">'+
 				      '<source src="img/proj/movie.ogg" type="video/ogg" />'+
@@ -101,6 +101,13 @@
 				      '您的浏览器不支持 video 标签。'+
 				'</video>'+
 			'</div>';
+			 var content = 
+					'<div>'+
+					   '<object id="Player1" classid="CLSID:6BF52A52-394A-11D3-B153-00C04F79FAA6" width="720" height="540">'+
+			           '<param name="URL" value="jvsp://B3275061/">'+
+		              '</object>'+
+					'</div>';
+			
 			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
 				title: marker.title +":" +marker.riskSourceInfo.companyName, //标题
 				offset: new BMap.Size(0,7),

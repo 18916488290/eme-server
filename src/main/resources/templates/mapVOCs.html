@@ -83,6 +83,8 @@
 	</script>
 	<script th:inline="javascript">
     /*<![CDATA[*/
+    var d = new Date();
+	var c_date = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();                
     var map = new BMap.Map("baidumap");
     baiduMaps.init(map);
     addMapOverlay(-1000);//向地图添加覆盖物
@@ -109,49 +111,49 @@
 									'</tr></thead>'+
 									'<tbody>'+
 									'<tr>'+
-									'<td>2016-3-8 14:00</td>'+
+									'<td>'+c_date+' 00:00</td>'+
 									'<td>颗粒物</td>'+
 									'<td>0.2</td>'+
 									'<td>0.5</td>'+
 									'<td><span class="label label-success label-sm">未超标</span></td>'+
 								     '</tr>'+
 										'<tr>'+
-										'<td>2016-3-8 14:00</td>'+
+										'<td>'+c_date+' 00:00</td>'+
 										'<td>氯化氢</td>'+
 										'<td>0.2</td>'+
 										'<td>0.15</td>'+
 										'<td><span class="label label-danger label-sm">超标</span></td>'+
 									     '</tr>'+
 											'<tr>'+
-											'<td>2016-3-8 14:00</td>'+
+											'<td>'+c_date+' 00:00</td>'+
 											'<td>甲苯</td>'+
 											'<td>0.1</td>'+
 											'<td>0.05</td>'+
 											'<td><span class="label label-success label-sm">未超标</span></td>'+
 										     '</tr>'+
 										 	'<tr>'+
-											'<td>2016-3-8 14:00</td>'+
+											'<td>'+c_date+' 00:00</td>'+
 											'<td>二甲苯</td>'+
 											'<td>0.3</td>'+
 											'<td>0.2</td>'+
 											'<td><span class="label label-danger label-sm">超标</span></td>'+
 										     '</tr>'+
 										 	'<tr>'+
-											'<td>2016-3-8 14:00</td>'+
+											'<td>'+c_date+' 00:00</td>'+
 											'<td>非甲烷总烃</td>'+
 											'<td>13</td>'+
 											'<td>4</td>'+
 											'<td><span class="label label-danger label-sm">超标</span></td>'+
 										     '</tr>'+
 										 	'<tr>'+
-											'<td>2016-3-8 14:00</td>'+
+											'<td>'+c_date+' 00:00</td>'+
 											'<td>铅及其化合物</td>'+
 											'<td>0.0004</td>'+
 											'<td>0.006</td>'+
 											'<td><span class="label label-success label-sm">未超标</span></td>'+
 										     '</tr>'+
 											 	'<tr>'+
-												'<td>2016-3-8 14:00</td>'+
+												'<td>'+c_date+' 00:00</td>'+
 												'<td>汞及其化合物</td>'+
 												'<td>0.0001</td>'+
 												'<td>0.0003</td>'+

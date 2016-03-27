@@ -80,7 +80,8 @@
 	</script>
 	<script th:inline="javascript">
     /*<![CDATA[*/
-                
+    var d = new Date();
+	var c_date = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();     
     var map = new BMap.Map("baidumap");
     baiduMaps.init(map);
     addMapOverlay(-1000);//向地图添加覆盖物
@@ -108,21 +109,21 @@
 									'</tr></thead>'+
 									'<tbody>'+
 									'<tr>'+
-									'<td>2016-3-8 14:00</td>'+
+									'<td>'+c_date+' 00:00</td>'+
 									'<td>总磷</td>'+
 									'<td>0-100</td>'+
 									'<td>136</td>'+
 									'<td>已通知</td>'+
 								     '</tr>'+
 										'<tr>'+
-										'<td>2016-3-8 14:00</td>'+
+										'<td>'+c_date+' 00:00</td>'+
 										'<td>总氮</td>'+
 										'<td>0-50</td>'+
 										'<td>63</td>'+
 										'<td>已通知</td>'+
 									     '</tr>'+
 											'<tr>'+
-											'<td>2016-3-8 14:00</td>'+
+											'<td>'+c_date+' 00:00</td>'+
 											'<td>PH值</td>'+
 											'<td>6-10</td>'+
 											'<td>3</td>'+

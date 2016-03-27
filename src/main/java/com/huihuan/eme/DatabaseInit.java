@@ -56,12 +56,14 @@ import com.huihuan.eme.repository.StorageMethodRepository;
 import com.huihuan.eme.repository.StorageModeRepository;
 import com.huihuan.eme.repository.WaterEnvTypeRepository;
 import com.huihuan.eme.service.AdministrativeDivisionServiceImpl;
+import com.huihuan.eme.service.AirEnvService;
 import com.huihuan.eme.service.CompanyService;
 import com.huihuan.eme.service.DetectFactorDataServiceImpl;
 import com.huihuan.eme.service.EmergencyMaterialService;
 import com.huihuan.eme.service.EpbServiceImpl;
 import com.huihuan.eme.service.GroupsService;
 import com.huihuan.eme.service.UserService;
+import com.huihuan.eme.service.WaterEnvService;
 
 @Service
 @Transactional
@@ -184,9 +186,15 @@ public class DatabaseInit {
 	@Autowired
 	private  DetectFactorDataServiceImpl detectFactorDataServiceImpl;
 	
+	
+	@Autowired
+	private AirEnvService airEnvService;
+	@Autowired
+	private WaterEnvService waterEnvService;
+	
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
-		
+		/*
 		 if(!groupsRepository.findAll().isEmpty())
 		 	return;
 		  groupsService.loadDefaultGroups();
@@ -217,8 +225,13 @@ public class DatabaseInit {
 		  loadRiskAvsersionTypes(); 
 		  loadEmergencyPlanTypes();
 		  
-		 companyService.addRiskInfoForTestingData(ctx);
+		// companyService.addRiskInfoForTestingData(ctx);
 		 detectFactorDataServiceImpl.loadData(ctx);
+		 
+	
+		 loadWaterEnvs(ctx);
+		 loadAirEnvs(ctx); 
+		 	 */
 		  
 	}
 
@@ -390,4 +403,17 @@ public class DatabaseInit {
 			industrialParkRepository.save(i);
 		}
 	}
+	
+	
+	private void loadWaterEnvs(ConfigurableApplicationContext ctx) throws IOException {
+		Resource res = ctx.getResource("classpath:data/waterEnv.csv");
+		waterEnvService.loadWaterEnvFromCsv(res.getInputStream());
+	}
+	
+	
+	private void loadAirEnvs(ConfigurableApplicationContext ctx) throws IOException {
+		Resource res = ctx.getResource("classpath:data/airEnv.csv");
+		airEnvService.loadAirEnvFromCsv(res.getInputStream());
+	}
+	
 }

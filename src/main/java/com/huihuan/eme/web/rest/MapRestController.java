@@ -77,6 +77,7 @@ public class MapRestController {
 	
 			riskMarker.setPoint(new Point(Double.parseDouble(riskInfo.getLng()),Double.parseDouble(riskInfo.getLat())));
 			RiskSourceInfo info = new RiskSourceInfo();
+			info.setId(riskInfo.getId());
 			info.setCompanyId(riskInfo.getCompany().getId());
 			info.setCompanyName(riskInfo.getCompany().getCompanyName());
 			info.setDivsion(riskInfo.getCompany().getAdministrativeDivision().getDivision());

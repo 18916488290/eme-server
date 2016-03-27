@@ -27,7 +27,7 @@
 			<!-- mainContentBox -->
 			<div id="mainContentBox">
 				  <div class="gmaps" id="baidumap"></div>  
-	              <div id="w" class="easyui-window" title="风险源信息" data-options="left:800,top:254,minimizable:false">
+	              <div id="w" class="easyui-window" title="风险源信息" data-options="left:800,top:54,minimizable:false">
 				  <div class="easyui-panel" title="" style="width:440px;">
 										<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
@@ -71,7 +71,7 @@
 	<div th:include="fragments/map-layout :: jsFragment"></div>
 	<script>
 		jQuery(document).ready(function() {		
-		//	$('#w').window('collapse');
+			$('#w').window('collapse');
 			App.setPage("mapRiskSource");  //Set current page 
 			App.init(); //Initialise plugins and elements
 		});
@@ -82,6 +82,58 @@
    var map = new BMap.Map("baidumap");
     baiduMaps.init(map);
     addMapOverlay(-1000);//向地图添加覆盖物
+    
+    
+	var options = {
+			renderOptions: {
+				map: map
+			},
+			onSearchComplete: function(results) {
+			//	alert('检索周边应急物资完毕');
+		/*
+				var list= new Array();
+				for (var i = 0; i < results.getCurrentNumPois(); i ++){ 
+				    list[i]=results.getPoi(i).title + ", " + results.getPoi(i).address;
+				    alert(list[i]);
+				}
+				*/
+		   alert(JSON.stringify(results));
+	
+			}
+		};
+	var local = new BMap.LocalSearch(map, options);
+	
+	var drawingManager = new BMapLib.DrawingManager(map, {
+		isOpen: false, //是否开启绘制模式
+		enableDrawingTool: true, //是否显示工具栏
+		drawingToolOptions: {
+			anchor: BMAP_ANCHOR_TOP_RIGHT, //位置
+			offset: new BMap.Size(100, 10), //偏离值
+			scale: 0.5, //工具栏缩放比例
+			drawingModes: [
+				BMAP_DRAWING_CIRCLE
+			]
+		}
+	});
+
+	drawingManager.addEventListener('circlecomplete', function(e, overlay) {
+	    map.clearOverlays();
+		map.addOverlay(overlay);		
+		var radius = parseInt(e.getRadius());
+		var center = e.getCenter();
+		drawingManager.close();
+		//alert('center: ' +center.lng+'  ,lat:' + center.lat +' , radius: ' + radius);
+		local.searchNearby('应急物资', center, radius, {
+			customData: {
+				geotableId:136668
+			}
+		});
+
+	});
+    
+    
+    
+    
     //定位
 	function theLocation(sourceId,lng,lat){
 		baiduMaps.theLocation(map,sourceId,lng,lat);
@@ -116,7 +168,7 @@
 											'<td>'+marker.riskSourceInfo.emeTel+'</td>'+
 										'</tr>'+
 									'</tbody>'+
-								'</table><a href="riskSourceInfo?riskSourceId='+marker.riskSourceInfo.companyId+'" target="_blank" style="width:120px">查看详细</a>'+
+								'</table><a href="riskSourceInfo?riskSourceId='+marker.riskSourceInfo.id+'" target="_blank" style="width:120px">查看详细</a>'+
 							'</div>'+
 						'</div>'+
 						'</fieldset>';
@@ -139,7 +191,7 @@
                            var point = new BMap.Point(markers[index].point.lng,markers[index].point.lat);
                          //  var selectedmarker;
                            var marker;
-                           if(sourceId==markers[index].riskSourceInfo.companyId)
+                           if(sourceId==markers[index].riskSourceInfo.id)
                         	 {
                                 marker = new BMap.Marker(point,{icon:new BMap.Icon("img/mapimg/waterstation-active.png",new BMap.Size(21,35),{
                                    imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)

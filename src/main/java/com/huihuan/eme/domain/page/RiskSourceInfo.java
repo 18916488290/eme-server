@@ -2,6 +2,7 @@ package com.huihuan.eme.domain.page;
 
 public class RiskSourceInfo {
 	
+	private long id;
 	private long companyId;
 	private String companyName; //企业名称
 	private String divsion;  //行政区域
@@ -92,6 +93,18 @@ public class RiskSourceInfo {
 	 */
 	public void setEmeTel(String emeTel) {
 		this.emeTel = emeTel;
+	}
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	

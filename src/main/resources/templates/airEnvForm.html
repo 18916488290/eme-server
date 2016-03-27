@@ -98,7 +98,7 @@
 										 <div class="form-group">
 											 <label class="col-md-2 control-label">相对企业方位</label> 
 											 <div class="col-md-10">		
-                                              <select  th:field="*{locationDic.id}">
+                                              <select class="form-control"  th:field="*{locationDic.id}">
                                               
                                                   <option th:each="locationDic : ${locationDics}" 
                                                      th:value="${locationDic.id}" 

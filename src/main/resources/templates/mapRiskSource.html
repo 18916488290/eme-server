@@ -209,7 +209,7 @@
 	}
 	
 	 function createInfoWindow(marker){
-		 var content = '<fieldset> <div  class="panel">'+
+		 var content = '<div  class="panel">'+
 							'<div title="" class="ddv panel-body panel-body-noheader panel-body-noborder" style="padding: 2px 0px; width: 100%;">'+
 								'<style type="text/css">  .dv-table td{border:1px;text-align:center;padding:2px}.dv-label{font-weight:solid;color:#15428B;}</style>'+
 								'<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">'+
@@ -233,15 +233,14 @@
 											'<td>'+marker.riskSourceInfo.emeTel+'</td>'+
 										'</tr>'+
 									'</tbody>'+
-								'</table><a href="riskSourceInfo?riskSourceId='+marker.riskSourceInfo.id+'" target="_blank" style="width:120px">查看详细</a>'+
+								'</table><a href="riskSourceInfo?riskSourceId='+marker.riskSourceInfo.id+'"target="_blank">查看详细信息</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://qofo360.com/0web/qzxy/index.html" target="_blank">查看全景地图</a>'
 							'</div>'+
-						'</div>'+
-						'</fieldset>';
+						'</div>';
 			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
 				title: marker.title, //标题
 				offset: new BMap.Size(0,7),
 				width: 430,//宽度
-				height: 140, //高度
+				height: 150, //高度
 				panel : "panel", //检索结果面板
 				enableAutoPan : true, //自动平移
 				searchTypes :[

@@ -209,7 +209,7 @@
 	                	 });  
 
 	                var marker = new BMap.Marker(point, {icon: myIcon});  
-	                 marker.addEventListener('click', showInfo);
+	                marker.addEventListener('click', showInfo);
 	                 function showInfo() {
 	                     var content = "<img src='" + useDefaultUrl(item.mainimage) + "' style='width:111px;height:133px;float:left;margin-right:5px;'/>" +
 	                                   "<p>名称：" + item.title + "</p>" +
@@ -226,7 +226,15 @@
 	                     });
 	                     searchInfoWindow.open(marker);
 	                 };
-	                 map.addOverlay(marker);
+
+	             	var label = new BMap.Label(item.title,{offset:new BMap.Size(20,5)});     	
+	             	label.setStyle({ 
+	             		backgroundColor :"0.05",
+	             		border :"0", 
+	             		});
+
+	            	marker.setLabel(label);
+	            	  map.addOverlay(marker);
 	             });
 	            
 	        });

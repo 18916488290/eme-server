@@ -71,7 +71,7 @@
 					
 					   <div class="tab-pane fade" id="box_tab2">
 					   	   <div th:if="${riskSource.company.housePlan!=null}">
-				               <img th:src="@{getimage/}+${riskSource.company.housePlan.fileName}" width="100%" height="300px"/>
+				               <img th:src="@{getimage/}+${riskSource.company.housePlan.fileName+'/'}" width="100%" height="300px"/>
 				              <h5>重新上传厂区平面图：</h5>
 				              <form class="form-horizontal" method="post" enctype ="multipart/form-data" action="#" th:action="@{/uploadHousePlan}">
 				      	
@@ -178,7 +178,7 @@
 													<td th:text="${wm.title}"></td>
 													<td th:text="${wm.description}"></td>
 													<td>
-													  <div th:if="${!#strings.isEmpty(wm.fileName)}"> <a href="#" th:href="@{getimage/}+${wm.fileName}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载生产工艺</span></a></div>
+													  <div th:if="${!#strings.isEmpty(wm.fileName)}"> <a href="#" th:href="@{getimage/}+${wm.fileName+'/'}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载生产工艺</span></a></div>
 													 
 													</td>	
 													<td>
@@ -220,7 +220,7 @@
 													<td th:text="${ra.auditOrg}"></td>
 													<td th:text="${ra.auditor}"></td>
 													<td>
-													 <div th:if="${!#strings.isEmpty(ra.fileName)}"> <a href="#" th:href="@{getimage/}+${ra.fileName}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载防控措施文件</span></a></div>
+													 <div th:if="${!#strings.isEmpty(ra.fileName)}"> <a href="#" th:href="@{getimage/}+${ra.fileName+'/'}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载防控措施文件</span></a></div>
 													</td>	
 													<td>
 	                                                <a href="#" th:href="@{/riskAversionForm(riskSourceId=${riskSource.id},view=view,riskAversionId=${ra.id})}"><i class="fa  fa-file-text-o"></i><span>详细</span></a>
@@ -394,7 +394,7 @@
 													<td th:text="${er.epb.epbName}"></td>
 													<td th:text="${er.creationDate}"></td>
 												  <td>
-													<div th:if="${!#strings.isEmpty(er.fileName)}"> <a href="#" th:href="@{getimage/}+${er.fileName}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载预案</span></a></div>
+													<div th:if="${!#strings.isEmpty(er.fileName)}"> <a href="#" th:href="@{getimage/}+${er.fileName+'/'}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载预案</span></a></div>
 													</td>
 													<td>
 													<a href="#" th:href="@{/emergencyResponsePlanForm(riskSourceId=${riskSource.id},view=view,emergencyResponsePlanId=${er.id})}"><i class="fa  fa-file-text-o"></i><span>详细</span></a>

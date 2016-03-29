@@ -61,8 +61,8 @@ public class MapRestController {
 	{
 		
 		Point center = new Point();
-		center.setLng(120.94959);
-		center.setLat(31.90506);
+		center.setLng(117.016455);
+		center.setLat(30.539463);
 		//logger.warn(" 获取地图中心点坐标： 经度： " +center.getLng() +", 纬度： " + center.getLat());
 		return center;
 	}

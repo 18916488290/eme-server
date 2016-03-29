@@ -85,7 +85,7 @@
 											 <label class="col-md-2 control-label">预案内容</label> 
 											 <div class="col-md-10">		
                                                  	<div th:if="${emergencyResponsePlan.fileName!=null}">
-				                                      <a href="#" th:href="@{getimage/}+${emergencyResponsePlan.fileName}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载预案内容</span></a>
+				                                      <a href="#" th:href="@{getimage/}+${emergencyResponsePlan.fileName+'/'}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载预案内容</span></a>
 				                                    </div>
 				                                    <div th:if="${emergencyResponsePlan.fileName==null}">
 				                                      <div id="dropzone">

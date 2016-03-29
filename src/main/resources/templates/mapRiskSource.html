@@ -56,6 +56,30 @@
 								</div>
 						
 							</div>	  
+							
+					<!-- 
+					 <div id="w1" class="easyui-window" title="周边敏感点" data-options="left:800,top:200,minimizable:false">	
+						 <div class="easyui-panel" title="" style="width:440px;">
+										<table id="mingandian" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>敏感点</th>
+													<th>坐标</th>
+													<th>类型</th>
+													<th>手机</th>
+												</tr>
+											</thead>
+											<tbody>
+				
+											</tbody>
+											
+										</table>
+								
+								</div>
+						
+							</div>
+						 -->			
+							
 			</div>
 			<!-- /mainContentBox -->
 		
@@ -151,11 +175,12 @@
 		//	}
 		//});
 		
-
+// 'geotable_id': 136668,
 		  var url = "http://api.map.baidu.com/geosearch/v3/nearby?callback=?";
 	        $.getJSON(url, {
-	            'geotable_id': 136668,
+	            'geotable_id': 136970,
 	            'radius':radius,
+	            'page_size':50,
 	            'location':''+center.lng+','+center.lat+'',
 	             'ak'         : 'ovW97sIaF51o5ADwMGOq4Oza'  //用户ak
 	        },function(e) {
@@ -163,22 +188,34 @@
 	            map.addOverlay(overlay);	
 	            if (content.length == 0) {
 	             //   $('#mapList').append($('<p style="border-top:1px solid #DDDDDD;padding-top:10px;text-align:center;text-align:center;font-size:18px;" class="text-warning">抱歉，没有找到您想要的短租信息，请重新查询</p>'));
-	             alert("附件没有应急物资");
+	                alert("附件没有敏感点");
 	             return;
 	            }
 
 	        	 $.each(content, function(i, item){
-	                 var point = new BMap.Point(item.location[0], item.location[1]),
-	                     marker = new BMap.Marker(point);
+	                 var point = new BMap.Point(item.location[0], item.location[1]);
+	                //  marker = new BMap.Marker(point);
+	                // alert(item.envclass);
+	               var myIcon = new BMap.Icon("img/mingandian/"+item.envclass+".png", new BMap.Size(23, 25), {    
+	                	// 指定定位位置。   
+	                	// 当标注显示在地图上时，其所指向的地理位置距离图标左上    
+	                	// 角各偏移10像素和25像素。您可以看到在本例中该位置即是   
+	                	   // 图标中央下端的尖角位置。    
+	                	   offset: new BMap.Size(10, 25),    
+	                	   // 设置图片偏移。   
+	                	   // 当您需要从一幅较大的图片中截取某部分作为标注图标时，您   
+	                	   // 需要指定大图的偏移位置，此做法与css sprites技术类似。    
+	                	   imageOffset: new BMap.Size(0, 3)   // 设置图片偏移    
+	                	 });  
+
+	                var marker = new BMap.Marker(point, {icon: myIcon});  
 	                 marker.addEventListener('click', showInfo);
 	                 function showInfo() {
 	                     var content = "<img src='" + useDefaultUrl(item.mainimage) + "' style='width:111px;height:133px;float:left;margin-right:5px;'/>" +
 	                                   "<p>名称：" + item.title + "</p>" +
-	                                   "<p>地址：" + formatData(item.address) + "</p>" +
-	                                   "<p>物资：" + item.materialname + "</p>"+
-	                                   "<p>数量：" + formatData(item.qty) + "</p>"+
-	                                   "<p>类型：" + formatData(item.materialtype) + "</p>"+
-	                                   "<p>手机：" + formatData(item.materialmobile) + "</p>";
+	                                   "<p>经纬度：" + item.location[0]+"," + item.location[1] + "</p>" +
+	                                   "<p>环境类型：" + item.envtype + "</p>"+
+	                                   "<p>手机：" + formatData(item.emobile) + "</p>";
 	                     //创建检索信息窗口对象
 	                     var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
 	                         title  : item.title,       //标题

@@ -47,8 +47,8 @@ import com.huihuan.eme.service.FileUploadServiceImpl;
 public class FilesController {
 	
 	private static final Log logger = LogFactory.getLog(FilesController.class);
-	
 	private String filePath ="/Users/renhongtao/eme_files/";
+	//private String filePath ="D:/eme_files/";
 	@Autowired private FileUploadServiceImpl fileUploadServiceImpl;
 
 	    @RequestMapping(value="/uploadFile", method = RequestMethod.POST)
@@ -59,7 +59,7 @@ public class FilesController {
 	    }
 	
 	
-	@RequestMapping(value = "/getimage/{img}", method = RequestMethod.GET)
+	@RequestMapping(value = "/getimage/{img}/", method = RequestMethod.GET)
 	public void getImage(@PathVariable("img") String img,HttpServletResponse response ) throws IOException
 	{
 		FileInputStream fs = new FileInputStream(new File(filePath+img));

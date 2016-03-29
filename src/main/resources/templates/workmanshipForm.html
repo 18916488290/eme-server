@@ -54,7 +54,7 @@
 											 <label class="col-md-2 control-label">生产工艺</label> 
 											 <div class="col-md-10">		
                                                 	<div th:if="${workmanship.fileName!=null}">
-				                                       <img th:src="@{getimage/}+${workmanship.fileName}" width="100%" height="200px"/>
+				                                       <img th:src="@{getimage/}+${workmanship.fileName+'/'}" width="100%" height="200px"/>
 				                                    </div>
 				                                    <div th:if="${workmanship.fileName==null}">
 				                                      <div id="dropzone">

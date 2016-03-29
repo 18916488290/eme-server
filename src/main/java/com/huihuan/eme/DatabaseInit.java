@@ -161,7 +161,7 @@ public class DatabaseInit {
 	
 	@Autowired
 	private IndustrialParkRepository industrialParkRepository;
-	private String[] parks = new String[] {"------","南通开发区工业园"};
+	private String[] parks = new String[] {"------","大观区工业园"};
 	
 	@Autowired
 	private RiskAversionOptionsDicRepository riskAversionOptionsDicRepository;
@@ -200,7 +200,7 @@ public class DatabaseInit {
 	@Autowired private WaterSourceService waterSourceService;
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
-		/*
+		
 		 if(!groupsRepository.findAll().isEmpty())
 		 	return;
 		  groupsService.loadDefaultGroups();
@@ -223,8 +223,8 @@ public class DatabaseInit {
 		  loadEquipmentTypes();
 		  loadEpbs(ctx);
 		  loadOMCompanyList();
-	      loadCompanies(ctx);
-	      loadEmergencyMaterials(ctx); 
+	    //  loadCompanies(ctx);
+	     // loadEmergencyMaterials(ctx); 
 	      loadIndustrialParks(); 
 	      loadStorageModes();		
 	      loadRiskAvsersionOptionsDic();
@@ -237,12 +237,9 @@ public class DatabaseInit {
 	
 		 loadWaterEnvs(ctx);
 		 loadAirEnvs(ctx); 
-		  loadPullantSources(ctx);
-		  loadWaterSources(ctx);
-	 */
-		
-		
-		  
+		 loadPullantSources(ctx);
+		 loadWaterSources(ctx);
+	 
 	}
 
 	private void loadAdministratives() {

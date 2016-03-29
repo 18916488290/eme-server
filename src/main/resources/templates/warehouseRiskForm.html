@@ -103,7 +103,7 @@
 											 <label class="col-md-2 control-label">附件内容</label> 
 											 <div class="col-md-10">		
                                                  	<div th:if="${warehouseRisk.fileName!=null}">
-				                                      <a href="#" th:href="@{getimage/}+${warehouseRisk.fileName}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载附件内容</span></a>
+				                                      <a href="#" th:href="@{getimage/}+${warehouseRisk.fileName+'/'}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载附件内容</span></a>
 				                                    </div>
 				                                    <div th:if="${warehouseRisk.fileName==null}">
 				                                  

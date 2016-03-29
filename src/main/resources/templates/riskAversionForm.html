@@ -72,7 +72,7 @@
 											 <label class="col-md-2 control-label">防控文件</label> 
 											 <div class="col-md-10">		
                                                 	<div th:if="${riskAversion.fileName!=null}">
-				                                      <a href="#" th:href="@{getimage/}+${riskAversion.fileName}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载防控措施文件</span></a>
+				                                      <a href="#" th:href="@{getimage/}+${riskAversion.fileName+'/'}"  target="_blank"><i class="fa  fa-cloud-download"></i><span>下载防控措施文件</span></a>
 				                                    </div>
 				                                    <div th:if="${riskAversion.fileName==null}">
 				                                      <div id="dropzone">

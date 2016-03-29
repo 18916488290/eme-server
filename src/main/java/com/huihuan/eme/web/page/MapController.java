@@ -85,4 +85,9 @@ public class MapController {
 	public String mapStats(Map<String, Object> model) {
 		return "mapStats";
 	}
+	
+	@RequestMapping("/videos")
+	public String videos(Map<String, Object> model) {
+		return "videos";
+	}
 }

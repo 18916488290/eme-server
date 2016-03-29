@@ -6426,6 +6426,7 @@ fieldset[disabled] .btn-yellow.active {
 #content {
   background-color: #f5f6f6;
   margin-top: 0;
+  
   min-height: 800px;  /**edited by hongtao **/
   border-left: 1px solid #cdd2d2;
   padding-bottom: 20px;

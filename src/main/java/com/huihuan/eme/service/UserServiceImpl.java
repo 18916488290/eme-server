@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly=false)
 	public void loadDefaultUsers() {
 		Users admin = new Users("admin", 0l); //0l 环保局用户
-		admin.setPassword("admin");
+		admin.setPassword("aqdgyj2016");
 		admin.setEnabled(true);
 		register(admin,false);
 	

@@ -78,7 +78,7 @@
 	</script>
 <script th:inline="javascript">
     /*<![CDATA[*/
-                
+         var infoWindow;       
      var map = new BMap.Map("baidumap");
     baiduMaps.init(map);
     addMapOverlay(-1000);//向地图添加覆盖物
@@ -91,29 +91,33 @@
 		baiduMaps.localSearch(map,sourceId,lng,lat,s);
 	}
 	
-	
+
 	 function createInfoWindow(marker){
-		 var contentbak = 
+		/* var contentbak = 
 			'<div>'+
 				'<video controls="controls"  autoplay="autoplay" loop="loop">'+
 				      '<source src="img/proj/movie.ogg" type="video/ogg" />'+
 					  '<source src="img/proj/movie.mp4" type="video/mp4" />'+	
 				      '您的浏览器不支持 video 标签。'+
 				'</video>'+
-			'</div>';
-			 var content = 
+			'</div>';*/
+			/*
+			var content = '<iframe frameborder=0 width=340 height=340 marginheight=0 marginwidth=0 scrolling=no src="videos"></iframe>';
+			*/
+			var content = 
 					'<div>'+
-					   '<object id="Player1" classid="CLSID:6BF52A52-394A-11D3-B153-00C04F79FAA6" width="720" height="540">'+
-			           '<param name="URL" value="jvsp://B3275061/">'+
+					   '<object id="playvideo111" classid="CLSID:6BF52A52-394A-11D3-B153-00C04F79FAA6" width="300" height="240">'+
+			           '<param name="URL" value="jvsp://B6137174/" />'+
 		              '</object>'+
 					'</div>';
+					
 			
-			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {
+		 infoWindow = new BMapLib.SearchInfoWindow(map, content, {
 				title: marker.title +":" +marker.riskSourceInfo.companyName, //标题
 				offset: new BMap.Size(0,7),
-				width: 330,//宽度
-				height: 260, //高度
-				panel : "panel", //检索结果面板
+				width:310,//宽度
+				height: 245, //高度
+				//panel : "panel", //检索结果面板
 				enableAutoPan : true, //自动平移
 				searchTypes :[
 				]
@@ -145,6 +149,12 @@
              
                    		  var searchInfoWindow=createInfoWindow(markers[index]);
                            baiduMaps.addClickHandler(marker,searchInfoWindow);
+                           
+                           searchInfoWindow.addEventListener("close", function(e) {
+                        	    $(window.location).attr('href', 'mapMoniter');
+                        	 // searchInfoWindow.setContent("");
+                        	//    $('.BMapLib_SearchInfoWindow').html('');
+                    	});
                            map.addOverlay(marker);
                          };
          });

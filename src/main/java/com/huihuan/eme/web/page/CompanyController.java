@@ -97,8 +97,13 @@ public class CompanyController {
 	
 	@Transactional(readOnly=false)
 	@RequestMapping(value="/saveCompany",method=RequestMethod.POST)
-	public String saveCompany(@ModelAttribute("company") Company company, Principal principal) {
+	public String saveCompany(@ModelAttribute("company") Company company,@RequestParam String action, Principal principal) {
 		logger.debug("company:" + company.getId() );
+
+		if(action.equals("no"))
+		{
+			return "redirect:/allCompanyList";
+		}
 		company.setAuditDate(new Date());
 		company.setUsersByAuditor(usersRepository.findOne(principal.getName()));
 		

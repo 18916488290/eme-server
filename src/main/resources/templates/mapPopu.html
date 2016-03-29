@@ -34,14 +34,14 @@
 											<thead>
 												<tr>
 													<th>污染源</th>
-													<th>行政区域</th>
+													<!--  <th>行政区域</th>-->
 													<th>操作</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr  th:each="nc : ${pullantSources}">
 													<td th:text="${nc.pullantName}">企业名称</td>
-													<td th:text="${nc.company.administrativeDivision.division}">行政区域</td>								
+													<!--  <td th:text="${nc.company.administrativeDivision.division}">行政区域</td>	-->							
 													<td>
 													<a th:href="'javascript:theLocation('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ');'"><i class="fa  fa-map-marker"></i><span>定位</span></a>
 													<a th:href="'javascript:localSearch('+${nc.id}+','+${nc.lng} + ',' +${nc.lat} + ',\'学校\');'"><i class="fa"></i><span>🏫学校</span></a>

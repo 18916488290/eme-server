@@ -47,8 +47,8 @@ import com.huihuan.eme.service.FileUploadServiceImpl;
 public class FilesController {
 	
 	private static final Log logger = LogFactory.getLog(FilesController.class);
-	private String filePath ="/Users/renhongtao/eme_files/";
-	//private String filePath ="D:/eme_files/";
+	//private String filePath ="/Users/renhongtao/eme_files/";
+	private String filePath ="D:/eme_files/";
 	@Autowired private FileUploadServiceImpl fileUploadServiceImpl;
 
 	    @RequestMapping(value="/uploadFile", method = RequestMethod.POST)

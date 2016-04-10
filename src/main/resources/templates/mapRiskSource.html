@@ -113,7 +113,7 @@
     
    function useDefaultUrl(strVal) {
        if (strVal == '' || strVal == null || strVal == undefined) {
-        return 'img/emematerial.jpg';
+        return 'img/mingandian.jpg';
         } else {
       return strVal;
      }
@@ -211,11 +211,12 @@
 	                var marker = new BMap.Marker(point, {icon: myIcon});  
 	                marker.addEventListener('click', showInfo);
 	                 function showInfo() {
-	                     var content = "<img src='" + useDefaultUrl(item.mainimage) + "' style='width:111px;height:133px;float:left;margin-right:5px;'/>" +
+	                     var content = "<img src='" + useDefaultUrl(item.mainimage) + "' style='width:166px;height:100px;float:left;margin-right:5px;'/>" +
 	                                   "<p>名称：" + item.title + "</p>" +
 	                                   "<p>经纬度：" + item.location[0]+"," + item.location[1] + "</p>" +
 	                                   "<p>环境类型：" + item.envtype + "</p>"+
-	                                   "<p>手机：" + formatData(item.emobile) + "</p>";
+	                                   "<p>手机：" + formatData(item.emobile) + "</p>"+
+	                                   "<p><a href='http://www.3vfang.com/p/pre/xiaopangzi77/4706/index.html' target='_blank'>查看全景地图</a></p>";
 	                     //创建检索信息窗口对象
 	                     var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
 	                         title  : item.title,       //标题
@@ -254,6 +255,7 @@
 	}
 	
 	 function createInfoWindow(marker){
+		 var rid = 4704+marker.riskSourceInfo.id;
 		 var content = '<div  class="panel">'+
 							'<div title="" class="ddv panel-body panel-body-noheader panel-body-noborder" style="padding: 2px 0px; width: 100%;">'+
 								'<style type="text/css">  .dv-table td{border:1px;text-align:center;padding:2px}.dv-label{font-weight:solid;color:#15428B;}</style>'+
@@ -278,7 +280,7 @@
 											'<td>'+marker.riskSourceInfo.emeTel+'</td>'+
 										'</tr>'+
 									'</tbody>'+
-								'</table><a href="riskSourceInfo?riskSourceId='+marker.riskSourceInfo.id+'"target="_blank">查看详细信息</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://qofo360.com/0web/qzxy/index.html" target="_blank">查看全景地图</a>'
+								'</table><a href="riskSourceInfo?riskSourceId='+marker.riskSourceInfo.id+'"target="_blank">查看详细信息</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.3vfang.com/p/pre/xiaopangzi77/'+ rid+ '/index.html" target="_blank">查看全景地图</a>'
 							'</div>'+
 						'</div>';
 			var infoWindow = new BMapLib.SearchInfoWindow(map, content, {

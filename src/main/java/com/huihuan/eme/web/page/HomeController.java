@@ -4,8 +4,11 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.huihuan.eme.SecurityUtil;
 
 /**
  * @author 任宏涛， ren@ecust.edu.cn
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class HomeController {
+	@Autowired private SecurityUtil securityUtil;
 	
 	private static final Log logger = LogFactory.getLog(HomeController.class);
 	
@@ -22,6 +26,7 @@ public class HomeController {
 	public String home(Map<String, Object> model) {
 		
 		//return "index";
+		securityUtil.getUsername();
 		
 		return "redirect:/mapRiskSource";
 	}

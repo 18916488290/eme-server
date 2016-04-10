@@ -16,7 +16,8 @@ import com.huihuan.eme.domain.page.FileMeta;
 public class FileUploadServiceImpl {
 	
     FileMeta fileMeta = null;
-	private String filePath ="/Users/renhongtao/eme_files/";
+	//private String filePath ="/Users/renhongtao/eme_files/";
+	private String filePath ="D:/eme_files/";
 	
 	    public  FileMeta upload(MultipartHttpServletRequest request, HttpServletResponse response) {
 	 

@@ -61,7 +61,11 @@
 				    <li class="dropdown">
 						<a href="#" th:href="@{/notImpl}" class="dropdown-toggle">
 							<span><i class="fa fa-sitemap"></i>
-							网站地图</span>
+							网站地图
+							<div sec:authorize="hasRole('ROLE_ADMIN')">
+                               has role admin
+                            </div>
+							</span>
 						</a>
 				  </li>
 				  <li class="dropdown">

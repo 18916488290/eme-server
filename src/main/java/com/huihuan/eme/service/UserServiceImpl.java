@@ -67,5 +67,20 @@ public class UserServiceImpl implements UserService {
 	
 		
 	}
+	
+	
+	@Override
+	@Transactional(readOnly=false)
+	public void loadTestUsers() {
+	
+	   for(int i=1; i<10;i++)
+	   {
+			Users t = new Users("test"+i, 1l); 
+			t.setPassword("test"+i);
+			t.setEnabled(true);
+			register(t,true); 
+	   }
+		
+	}
 
 }

@@ -30,7 +30,7 @@
 		
 	         <div class="box border">
 				<div class="box-title">
-					<h4>
+					<h4 sec:authorize="hasRole('ROLE_ADMIN')">
 						<i class="fa fa-plus"></i><a href="#"  th:href="@{/companyForm}">添加企业</a>
 					</h4>
 				</div>
@@ -61,8 +61,8 @@
 													<td th:text="${nc.operationMaintanceCompany.companyName}">关联运维公司</td>
 													<td>
 													<a href="#" th:href="@{/auditCompany(companyId=${nc.id},view=view)}"><i class="fa  fa-file-text-o"></i><span>查看</span></a>
-													<a href="#" th:href="@{/companyForm(companyId=${nc.id})}"><i class="fa fa-pencil-square-o"></i><span>修改</span></a>
-													<a href="#" th:href="@{/deleteCompany(companyId=${nc.id})}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
+													<a sec:authorize="hasRole('ROLE_ADMIN')" href="#" th:href="@{/companyForm(companyId=${nc.id})}"><i class="fa fa-pencil-square-o"></i><span>修改</span></a>
+													<a sec:authorize="hasRole('ROLE_ADMIN')" href="#" th:href="@{/deleteCompany(companyId=${nc.id})}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
 													</td>
 												</tr>
 									

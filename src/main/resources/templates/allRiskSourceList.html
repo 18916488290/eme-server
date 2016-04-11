@@ -32,7 +32,7 @@
 		   <!-- BOX -->
 						<div class="box border">
 				<div class="box-title">
-					<h4>
+					<h4 sec:authorize="hasRole('ROLE_ADMIN')" >
 						<i class="fa fa-plus"></i><a href="#"  th:href="@{/riskSourceBasicInfoForm}">添加风险源</a>
 					</h4>
 				</div>
@@ -61,9 +61,10 @@
 													<td th:text="${nc.company.industrySectorDic.industrySector}">行业类别</td>
 													<td th:text="${nc.company.registrationCode}">组织机构代码</td>
 													<td>
-													<a href="#" th:href="@{/auditSourceTab(riskSourceId=${nc.id})}"><i class="fa fa-pencil-square-o"></i><span>编辑</span></a>
+													<a  href="#" th:href="@{/auditSource(riskSourceId=${nc.id},view='yes')}"><i class="fa fa-file-text-o"></i><span>查看</span></a>
+													<a sec:authorize="hasRole('ROLE_ADMIN')"  href="#" th:href="@{/auditSourceTab(riskSourceId=${nc.id})}"><i class="fa fa-pencil-square-o"></i><span>编辑</span></a>
 													
-													<a href="#" th:href="@{/deleteSource(riskSourceId=${nc.id})}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
+													<a sec:authorize="hasRole('ROLE_ADMIN')"  href="#" th:href="@{/deleteSource(riskSourceId=${nc.id})}"><i class="fa fa-minus-square-o"></i><span>删除</span></a>    
 													</td>
 												</tr>
 									

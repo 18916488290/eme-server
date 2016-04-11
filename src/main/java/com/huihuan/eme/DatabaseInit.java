@@ -31,6 +31,7 @@ import com.huihuan.eme.domain.db.RiskAversionOptionsDic;
 import com.huihuan.eme.domain.db.RiskAversionType;
 import com.huihuan.eme.domain.db.StorageMethod;
 import com.huihuan.eme.domain.db.StorageMode;
+import com.huihuan.eme.domain.db.Users;
 import com.huihuan.eme.domain.db.WaterEnvType;
 import com.huihuan.eme.repository.AdministrativeDicRepository;
 import com.huihuan.eme.repository.AirEnvTypeRepository;
@@ -54,6 +55,7 @@ import com.huihuan.eme.repository.RiskAversionOptionsDicRepository;
 import com.huihuan.eme.repository.RiskAversionTypeRepository;
 import com.huihuan.eme.repository.StorageMethodRepository;
 import com.huihuan.eme.repository.StorageModeRepository;
+import com.huihuan.eme.repository.UsersRepository;
 import com.huihuan.eme.repository.WaterEnvTypeRepository;
 import com.huihuan.eme.service.AdministrativeDivisionServiceImpl;
 import com.huihuan.eme.service.AirEnvService;
@@ -80,6 +82,9 @@ public class DatabaseInit {
 	
 	@Autowired
 	private CompanyService companyService;
+	
+	@Autowired
+	private UsersRepository usersRepository;
 
 	@Autowired
 	private AdministrativeDicRepository administrativeDicRepository;
@@ -200,7 +205,9 @@ public class DatabaseInit {
 	@Autowired private WaterSourceService waterSourceService;
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
-		
+		Users u = usersRepository.findByUsername("test1");
+		  if(u==null)
+		  userService.loadTestUsers();
 		 if(!groupsRepository.findAll().isEmpty())
 		 	return;
 		  groupsService.loadDefaultGroups();

@@ -121,7 +121,16 @@
 					<li class="dropdown user" id="header-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img alt="" src="img/avatars/avatar3.jpg"  th:src="@{/img/avatars/avatar3.jpg}" height="30px"/>
-							<span class="username">管理员</span>
+									<span class="username" sec:authorize="hasRole('ROLE_ADMIN')">
+		
+                              管理员
+
+                            </span>
+                            <span class="username" sec:authorize="!hasRole('ROLE_ADMIN')">
+		
+                              用户
+
+                            </span>
 							<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
@@ -155,21 +164,21 @@
 								</a>
 								<ul class="sub">
 								
-								  <li id="companyList">
+								  <li id="companyList" sec:authorize="hasRole('ROLE_ADMIN')">
 										<a  href="#" th:href="@{/companyList}" class=""><span class="sub-menu-text">企业注册审核</span></a>
 										</li>
 									<li id="allCompanyList">
 										<a  href="#" th:href="@{/allCompanyList}" class=""><span class="sub-menu-text">企业注册管理</span></a>
 									</li>
 								   
-									<li id="emergencyMaterialList">
+									<li id="emergencyMaterialList" sec:authorize="hasRole('ROLE_ADMIN')">
 										<a  href="#" th:href="@{/emergencyMaterialList}" class=""><span class="sub-menu-text">企业应急物资审核</span></a>
 										</li>
 									<li id="allEmergencyMaterialList">
 										<a  href="#" th:href="@{/allEmergencyMaterialList}" class=""><span class="sub-menu-text">企业应急物资管理</span></a>
 									</li>
 									
-									<li id="riskSourceList">
+									<li id="riskSourceList" sec:authorize="hasRole('ROLE_ADMIN')">
 										<a  href="#" th:href="@{/riskSourceList}" class=""><span class="sub-menu-text">环境风险源审核</span></a>
 									</li>
 									<li id="allRiskSourceList">

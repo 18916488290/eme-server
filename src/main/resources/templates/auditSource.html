@@ -20,7 +20,7 @@
 			<!-- BREADCRUMBS -->
 			<ul class="breadcrumb" id="BREADCRUMBS">
 				<li><i class="fa fa-home"></i> <a href="index.html"  th:href="@{/}">主界面</a></li>
-			    <li><a href="#"  th:href="@{/riskSourceList}">风险源审核</a></li>
+			  <!--   <li><a href="#"  th:href="@{/riskSourceList}">风险源审核</a></li> -->
 				<li>风险源详情</li>
 			</ul>
 			<!-- /BREADCRUMBS -->
@@ -430,6 +430,7 @@
 										      <button class="btn btn-danger pull-right" name="action" value="no"><i class="fa fa-minus-square-o"></i>拒绝</button></div>
 										  </div>
 										  </div>
+									<!--  
 										  <div th:if="${view!=null}">
 										   <div class="form-group">
 										     <div class="col-md-2"></div>
@@ -438,7 +439,7 @@
 										     </div>
 										   </div>
 										  </div>
-										  
+									-->	  
 										  <input type="hidden" th:field="*{id}" /> 
 										 
 									   </form>

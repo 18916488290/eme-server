@@ -11,5 +11,6 @@ public interface UserService {
 	public boolean register(Users users,boolean isCompanyUser);
 	public boolean isRegisted(String username);
 	public void loadDefaultUsers();
+	public void loadTestUsers();
 
 }

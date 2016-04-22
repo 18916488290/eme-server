@@ -2,7 +2,9 @@ package com.huihuan.eme.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.huihuan.eme.domain.db.DetectHistory;
+import com.huihuan.eme.domain.db.DetectFactorValues;
+
+
 
 
 /**
@@ -11,7 +13,7 @@ import com.huihuan.eme.domain.db.DetectHistory;
  * @created 2016年1月5日 下午10:04:09
  *
  */
-public interface DetectHistoryRepository  extends JpaRepository<DetectHistory, Long> {
+public interface DetectFactorValuesRepository  extends JpaRepository<DetectFactorValues, Long> {
 	
 
 }

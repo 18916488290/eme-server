@@ -12,5 +12,4 @@ public interface DetectService {
 
 	public String uploadFactorValues(FactorValue factorValue);
 	
-	public void calcAir();
 }

@@ -39,14 +39,19 @@ modify `id` int(11) not null auto_increment;
 alter table `detect_content_dic` 
 modify `id` int(11) not null auto_increment;
 
+alter table `detect_factor_current_values` 
+modify `id` int(11) not null auto_increment;
+
+alter table `detect_factor_values` 
+modify `id` int(11) not null auto_increment;
+
 alter table `detect_factor` 
 modify `id` int(11) not null auto_increment;
+
 
 alter table `detect_pullant` 
 modify `id` int(11) not null auto_increment;
 
-alter table `detect_history` 
-modify `id` int(11) not null auto_increment;
 
 alter table `detect_river_cross` 
 modify `id` int(11) not null auto_increment;

@@ -2,11 +2,9 @@ package com.huihuan.eme.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.huihuan.eme.domain.db.Detect;
+
 import com.huihuan.eme.domain.db.DetectAir;
 import com.huihuan.eme.domain.db.DetectCategory;
-import com.huihuan.eme.domain.db.DetectHistory;
-import com.huihuan.eme.domain.db.DetectId;
 
 
 /**

@@ -137,7 +137,8 @@ CREATE TABLE company
 	registration_code     VARCHAR(64) NULL,
 	license_code          VARCHAR(64) NULL,
 	corporation           VARCHAR(20) NULL,
-	corporation_fax       VARCHAR(20) NULL
+	corporation_fax       VARCHAR(20) NULL,
+	url_360               VARCHAR(256) NULL
 )
 ;
 
@@ -202,7 +203,9 @@ CREATE TABLE data_collection_device
 (
 	mn                    VARCHAR(64) NULL,
 	device_name           VARCHAR(20) NULL,
-	id_detect_station     INTEGER NULL
+	id_detect_station     INTEGER NULL,
+	lat                   VARCHAR(20) NULL,
+	lng                   VARCHAR(20) NULL
 )
 ;
 
@@ -210,24 +213,6 @@ CREATE TABLE data_collection_device
 
 ALTER TABLE data_collection_device
 	ADD  PRIMARY KEY (mn)
-;
-
-
-
-CREATE TABLE detect
-(
-	id_detect_station     INTEGER NOT NULL,
-	id_detect_factor      INTEGER NOT NULL,
-	mn                    VARCHAR(64) NOT NULL,
-	detect_time           TIMESTAMP NULL,
-	val                   FLOAT NULL
-)
-;
-
-
-
-ALTER TABLE detect
-	ADD  PRIMARY KEY (id_detect_station,id_detect_factor,mn)
 ;
 
 
@@ -320,7 +305,8 @@ CREATE TABLE detect_factor
 	id_detect_content     INTEGER NULL,
 	id_detect_category    INTEGER NULL,
 	unit                  VARCHAR(20) NULL,
-	frequency             INTEGER NULL
+	frequency             INTEGER NULL,
+	factor_code           VARCHAR(64) NULL
 )
 ;
 
@@ -332,20 +318,55 @@ ALTER TABLE detect_factor
 
 
 
-CREATE TABLE detect_history
+CREATE TABLE detect_factor_current_values
 (
 	id                    INTEGER NOT NULL,
-	id_detect_station     INTEGER NOT NULL,
-	id_detect_factor      INTEGER NULL,
 	mn                    VARCHAR(64) NULL,
+	id_factor             INTEGER NULL,
+	val                   FLOAT NULL,
 	detect_time           TIMESTAMP NULL,
-	val                   FLOAT NULL
+	upload_time           TIMESTAMP NULL,
+	opt1                  VARCHAR(64) NULL,
+	opt2                  VARCHAR(64) NULL,
+	opt3                  VARCHAR(64) NULL,
+	opt4                  VARCHAR(64) NULL,
+	opt5                  VARCHAR(64) NULL
 )
 ;
 
 
 
-ALTER TABLE detect_history
+ALTER TABLE detect_factor_current_values
+	ADD  PRIMARY KEY (id)
+;
+
+
+
+CREATE TABLE detect_factor_values
+(
+	id                    INTEGER NOT NULL,
+	mn                    VARCHAR(64) NULL,
+	id_factor             INTEGER NULL,
+	upload_time           TIMESTAMP NULL,
+	detect_time           TIMESTAMP NULL,
+	min_val               FLOAT NULL,
+	_default_             CHAR(18) NULL,
+	max_val               FLOAT NULL,
+	avg_val               FLOAT NULL,
+	zs_avg_val            FLOAT NULL,
+	zs_min_val            FLOAT NULL,
+	zs_max_val            FLOAT NULL,
+	cou_val               FLOAT NULL,
+	zs_cou_val            FLOAT NULL,
+	low_val               FLOAT NULL,
+	up_val                FLOAT NULL,
+	type                  INTEGER NULL
+)
+;
+
+
+
+ALTER TABLE detect_factor_values
 	ADD  PRIMARY KEY (id)
 ;
 
@@ -1262,22 +1283,6 @@ ALTER TABLE data_collection_device
 
 
 
-ALTER TABLE detect
-	ADD FOREIGN KEY R_67 (id_detect_station) REFERENCES detect_station(id)
-;
-
-
-ALTER TABLE detect
-	ADD FOREIGN KEY R_68 (id_detect_factor) REFERENCES detect_factor(id)
-;
-
-
-ALTER TABLE detect
-	ADD FOREIGN KEY R_69 (mn) REFERENCES data_collection_device(mn)
-;
-
-
-
 ALTER TABLE detect_air
 	ADD FOREIGN KEY R_75 (id_detect_station) REFERENCES detect_station(id)
 ;
@@ -1316,18 +1321,24 @@ ALTER TABLE detect_factor
 
 
 
-ALTER TABLE detect_history
-	ADD FOREIGN KEY R_62 (id_detect_station) REFERENCES detect_station(id)
+ALTER TABLE detect_factor_current_values
+	ADD FOREIGN KEY R_92 (mn) REFERENCES data_collection_device(mn)
 ;
 
 
-ALTER TABLE detect_history
-	ADD FOREIGN KEY R_64 (id_detect_factor) REFERENCES detect_factor(id)
+ALTER TABLE detect_factor_current_values
+	ADD FOREIGN KEY R_93 (id_factor) REFERENCES detect_factor(id)
 ;
 
 
-ALTER TABLE detect_history
-	ADD FOREIGN KEY R_66 (mn) REFERENCES data_collection_device(mn)
+
+ALTER TABLE detect_factor_values
+	ADD FOREIGN KEY R_90 (mn) REFERENCES data_collection_device(mn)
+;
+
+
+ALTER TABLE detect_factor_values
+	ADD FOREIGN KEY R_91 (id_factor) REFERENCES detect_factor(id)
 ;
 
 

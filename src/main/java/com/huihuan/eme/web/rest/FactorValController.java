@@ -20,6 +20,7 @@ import com.huihuan.eme.domain.db.DetectStation;
 import com.huihuan.eme.domain.db.RiskBasicInfo;
 import com.huihuan.eme.domain.page.AirReport;
 import com.huihuan.eme.domain.page.DetectStationMarker;
+import com.huihuan.eme.domain.page.FactorStatisticsValue;
 import com.huihuan.eme.domain.page.FactorValue;
 import com.huihuan.eme.domain.page.ImageOffset;
 import com.huihuan.eme.domain.page.Point;
@@ -39,52 +40,25 @@ import com.huihuan.eme.service.DetectService;
  */
 @RestController
 @RequestMapping("/api")
-public class AirFactorValController {
+public class FactorValController {
 	
-	private static final Log logger = LogFactory.getLog(AirFactorValController.class);
+	private static final Log logger = LogFactory.getLog(FactorValController.class);
 	@Autowired private DetectService detectService;
 	@Autowired private RiskBasicInfoRepository riskBasicInfoRepository;
 	@Autowired private DetectStationRepository detectStationRepository;
 	@Autowired private DetectAirReportService detectAirReportService;
 
 	@Transactional(readOnly = false)
-	@RequestMapping(value="/uploadFactorValue", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String uploadAirFactorValues(@RequestBody FactorValue factorValue)
+	@RequestMapping(value="/uploadFactorStaticsValue", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String uploadFactorStaticsValue(@RequestBody FactorStatisticsValue factorStatisticsValue)
 	{
-		logger.debug("stationId: " + factorValue.getStationId() +", factorId: " + factorValue.getFactorId() + ", MN: " + factorValue.getMn() +", value: " + factorValue.getVal() +", isDaily: " + factorValue.isDaily());
-		return detectService.uploadFactorValues(factorValue);
-	}
-	
-	@Transactional(readOnly = false)
-	@RequestMapping(value="/uploadAirReport", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String uploadAirFactorValues(@RequestBody AirReport airReport)
-	{
-		return detectAirReportService.uploadDetectAirReport(airReport);
-		//return detectService.uploadFactorValues(factorValue);
+		logger.debug("mn: " + factorStatisticsValue.getMn() +", factor code: " + factorStatisticsValue.getCode() + ", MN: avg val: " +factorStatisticsValue.getAvg() );
+		return "OK";
 	}
 	
 
 	
-	
-	@RequestMapping(value="/lastTenDaysCategories")
-	public String lastTenDaysCategories()
-	{
-        String s = "";
-        
-        Date d = new Date();
-        for(int i=9; i>=0;i--)
-        {
-        	Date nd =new Date(d.getTime()-1000*60*60*24*i);
-        	if(i==0)
-        	    s = s+DateFormat.getDateInstance(DateFormat.MEDIUM).format(nd);
-        	else
-        	{
-        		s = s+DateFormat.getDateInstance(DateFormat.MEDIUM).format(nd)+",";
-        	}
-        }
-       
-        return s;
-	}
+
 	
 
 }

@@ -205,9 +205,7 @@ public class DatabaseInit {
 	@Autowired private WaterSourceService waterSourceService;
 	public void init(ConfigurableApplicationContext ctx) throws IOException
 	{
-		Users u = usersRepository.findByUsername("test1");
-		  if(u==null)
-		  userService.loadTestUsers();
+
 		 if(!groupsRepository.findAll().isEmpty())
 		 	return;
 		  groupsService.loadDefaultGroups();
@@ -246,6 +244,7 @@ public class DatabaseInit {
 		 loadAirEnvs(ctx); 
 		 loadPullantSources(ctx);
 		 loadWaterSources(ctx);
+		 userService.loadTestUsers();
 	 
 	}
 

@@ -42,6 +42,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/bootstrap-dist/**","/css/**","/font-awesome/**","/frontend_theme/**","/img/**","/js/**").permitAll()
 		.antMatchers(HttpMethod.OPTIONS,"/**").permitAll();
+		http.authorizeRequests().antMatchers("/api/factorvalues/**").permitAll();
+		//.hasIpAddress("192.168.0/24");
 		http.authorizeRequests().antMatchers("/login").permitAll().anyRequest()
 		.fullyAuthenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/", true)
 	    .failureUrl("/login?error").and().logout()
